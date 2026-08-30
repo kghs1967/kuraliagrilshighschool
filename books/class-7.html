@@ -1,0 +1,1095 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>সপ্তম শ্রেণির বই | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
+<style>
+/* ===========================================================
+   KURALIA GIRLS HIGH SCHOOL — Shared stylesheet
+   Palette: deep forest green identity + warm gold accent (badge/notice)
+   =========================================================== */
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap');
+
+:root{
+  --green-900:#0f3324;
+  --green-800:#15462f;
+  --green-700:#1f6b45;
+  --green-600:#2c8557;
+  --green-500:#3f9463;
+  --green-100:#e3f0e7;
+  --gold:#c99a2e;
+  --gold-light:#f6e6bd;
+  --bg:#eef2ee;
+  --surface:#ffffff;
+  --ink:#1b241d;
+  --muted:#5b6b60;
+  --border:#dbe4dd;
+  --radius:14px;
+  --shadow:0 6px 22px rgba(15,51,36,.08);
+}
+
+*{box-sizing:border-box;}
+html{scroll-behavior:smooth;}
+body{
+  margin:0;
+  background:var(--bg);
+  color:var(--ink);
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  line-height:1.7;
+}
+h1,h2,h3,h4{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  color:var(--green-900);
+  margin:0 0 .5em;
+  line-height:1.3;
+}
+a{color:var(--green-700);text-decoration:none;}
+a:hover{color:var(--gold);}
+img{max-width:100%;display:block;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
+
+/* ---------- Top utility strip ---------- */
+.topbar{
+  background:var(--green-900);
+  color:#dcefe1;
+  font-size:.82rem;
+}
+.topbar .wrap{
+  display:flex;flex-wrap:wrap;gap:6px 22px;
+  justify-content:space-between;align-items:center;
+  padding-top:7px;padding-bottom:7px;
+}
+.topbar .chips{display:flex;flex-wrap:wrap;gap:6px 18px;}
+.topbar .chips span{white-space:nowrap;}
+.topbar .chips b{color:var(--gold-light);font-weight:600;}
+.topbar .social a{color:#dcefe1;margin-left:14px;}
+.topbar .social a:hover{color:var(--gold);}
+
+/* ---------- Header / brand ---------- */
+.site-header{
+  background:var(--surface);
+  border-bottom:none;
+}
+.brand-row{
+  display:flex;align-items:center;gap:14px;
+  padding:10px 0;
+}
+.brand-row .badge{
+  width:72px;height:72px;border-radius:50%;
+  background:#fff;
+  border:3px solid var(--gold);
+  object-fit:cover;
+  flex-shrink:0;
+}
+.brand-text h1{font-family:'Noto Serif Bengali','Hind Siliguri',serif;font-weight:700;font-size:1.45rem;margin:0;}
+.brand-text p{margin:2px 0 0;color:var(--muted);font-size:.92rem;}
+
+/* ---------- Nav ---------- */
+.nav-bar{
+  background:var(--green-800);
+  position:-webkit-sticky;position:sticky;top:0;z-index:1000;
+  box-shadow:0 2px 10px rgba(0,0,0,.08);
+}
+.nav-bar .wrap{display:flex;flex-wrap:wrap;}
+.nav-bar ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;}
+.nav-bar > .wrap > ul > li{position:relative;}
+.nav-bar a, .nav-bar .drop > span{
+  display:block;padding:14px 18px;color:#eaf5ee;
+  font-weight:600;font-size:.97rem;cursor:pointer;white-space:nowrap;
+}
+.nav-bar a:hover, .nav-bar .drop:hover > span{background:var(--green-700);color:#fff;}
+.nav-bar .drop{position:relative;}
+.nav-bar .drop .menu{
+  display:none;position:absolute;left:0;top:100%;
+  background:var(--surface);min-width:230px;
+  box-shadow:var(--shadow);border-radius:0 0 10px 10px;overflow:hidden;
+  border-top:3px solid var(--gold);
+  z-index:200;
+}
+.nav-bar .drop:hover .menu{display:block;}
+.nav-bar .drop .menu a{color:var(--ink);padding:11px 18px;font-weight:500;}
+.nav-bar .drop .menu a:hover{background:var(--green-100);color:var(--green-800);}
+.nav-toggle{display:none;}
+.current > span, a.current{position:relative;}
+.current > span::after, a.current::after{
+  content:"";position:absolute;left:18px;right:18px;bottom:8px;height:2px;background:var(--gold);
+}
+
+@media (max-width:880px){
+  .nav-toggle{
+    display:block;background:none;border:none;color:#fff;font-size:1.5rem;
+    padding:12px 18px;cursor:pointer;
+  }
+  .nav-bar .wrap{flex-direction:column;}
+  .nav-bar > .wrap > ul{display:none;flex-direction:column;width:100%;}
+  .nav-bar.open > .wrap > ul{display:flex;}
+  .nav-bar .drop .menu{position:static;box-shadow:none;border-radius:0;}
+  .nav-bar .drop:hover .menu{display:none;}
+  .nav-bar .drop.open .menu{display:block;}
+}
+
+/* ---------- Page banner (inner pages) ---------- */
+.page-banner{
+  background:linear-gradient(135deg,var(--green-800),var(--green-700));
+  color:#fff;padding:22px 0;text-align:center;
+}
+.page-banner h2{color:#fff;margin:0;font-size:1.6rem;}
+.page-banner .crumbs{color:var(--gold-light);font-size:.85rem;margin-top:6px;}
+.page-banner .crumbs a{color:var(--gold-light);text-decoration:underline;}
+
+.btn{
+  display:inline-block;background:var(--green-700);color:#fff !important;
+  padding:9px 20px;border-radius:30px;font-weight:600;font-size:.92rem;
+  border:none;cursor:pointer;
+}
+.btn:hover{background:var(--green-800);}
+.btn.gold{background:var(--gold);color:var(--green-900) !important;}
+.btn.gold:hover{background:#b6871f;}
+
+/* ---------- Footer ---------- */
+.site-footer{background:var(--green-900);color:#cfe6d7;margin-top:20px;}
+.site-footer .wrap{padding:34px 20px 18px;display:grid;grid-template-columns:1.4fr 1fr 1fr;gap:24px;}
+@media (max-width:800px){.site-footer .wrap{grid-template-columns:1fr;}}
+.site-footer h4{color:#fff;font-size:1rem;margin-bottom:10px;}
+.site-footer a{color:#cfe6d7;}
+.site-footer a:hover{color:var(--gold);}
+.site-footer .bottom{
+  border-top:1px solid rgba(255,255,255,.12);text-align:center;
+  padding:14px 20px;font-size:.82rem;color:#a9c6b3;
+}
+.footer-banner{max-width:1180px;margin:26px auto 0;padding:0 20px;text-align:center;}
+.footer-banner img{border-radius:var(--radius);box-shadow:var(--shadow);margin:0 auto;}
+.link-list{list-style:none;margin:0;padding:0;}
+.link-list li{border-bottom:1px dashed var(--border);padding:8px 0;font-size:.93rem;}
+.link-list li:last-child{border-bottom:none;}
+.link-list li::before{content:"➤ ";color:var(--green-600);font-weight:bold;}
+
+/* ===========================================================
+   LOGIN PAGE
+   =========================================================== */
+.login-wrap{
+  max-width:1000px;margin:0 auto;padding:40px 20px 60px;
+  display:flex;align-items:center;justify-content:center;gap:50px;flex-wrap:wrap;
+}
+.login-illustration{flex:1;min-width:240px;max-width:300px;text-align:center;}
+.login-illustration img{filter:drop-shadow(0 10px 20px rgba(15,51,36,.18));}
+
+.login-card{
+  background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:36px 34px;width:100%;max-width:380px;border-top:5px solid var(--gold);
+  text-align:center;
+}
+.login-card h2{font-size:1.35rem;margin-bottom:6px;}
+.login-card .sub{color:var(--muted);font-size:.9rem;margin-bottom:22px;}
+.login-card input[type="email"],
+.login-card input[type="password"]{
+  width:100%;padding:12px 14px;margin:8px 0;border:1px solid var(--border);
+  border-radius:8px;outline:none;font-size:15px;font-family:inherit;background:var(--bg);
+}
+.login-card input:focus{border-color:var(--green-600);background:#fff;}
+.checkbox-row{
+  display:flex;align-items:center;justify-content:space-between;
+  margin:14px 2px 18px;font-size:.85rem;color:var(--muted);
+}
+.checkbox-row label{display:flex;align-items:center;gap:8px;cursor:pointer;}
+.login-card button.login-submit{
+  width:100%;padding:13px;border:none;border-radius:8px;background:var(--green-700);
+  color:#fff;font-size:16px;font-weight:700;cursor:pointer;font-family:inherit;transition:.2s;
+}
+.login-card button.login-submit:hover{background:var(--green-800);}
+.login-note{
+  margin-top:20px;padding:12px 14px;background:var(--green-100);border-radius:10px;
+  font-size:.85rem;color:var(--green-800);display:none;text-align:left;
+}
+.login-note.show{display:block;}
+
+@media (max-width:760px){
+  .login-illustration{display:none;}
+}
+
+/* ========== MOBILE + TABLET HARDENING ========== */
+@media (max-width:900px){
+  .wrap{padding:0 16px;}
+  .brand-row{padding:12px 0;gap:12px;}
+  .brand-row .badge{width:64px;height:64px;}
+  .brand-text h1{font-size:1.15rem !important;line-height:1.35;}
+  .brand-text p{font-size:.78rem;}
+  .page-banner{padding:24px 0;}
+  .page-banner h2{font-size:1.25rem;}
+  .message-page,.shelf-wrap,.dash-wrap{padding-left:14px;padding-right:14px;}
+  .layout{grid-template-columns:1fr !important;gap:18px;}
+  .staff-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .grid-boxes{grid-template-columns:repeat(2,1fr) !important;}
+  .fact-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .vm-grid,.leader-grid{grid-template-columns:1fr !important;}
+  .subject-grid{grid-template-columns:1fr !important;}
+  .shelf-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .id-grid{grid-template-columns:1fr !important;}
+  .login-wrap{padding:28px 16px 48px;gap:24px;}
+  .login-card{padding:28px 22px 26px;max-width:100%;}
+  .site-footer .wrap{grid-template-columns:1fr !important;gap:18px;}
+}
+@media (max-width:560px){
+  .topbar .wrap{flex-direction:column;align-items:flex-start;gap:4px;padding-top:8px;padding-bottom:8px;}
+  .topbar .chips{gap:4px 12px;font-size:.74rem;}
+  .topbar .social a{margin-left:0;margin-right:12px;}
+  .brand-row .badge{width:52px;height:52px;border-width:2px;}
+  .brand-text h1{font-size:1rem !important;}
+  .brand-text p{font-size:.7rem;}
+  .nav-bar a,.nav-bar .drop > span{padding:12px 14px;font-size:.9rem;white-space:normal;}
+  .page-banner h2{font-size:1.1rem;}
+  .page-banner .crumbs{font-size:.78rem;}
+  .staff-grid,.grid-boxes,.shelf-grid{grid-template-columns:1fr !important;}
+  .fact-grid{grid-template-columns:repeat(2,1fr) !important;}
+  .table-wrap{border-radius:10px;margin:0 -4px;}
+  table.data{min-width:520px;font-size:.85rem;}
+  table.data th,table.data td{padding:9px 10px;}
+  .search-box{flex-direction:column;align-items:stretch;}
+  .search-box input,.search-box select{width:100%;min-width:0;}
+  .class-tabs{gap:8px;}
+  .class-tabs a,.class-tabs button{padding:8px 14px;font-size:.85rem;}
+  .id-head{padding:22px 18px;gap:14px;}
+  .id-photo,.id-photo-initials{width:80px;height:80px;font-size:1.5rem;}
+  .id-body{padding:18px 16px 4px;}
+  .id-actions{padding:14px 16px 22px;flex-direction:column;}
+  .id-actions button,.id-actions a{min-width:0;width:100%;}
+  .btn,.btn-sm{min-height:42px;display:inline-flex;align-items:center;justify-content:center;}
+  .footer-banner{padding:0 12px;}
+  .message-card{padding:22px 16px;}
+  .corkboard-inner{padding:14px;}
+  .hero-slider{height:220px;}
+  .stat-strip .wrap{gap:8px 16px;font-size:.8rem;padding:12px 14px;}
+  .login-tabs button{font-size:.72rem;padding:9px 2px;}
+}
+/* prevent horizontal overflow */
+html{max-width:100%;}body{max-width:100%;overflow-x:clip;}
+img{max-width:100%;height:auto;}
+
+/* Mobile nav toggle reliability */
+@media (max-width:880px){
+  .nav-toggle{
+    display:block !important;
+    background:none;border:none;color:#fff;font-size:1.6rem;
+    padding:12px 18px;cursor:pointer;line-height:1;
+    align-self:flex-start;z-index:60;
+  }
+  .nav-bar .wrap{flex-direction:column;align-items:stretch;}
+  .nav-bar > .wrap > ul{
+    display:none;flex-direction:column;width:100%;
+    background:var(--green-800);
+  }
+  .nav-bar.open > .wrap > ul{display:flex !important;}
+  .nav-bar .drop .menu{
+    position:static !important;box-shadow:none;border-radius:0;
+    display:none;background:var(--green-900);
+  }
+  .nav-bar .drop:hover .menu{display:none;}
+  .nav-bar .drop.open > .menu{display:block !important;}
+  .nav-bar .drop.open > span{background:var(--green-700);}
+  .nav-bar .drop .menu a{color:#eaf5ee !important;padding:12px 18px 12px 28px;}
+  .nav-bar .drop .menu a:hover{background:var(--green-700);color:#fff !important;}
+}
+/* ---------- Important Links + Contact strip (NUB-style) ---------- */
+.imp-strip{
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  max-width:1180px;
+  margin:20px auto 0;
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 8px 28px rgba(15,51,36,.12);
+}
+.imp-links{
+  background:linear-gradient(145deg,#122c1f 0%,#1a3d2a 100%);
+  color:#eaf5ee;
+  padding:22px 24px 20px;
+}
+.imp-links h3{
+  margin:0 0 14px;
+  font-size:.9rem;
+  font-weight:700;
+  color:#fff;
+  letter-spacing:.02em;
+}
+.imp-logos{
+  display:flex;
+  flex-wrap:nowrap;
+  gap:8px;
+  align-items:stretch;
+  overflow-x:auto;
+  padding-bottom:2px;
+}
+.imp-logos a{
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  flex:1 1 0;
+  min-width:64px;
+  min-height:68px;
+  background:#fff;
+  border-radius:10px;
+  padding:8px 4px;
+  transition:transform .18s,box-shadow .18s;
+  text-decoration:none;
+  border:1px solid rgba(255,255,255,.08);
+}
+.imp-logos a:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 22px rgba(0,0,0,.22);
+}
+.imp-logos .logo-img{
+  width:36px;height:36px;
+  object-fit:contain;
+  display:block;
+}
+.imp-logos .logo-badge{
+  width:28px;height:28px;border-radius:8px;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.58rem;line-height:1.05;
+  text-align:center;color:#fff;
+}
+.imp-logos .logo-caption{
+  font-size:.55rem;
+  font-weight:700;
+  color:#1b241d;
+  text-align:center;
+  line-height:1.15;
+  max-width:100%;
+}
+.news-strip{
+  background:linear-gradient(145deg,#1f6b45,#15462f);
+  color:#fff;
+  padding:22px 24px 20px;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+}
+.news-strip h3{
+  margin:0 0 12px;
+  font-size:.9rem;
+  font-weight:700;
+  color:#fff;
+}
+.news-strip form{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+  align-items:center;
+}
+.news-strip input[type="email"]{
+  flex:1;
+  min-width:140px;
+  padding:11px 14px;
+  border:1.5px solid rgba(255,255,255,.3);
+  border-radius:10px;
+  background:rgba(255,255,255,.1);
+  color:#fff;
+  font-family:inherit;
+  font-size:.88rem;
+  outline:none;
+}
+.news-strip input::placeholder{color:rgba(255,255,255,.6);}
+.news-strip button{
+  padding:11px 16px;
+  border:1.5px solid #c99a2e;
+  background:transparent;
+  color:#f6e6bd;
+  font-family:inherit;
+  font-weight:700;
+  font-size:.84rem;
+  border-radius:10px;
+  cursor:pointer;
+  transition:background .18s,color .18s;
+  white-space:nowrap;
+}
+.news-strip button:hover{
+  background:#c99a2e;
+  color:#0a2a1c;
+}
+.news-strip .hint{
+  margin:10px 0 0;
+  font-size:.78rem;
+  opacity:.85;
+  line-height:1.4;
+}
+.social-bar{
+  background:#fff;
+  max-width:1180px;
+  margin:0 auto;
+  border:1px solid var(--border);
+  border-top:none;
+  border-radius:0 0 16px 16px;
+  padding:12px 20px;
+  display:flex;
+  flex-wrap:wrap;
+  align-items:center;
+  justify-content:space-between;
+  gap:10px;
+  box-shadow:0 6px 18px rgba(15,51,36,.06);
+}
+.social-bar span{
+  font-size:.86rem;
+  color:var(--muted);
+  font-weight:600;
+}
+.social-bar .soc-icons{display:flex;gap:10px;align-items:center;}
+.social-bar .soc-icons a{
+  width:34px;height:34px;border-radius:50%;
+  background:var(--green-100);
+  color:var(--green-800);
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:.85rem;
+  text-decoration:none;
+  transition:background .15s,color .15s,transform .15s;
+}
+.social-bar .soc-icons a:hover{
+  background:var(--green-700);
+  color:#fff;
+  transform:scale(1.08);
+}
+.site-footer .contact-block p{
+  margin:0 0 10px;
+  font-size:.86rem;
+  line-height:1.5;
+  display:flex;
+  gap:10px;
+  align-items:flex-start;
+}
+.site-footer .contact-block .ico{
+  flex-shrink:0;
+  width:22px;height:22px;
+  border-radius:50%;
+  background:rgba(255,255,255,.14);
+  border:1px solid rgba(255,255,255,.35);
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  color:#fff;
+  font-size:.7rem;
+  line-height:1;
+}
+.site-footer .contact-block .ico svg{
+  width:12px;height:12px;
+  fill:#fff;
+  display:block;
+}
+.site-footer .link-list li::before{display:none;}
+.site-footer .link-list a{
+  color:#cfe6d7;
+  text-decoration:none;
+}
+.site-footer .link-list a:hover{color:var(--gold);}
+
+.site-footer .link-list{list-style:none;margin:0;padding:0;}
+.site-footer .link-list li{margin-bottom:7px;}
+.site-footer .link-list a{font-size:.88rem;}
+/* wrap footer columns nicely */
+.site-footer .wrap{
+  max-width:1180px;
+  grid-template-columns:1.3fr 1fr 1fr 1fr !important;
+}
+@media (max-width:900px){
+  .imp-strip{grid-template-columns:1fr;margin:16px 14px 0;border-radius:14px;}
+  .social-bar{margin:0 14px;border-radius:0 0 14px 14px;}
+  .imp-logos{flex-wrap:nowrap;}
+  .site-footer .wrap{grid-template-columns:1fr 1fr !important;}
+}
+@media (max-width:600px){
+  .site-footer .wrap{grid-template-columns:1fr !important;}
+  .imp-links,.news-strip{padding:18px 14px;}
+  .imp-logos{flex-wrap:nowrap;gap:6px;}
+  .imp-logos a{min-height:60px;min-width:56px;padding:6px 3px;}
+  .imp-logos .logo-caption{font-size:.5rem;}
+}
+
+
+.site-footer .contact-email{align-items:flex-start;}
+.site-footer .contact-email-text{min-width:0;word-break:break-all;}
+.site-footer .contact-email-text .lbl{display:inline;margin-right:4px;white-space:nowrap;}
+.site-footer .contact-email-text a{
+  color:#f6e6bd !important;
+  text-decoration:underline;
+  font-size:.82rem;
+  word-break:break-all;
+}
+
+</style>
+
+<style>
+/* ---------- Book pages ---------- */
+.book-hero{
+  background:linear-gradient(135deg,var(--green-800),var(--green-700));
+  color:#fff;padding:44px 0 40px;text-align:center;
+}
+.book-hero h2{color:#fff;font-size:1.9rem;margin-bottom:8px;}
+.book-hero p{color:#dcefe1;max-width:640px;margin:0 auto;font-size:.98rem;}
+.book-hero .crumbs{color:var(--gold-light);font-size:.85rem;margin-top:10px;}
+.book-hero .crumbs a{color:var(--gold-light);text-decoration:underline;}
+
+.shelf-wrap{max-width:1180px;margin:0 auto;padding:38px 20px 10px;}
+.shelf-grid{
+  display:grid;grid-template-columns:repeat(4,1fr);gap:18px;margin-top:22px;
+}
+@media (max-width:980px){.shelf-grid{grid-template-columns:repeat(2,1fr);}}
+@media (max-width:560px){.shelf-grid{grid-template-columns:1fr;}}
+.shelf-card{
+  background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:26px 20px;text-align:center;border-top:4px solid var(--gold);
+  transition:.2s;display:block;
+}
+.shelf-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(15,51,36,.14);}
+.shelf-card .num{
+  width:54px;height:54px;border-radius:50%;background:var(--green-100);color:var(--green-800);
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;font-weight:800;font-size:1.3rem;
+  display:flex;align-items:center;justify-content:center;margin:0 auto 12px;
+}
+.shelf-card h3{font-size:1.08rem;margin:0 0 4px;color:var(--green-900);}
+.shelf-card p{color:var(--muted);font-size:.85rem;margin:0;}
+
+.note-box{
+  background:var(--green-100);border-left:4px solid var(--green-600);
+  border-radius:10px;padding:16px 20px;margin:26px 0;color:var(--green-900);font-size:.92rem;
+}
+.note-box b{color:var(--green-800);}
+
+.subject-grid{
+  display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin:26px 0 40px;
+}
+@media (max-width:760px){.subject-grid{grid-template-columns:1fr;}}
+.subject-card{
+  background:var(--surface);border:1px solid var(--border);border-radius:12px;
+  padding:18px 20px;box-shadow:0 3px 10px rgba(15,51,36,.05);
+}
+.subject-card h4{
+  font-size:1.02rem;margin:0 0 10px;color:var(--green-900);
+  display:flex;align-items:center;gap:8px;
+}
+.subject-card h4::before{content:"📘";font-size:1rem;}
+.version-row{
+  display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:6px;
+}
+.version-row:last-child{margin-bottom:0;}
+.version-tag{font-size:.78rem;color:var(--muted);min-width:64px;}
+.btn-sm{
+  display:inline-block;padding:6px 14px;border-radius:20px;font-size:.82rem;font-weight:600;
+  border:1px solid var(--green-600);color:var(--green-700) !important;background:#fff;
+}
+.btn-sm:hover{background:var(--green-700);color:#fff !important;}
+.btn-sm.dl{background:var(--green-700);color:#fff !important;border-color:var(--green-700);}
+.btn-sm.dl:hover{background:var(--green-800);}
+
+.year-tab{
+  display:inline-block;background:var(--gold-light);color:var(--green-900);
+  padding:4px 14px;border-radius:20px;font-size:.8rem;font-weight:700;margin-bottom:10px;
+}
+.source-note{
+  text-align:center;color:var(--muted);font-size:.85rem;margin:10px 0 30px;
+}
+.source-note a{color:var(--green-700);font-weight:600;}
+
+.ext-card{
+  background:var(--surface);border-radius:var(--radius);box-shadow:var(--shadow);
+  padding:34px 30px;text-align:center;border-top:5px solid var(--gold);margin:26px 0 40px;
+}
+.ext-card h3{margin-bottom:10px;}
+.ext-card p{color:var(--muted);max-width:560px;margin:0 auto 20px;}
+.group-list{
+  display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-top:18px;
+}
+.group-chip{
+  background:var(--green-100);color:var(--green-800);padding:7px 16px;border-radius:20px;
+  font-size:.85rem;font-weight:600;
+}
+
+
+/* Book page layout tighten v2 */
+.shelf-wrap{
+  max-width:1200px !important;
+  width:100% !important;
+  margin:0 auto !important;
+  padding:18px 12px 6px !important;
+  box-sizing:border-box;
+}
+.subject-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:10px !important;
+  margin:12px 0 18px !important;
+  width:100% !important;
+}
+.subject-card{
+  padding:12px 14px !important;
+  border-radius:10px !important;
+}
+.subject-card h4{font-size:.98rem !important;margin:0 0 8px !important;}
+.version-row{gap:6px !important;margin-bottom:4px !important;}
+.btn-sm{padding:5px 12px !important;font-size:.8rem !important;}
+.book-hero{padding:22px 12px 18px !important;}
+.book-hero h2{font-size:1.35rem !important;margin-bottom:6px !important;}
+.book-hero p{font-size:.9rem !important;margin:0 auto !important;}
+.note-box{margin:10px 0 !important;padding:10px 12px !important;font-size:.88rem !important;}
+.source-note,.footer-banner{display:none !important;}
+.imp-strip{max-width:1200px !important;margin:12px auto 0 !important;}
+.social-bar{max-width:1200px !important;margin:0 auto !important;}
+@media (max-width:760px){
+  .subject-grid{grid-template-columns:1fr !important;gap:8px !important;}
+  .shelf-wrap{padding:12px 10px 4px !important;}
+}
+.shelf-wrap{padding:14px 12px 8px !important;}
+}
+
+
+/* ===== Classic smooth book cards ===== */
+.subject-grid{
+  display:grid !important;
+  grid-template-columns:repeat(2,minmax(0,1fr)) !important;
+  gap:14px !important;
+  margin:16px 0 28px !important;
+  width:100% !important;
+}
+.subject-card{
+  position:relative;
+  background:linear-gradient(180deg,#ffffff 0%,#f7faf8 100%) !important;
+  border:1px solid #d5e3da !important;
+  border-radius:14px !important;
+  padding:16px 18px 14px !important;
+  box-shadow:0 2px 10px rgba(15,51,36,.05) !important;
+  transition:transform .2s ease, box-shadow .2s ease, border-color .2s ease !important;
+  overflow:hidden;
+}
+.subject-card::before{
+  content:"";
+  position:absolute;left:0;top:0;bottom:0;width:4px;
+  background:linear-gradient(180deg,var(--green-700),var(--gold));
+  border-radius:14px 0 0 14px;
+}
+.subject-card:hover{
+  transform:translateY(-3px);
+  box-shadow:0 10px 24px rgba(15,51,36,.12) !important;
+  border-color:#b8d4c2 !important;
+}
+.subject-card h4{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif !important;
+  font-size:1.02rem !important;
+  font-weight:700 !important;
+  color:var(--green-900) !important;
+  margin:0 0 12px !important;
+  padding-left:8px;
+  line-height:1.35;
+  display:flex !important;
+  align-items:center;
+  gap:8px;
+}
+.subject-card h4::before{
+  content:"" !important;
+  width:8px;height:8px;border-radius:50%;
+  background:var(--green-600);
+  box-shadow:0 0 0 3px rgba(31,107,69,.15);
+  flex-shrink:0;
+}
+.version-row{
+  display:flex !important;
+  flex-wrap:wrap;
+  align-items:center;
+  gap:8px !important;
+  margin:0 0 8px !important;
+  padding-left:8px;
+}
+.version-row:last-child{margin-bottom:0 !important;}
+.version-tag{
+  font-size:.72rem !important;
+  font-weight:600;
+  color:var(--muted);
+  background:#eef5f0;
+  border:1px solid #d5e3da;
+  padding:3px 9px;
+  border-radius:999px;
+  min-width:auto !important;
+}
+.btn-sm{
+  display:inline-flex !important;
+  align-items:center;
+  justify-content:center;
+  gap:4px;
+  padding:7px 14px !important;
+  border-radius:999px !important;
+  font-size:.8rem !important;
+  font-weight:700 !important;
+  font-family:inherit;
+  border:1.5px solid var(--green-600) !important;
+  color:var(--green-800) !important;
+  background:#fff !important;
+  text-decoration:none !important;
+  transition:all .18s ease !important;
+  line-height:1.2;
+}
+.btn-sm:hover{
+  background:var(--green-50, #e8f5ee) !important;
+  color:var(--green-900) !important;
+  border-color:var(--green-700) !important;
+}
+.btn-sm.dl{
+  background:linear-gradient(135deg,var(--green-700),var(--green-600)) !important;
+  color:#fff !important;
+  border-color:transparent !important;
+  box-shadow:0 2px 8px rgba(31,107,69,.22);
+}
+.btn-sm.dl:hover{
+  filter:brightness(1.06);
+  color:#fff !important;
+}
+.note-box{
+  background:linear-gradient(135deg,#eef6f0,#f8fbf9) !important;
+  border:1px solid #d5e3da !important;
+  border-left:4px solid var(--green-600) !important;
+  border-radius:12px !important;
+  padding:14px 16px !important;
+  margin:12px 0 8px !important;
+  font-size:.88rem !important;
+  color:var(--green-900) !important;
+  line-height:1.55;
+}
+.shelf-wrap{
+  max-width:1100px !important;
+  padding:18px 14px 10px !important;
+}
+.book-hero{
+  padding:26px 14px 22px !important;
+  background:linear-gradient(135deg,#15462f 0%,#1f6b45 55%,#2c8557 100%) !important;
+}
+.book-hero h2{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif !important;
+  font-size:1.4rem !important;
+  letter-spacing:.01em;
+}
+@media (max-width:760px){
+  .subject-grid{grid-template-columns:1fr !important;gap:10px !important;}
+  .subject-card{padding:14px !important;}
+}
+
+
+/* ===== Compact short cards ===== */
+.subject-grid{
+  display:grid !important;
+  grid-template-columns:repeat(3,minmax(0,1fr)) !important;
+  gap:8px !important;
+  margin:10px 0 16px !important;
+}
+.subject-card{
+  padding:10px 12px !important;
+  border-radius:10px !important;
+  min-height:0 !important;
+  box-shadow:0 1px 6px rgba(15,51,36,.04) !important;
+}
+.subject-card::before{width:3px !important;}
+.subject-card h4{
+  font-size:.9rem !important;
+  margin:0 0 8px !important;
+  padding-left:4px !important;
+  line-height:1.25 !important;
+}
+.subject-card h4::before{
+  width:6px !important;height:6px !important;
+  box-shadow:0 0 0 2px rgba(31,107,69,.12) !important;
+}
+.version-row{
+  gap:6px !important;
+  margin:0 !important;
+  padding-left:4px !important;
+}
+.btn-sm{
+  padding:4px 10px !important;
+  font-size:.74rem !important;
+  border-width:1px !important;
+}
+.note-box{
+  padding:10px 12px !important;
+  margin:8px 0 6px !important;
+  font-size:.82rem !important;
+  line-height:1.45 !important;
+}
+.shelf-wrap{padding:12px 12px 6px !important;}
+.book-hero{padding:18px 12px 14px !important;}
+.book-hero h2{font-size:1.2rem !important;margin-bottom:4px !important;}
+.book-hero p{font-size:.84rem !important;line-height:1.45 !important;}
+.book-hero .crumbs{font-size:.78rem !important;margin-top:6px !important;}
+@media (max-width:900px){
+  .subject-grid{grid-template-columns:repeat(2,minmax(0,1fr)) !important;}
+}
+@media (max-width:560px){
+  .subject-grid{grid-template-columns:1fr !important;}
+}
+
+</style>
+
+</head>
+<body>
+
+<div class="topbar">
+  <div class="wrap">
+    <div class="chips">
+      <span><b>EIIN:</b> 128390</span>
+      <span><b>প্রতিষ্ঠাকাল:</b> ১৯৬৭</span>
+      <span><b>ধরন:</b> বালিকা মাধ্যমিক বিদ্যালয়</span>
+      <span><b>বোর্ড:</b> রাজশাহী</span>
+    </div>
+    <div class="social">
+      <a href="https://facebook.com" target="_blank" rel="noopener">Facebook</a>
+      <a href="../login.html">Student Login</a>
+    </div>
+  </div>
+</div>
+
+
+<header class="site-header">
+  <div class="wrap brand-row">
+    <img class="badge" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="Kuralia Girls High School Logo">
+    <div class="brand-text">
+      <h1>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</h1>
+      <p>Kuralia Girls High School · প্রতিষ্ঠা: ১৯৬৭ · EIIN: 128390 · রাজশাহী শিক্ষা বোর্ড</p>
+    </div>
+  </div>
+</header>
+<nav class="nav-bar">
+  <div class="wrap">
+    <button class="nav-toggle" aria-label="Menu">☰</button>
+    <ul>
+      <li><a class="" href="../index.html">হোম</a></li>
+      <li><a class="" href="../about.html">আমাদের সম্পর্কে</a></li>
+      <li><a class="" href="../notice-board.html">নোটিশ বোর্ড</a></li>
+      <li><a class="" href="../routine.html">ক্লাস রুটিন</a></li>
+      <li class="drop">
+        <span>প্রশাসন ▾</span>
+        <div class="menu">
+          <a href="../chairman.html">সভাপতির বাণী</a>
+          <a href="../headmaster.html">প্রধান শিক্ষকের বাণী</a>
+          <a href="../committee.html">পরিচালনা কমিটি</a>
+          <a href="../teachers.html">শিক্ষক ও কর্মচারী তালিকা</a>
+        </div>
+      </li>
+      <li class="drop">
+        <span>শিক্ষার্থী তথ্য ▾</span>
+        <div class="menu">
+          <a href="../students.html">সকল শ্রেণি</a>
+          <a href="../students/class-six.html">ষষ্ঠ শ্রেণি</a>
+          <a href="../students/class-seven.html">সপ্তম শ্রেণি</a>
+          <a href="../students/class-eight.html">অষ্টম শ্রেণি</a>
+          <a href="../students/class-nine.html">নবম শ্রেণি</a>
+          <a href="../students/class-ten.html">দশম শ্রেণি</a>
+        </div>
+      </li>
+      <li class="drop">
+        <span>পাঠ্যপুস্তক ▾</span>
+        <div class="menu">
+          <a href="books.html">সকল বই (NCTB)</a>
+          <a href="class-6.html">ষষ্ঠ শ্রেণির বই</a>
+          <a href="class-7.html">সপ্তম শ্রেণির বই</a>
+          <a href="class-8.html">অষ্টম শ্রেণির বই</a>
+          <a href="class-9-10.html">নবম-দশম শ্রেণির বই</a>
+        </div>
+      </li>
+      <li><a class="" href="../login.html">Student Login</a></li>
+    </ul>
+  </div>
+</nav>
+
+<div class="book-hero">
+  <h2>সপ্তম শ্রেণির পাঠ্যপুস্তক</h2>
+  <p>জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB) কর্তৃক প্রকাশিত ২০২৫ শিক্ষাবর্ষের সকল অনুমোদিত পাঠ্যবই — বিনামূল্যে দেখুন ও ডাউনলোড করুন।</p>
+  <div class="crumbs"><a href="../index.html">হোম</a> / <a href="books.html">পাঠ্যপুস্তক</a> / সপ্তম শ্রেণি</div>
+</div>
+<div class="shelf-wrap">
+  <span class="year-tab">শিক্ষাবর্ষ ২০২৫</span>
+  <div class="note-box">
+    <b>বিঃদ্রঃ</b> এই বইগুলো জাতীয় শিক্ষাক্রম ও পাঠ্যপুস্তক বোর্ড (NCTB)-এর সরকারি ভান্ডার থেকে সংগৃহীত। "দেখুন" বাটনে ক্লিক করলে বইটি নতুন ট্যাবে খুলবে, "ডাউনলোড" বাটনে ক্লিক করলে সরাসরি ডাউনলোড শুরু হবে। কোনো লিংক কাজ না করলে অনুগ্রহ করে <a href="books.html">সকল বই পাতায়</a> ফিরে গিয়ে আবার চেষ্টা করুন।
+  </div>
+  <div class="subject-grid">
+    <div class="subject-card"><h4>আনন্দপাঠ</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1CwvHeLDkUGJU8_r6ChsRSYNs2PBXhRCE/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1CwvHeLDkUGJU8_r6ChsRSYNs2PBXhRCE">ডাউনলোড</a></div></div><div class="subject-card"><h4>গার্হস্থ্যবিজ্ঞান</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1N5fgmRdPnK2iYoh_cDNDU5pWDQR2c4F6/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1N5fgmRdPnK2iYoh_cDNDU5pWDQR2c4F6">ডাউনলোড</a></div></div><div class="subject-card"><h4>পালি</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1M4ogfdQ2xr56iVoPVpYhtUHMpWSz3b8z/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1M4ogfdQ2xr56iVoPVpYhtUHMpWSz3b8z">ডাউনলোড</a></div></div><div class="subject-card"><h4>বাংলা ব্যাকরণ ও নির্মিতি</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1gWHxsoJk2BFQ03RmoPIkd-nn5-wZTvJC/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1gWHxsoJk2BFQ03RmoPIkd-nn5-wZTvJC">ডাউনলোড</a></div></div><div class="subject-card"><h4>বিজ্ঞান</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1lb7bQEzhSLG0hZZ9y14GCmhcmxjWpa15/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1lb7bQEzhSLG0hZZ9y14GCmhcmxjWpa15">ডাউনলোড</a></div></div><div class="subject-card"><h4>সংগীত</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1a53-DgXmr1n8DyduMzyrdGHDIF8BzUaf/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1a53-DgXmr1n8DyduMzyrdGHDIF8BzUaf">ডাউনলোড</a></div></div><div class="subject-card"><h4>সংস্কৃত</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1uhBjiqwH3jGj0-6I8AY4KuA48h-NQfsj/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1uhBjiqwH3jGj0-6I8AY4KuA48h-NQfsj">ডাউনলোড</a></div></div><div class="subject-card"><h4>সপ্তবর্ণা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/15IDsWA0wqIThNLuq8n9ijOsRwXUQJftp/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=15IDsWA0wqIThNLuq8n9ijOsRwXUQJftp">ডাউনলোড</a></div></div><div class="subject-card"><h4>সহজ আরবি পাঠ</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1-fmIPt8_1Zsf0P_CZweQtQh8Tbde8CpG/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1-fmIPt8_1Zsf0P_CZweQtQh8Tbde8CpG">ডাউনলোড</a></div></div><div class="subject-card"><h4>কৃষিশিক্ষা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1HYtDOWnpMrWYefOk5mZWn8-uMCsCpNUR/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1HYtDOWnpMrWYefOk5mZWn8-uMCsCpNUR">ডাউনলোড</a></div></div><div class="subject-card"><h4>চারু ও কারুকলা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1qCVTy-Rvv8Na7XYyv58ktzFJ7Q1xgrc4/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1qCVTy-Rvv8Na7XYyv58ktzFJ7Q1xgrc4">ডাউনলোড</a></div></div><div class="subject-card"><h4>বাংলাদেশ ও বিশ্বপরিচয়</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1Rjkz4Hjp04VbxMnVZy1Eht1F5O62pmvR/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1Rjkz4Hjp04VbxMnVZy1Eht1F5O62pmvR">ডাউনলোড</a></div></div><div class="subject-card"><h4>বৌদ্ধধর্ম শিক্ষা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1lg43XY8pbIU1xaJO4r05L5fUm-k18z8W/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1lg43XY8pbIU1xaJO4r05L5fUm-k18z8W">ডাউনলোড</a></div></div><div class="subject-card"><h4>খ্রিষ্টধর্ম শিক্ষা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1lUwwWPhm-WnGbO29CvS64vMNuM1Jf97G/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1lUwwWPhm-WnGbO29CvS64vMNuM1Jf97G">ডাউনলোড</a></div></div><div class="subject-card"><h4>ইংরেজি ফর টুডে</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1XTG6vE0RSM645eE5-XAKMirCzGUPPllz/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1XTG6vE0RSM645eE5-XAKMirCzGUPPllz">ডাউনলোড</a></div></div><div class="subject-card"><h4>ইংরেজি ব্যাকরণ ও রচনা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/15Odrctw-rj3DAR94NKOZEq2jilXYvXw3/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=15Odrctw-rj3DAR94NKOZEq2jilXYvXw3">ডাউনলোড</a></div></div><div class="subject-card"><h4>হিন্দুধর্ম শিক্ষা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1hqm1YHfWs0pMTAR9IVyGOSgrhYJEMVsj/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1hqm1YHfWs0pMTAR9IVyGOSgrhYJEMVsj">ডাউনলোড</a></div></div><div class="subject-card"><h4>তথ্য ও যোগাযোগ প্রযুক্তি</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1LCG5mQF2hEwCMKXeZDsPCKjbSdaxzlql/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1LCG5mQF2hEwCMKXeZDsPCKjbSdaxzlql">ডাউনলোড</a></div></div><div class="subject-card"><h4>ইসলাম শিক্ষা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1sLsI5_oGua43iWq2-s7mzLWnAIZ_xw21/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1sLsI5_oGua43iWq2-s7mzLWnAIZ_xw21">ডাউনলোড</a></div></div><div class="subject-card"><h4>ক্ষুদ্র নৃগোষ্ঠীর ভাষা ও সংস্কৃতি</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1-C2uvXzERjBjGnsT-de5npYIajPmLA5T/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1-C2uvXzERjBjGnsT-de5npYIajPmLA5T">ডাউনলোড</a></div></div><div class="subject-card"><h4>গণিত</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1iKHx1wxYi7I6REjR-5j8fW1uVI2xT5zH/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1iKHx1wxYi7I6REjR-5j8fW1uVI2xT5zH">ডাউনলোড</a></div></div><div class="subject-card"><h4>শারীরিক শিক্ষা ও স্বাস্থ্য</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/1Ro0f8_3Lbihi-kXREYmwxwtNNI10xMp1/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=1Ro0f8_3Lbihi-kXREYmwxwtNNI10xMp1">ডাউনলোড</a></div></div><div class="subject-card"><h4>কর্ম ও জীবনমুখী শিক্ষা</h4><div class="version-row"><a class="btn-sm" href="https://drive.google.com/file/d/16BrTYDeGfher_x8ufo6FASdCq1s9xyLO/view" target="_blank" rel="noopener">দেখুন</a><a class="btn-sm dl" href="https://drive.google.com/uc?export=download&id=16BrTYDeGfher_x8ufo6FASdCq1s9xyLO">ডাউনলোড</a></div></div>
+  </div>
+</div>
+<!-- Important Links + Newsletter (NUB-inspired) -->
+<div class="imp-strip">
+  <div class="imp-links">
+    <h3>গুরুত্বপূর্ণ লিংক · Important Links</h3>
+    <div class="imp-logos">
+      <a href="https://bangladesh.gov.bd/" target="_blank" rel="noopener" title="জাতীয় পোর্টাল">
+        <img class="logo-img" src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/84/Government_Seal_of_Bangladesh.svg/120px-Government_Seal_of_Bangladesh.svg.png" alt="জাতীয় পোর্টাল">
+        <span class="logo-caption">জাতীয় পোর্টাল</span>
+      </a>
+      <a href="https://a2i.gov.bd/" target="_blank" rel="noopener" title="a2i">
+        <img class="logo-img" src="https://i.postimg.cc/Sszhsghj/A2i.png" alt="a2i">
+        <span class="logo-caption">a2i</span>
+      </a>
+      <a href="https://dshe.gov.bd/" target="_blank" rel="noopener" title="DSHE">
+        <img class="logo-img" src="https://i.postimg.cc/NF6v8LFW/Dshe.png" alt="DSHE">
+        <span class="logo-caption">DSHE</span>
+      </a>
+      <a href="https://www.raboe.edu.bd/" target="_blank" rel="noopener" title="রাজশাহী শিক্ষা বোর্ড">
+        <img class="logo-img" src="https://i.postimg.cc/FKYtWT75/rajshi.jpg" alt="রাজশাহী শিক্ষা বোর্ড">
+        <span class="logo-caption">রাজশাহী বোর্ড</span>
+      </a>
+      <a href="https://nctb.gov.bd/pages/static-pages/6922dd8c933eb65569e156cb" target="_blank" rel="noopener" title="NCTB">
+        <img class="logo-img" src="https://i.postimg.cc/HstCVJfJ/ntrc.jpg" alt="NCTB">
+        <span class="logo-caption">NCTB</span>
+      </a>
+      <a href="https://www.999.gov.bd/" target="_blank" rel="noopener" title="জরুরি সেবা ৯৯৯">
+        <img class="logo-img" src="https://i.postimg.cc/T3Rf9jV8/999.png" alt="৯৯৯ হেল্পডেস্ক">
+        <span class="logo-caption">৯৯৯ হেল্পডেস্ক</span>
+      </a>
+    </div>
+  </div>
+  <div class="news-strip">
+    <h3>যোগাযোগ / আপডেট পান</h3>
+    <form id="about-contact-form" onsubmit="event.preventDefault();alert('ধন্যবাদ! শীঘ্রই যোগাযোগ করা হবে।');this.reset();">
+      <input type="email" name="email" placeholder="আপনার ইমেইল লিখুন" required>
+      <button type="submit">সাবস্ক্রাইব</button>
+    </form>
+    <p class="hint">নোটিশ, ভর্তি ও গুরুত্বপূর্ণ তথ্যের আপডেট পেতে ইমেইল দিন।</p>
+  </div>
+</div>
+
+<div class="social-bar">
+  <span>আমাদের সাথে যুক্ত থাকুন · Get connected with us!</span>
+  <div class="soc-icons">
+    <a href="https://www.facebook.com/" target="_blank" rel="noopener" title="Facebook">f</a>
+    <a href="https://www.youtube.com/" target="_blank" rel="noopener" title="YouTube">▶</a>
+    <a href="mailto:kuraliagirlshighschool@gmail.com" title="Email">✉</a>
+  </div>
+
+<footer class="site-footer">
+  <div class="wrap">
+        <div class="contact-block">
+      <h4>যোগাযোগ · CONTACT</h4>
+      <p><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5a2.5 2.5 0 110-5 2.5 2.5 0 010 5z"/></svg></span><span>কুড়ালিয়া, সিরাজগঞ্জ সদর, সিরাজগঞ্জ</span></p>
+      <p><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zM4 12h4v2H4v-2zm0 4h4v2H4v-2zm0-8h4v2H4V8zm6 0h10v2H10V8zm0 4h10v2H10v-2zm0 4h7v2h-7v-2z"/></svg></span><span>EIIN: ১২৮৩৯০ · প্রতিষ্ঠা: ১৯৬৭</span></p>
+      <p><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82zM12 3L1 9l11 6 9-4.91V17h2V9L12 3z"/></svg></span><span>রাজশাহী শিক্ষা বোর্ড · এমপিওভুক্ত</span></p>
+      <p><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M6.62 10.79a15.15 15.15 0 006.59 6.59l2.2-2.2a1 1 0 011.01-.24c1.12.37 2.33.57 3.57.57a1 1 0 011 1V20a1 1 0 01-1 1C10.4 21 3 13.6 3 4a1 1 0 011-1h3.5a1 1 0 011 1c0 1.25.2 2.45.57 3.57a1 1 0 01-.25 1.02l-2.2 2.2z"/></svg></span><span>মোবাইল: <a href="tel:+8801309128390" style="color:#f6e6bd;text-decoration:underline;">01309128390</a></span></p>
+      <p class="contact-email"><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M20 4H4c-1.1 0-2 .9-2 2v12c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/></svg></span><span class="contact-email-text"><span class="lbl">ইমেইল:</span> <a href="mailto:kuraliagirlshighschool@gmail.com">kuraliagirlshighschool@gmail.com</a></span></p>
+      <p><span class="ico" aria-hidden="true"><svg viewBox="0 0 24 24"><path d="M12 2L1 21h22L12 2zm1 15h-2v-2h2v2zm0-4h-2v-4h2v4z"/></svg></span><span>জাতীয় জরুরি: ৯৯৯ · নারী ও শিশু: ১০৯</span></p>
+    </div>
+<div>
+      <h4>দ্রুত লিংক</h4>
+      <ul class="link-list">
+        <li><a href="../about.html">আমাদের সম্পর্কে</a></li>
+        <li><a href="../notice-board.html">নোটিশ বোর্ড</a></li>
+        <li><a href="../routine.html">ক্লাস রুটিন</a></li>
+        <li><a href="../students.html">শিক্ষার্থী তথ্য</a></li>
+        <li><a href="../login.html">Student Login</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>প্রশাসন</h4>
+      <ul class="link-list">
+        <li><a href="../chairman.html">সভাপতির বাণী</a></li>
+        <li><a href="../headmaster.html">প্রধান শিক্ষকের বাণী</a></li>
+        <li><a href="../committee.html">পরিচালনা কমিটি</a></li>
+        <li><a href="../teachers.html">শিক্ষক তালিকা</a></li>
+      </ul>
+    </div>
+    <div>
+      <h4>ভর্তি · Admission</h4>
+      <ul class="link-list">
+        <li><a href="../notice-board.html">ভর্তি নোটিশ</a></li>
+        <li><a href="../notice-board.html">ভর্তির নিয়মাবলি</a></li>
+        <li><a href="../students.html">শ্রেণিভিত্তিক আসন</a></li>
+        <li><a href="../about.html">বিদ্যালয় পরিচিতি</a></li>
+        <li><a href="../login.html">অনলাইন আবেদন / Login</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="bottom">
+    &copy; <span id="year"></span> Kuralia Girls High School. All rights reserved. · Built by
+    <a href="https://www.facebook.com/siam.golammostofa" target="_blank" rel="noopener">MOSTOFA</a>
+  </div>
+</footer>
+
+<script>
+
+document.addEventListener('DOMContentLoaded', function () {
+  var yearEl = document.getElementById('year');
+  if (yearEl) yearEl.textContent = new Date().getFullYear();
+
+  var toggle = document.querySelector('.nav-toggle');
+  var navBar = document.querySelector('.nav-bar');
+  var navUl = navBar ? navBar.querySelector('.wrap > ul') : null;
+
+  function setMenuOpen(open) {
+    if (!navBar || !toggle) return;
+    navBar.classList.toggle('open', open);
+    toggle.setAttribute('aria-expanded', open ? 'true' : 'false');
+    toggle.textContent = open ? '✕' : '☰';
+    document.body.style.overflow = open ? 'hidden' : '';
+  }
+
+  if (toggle && navBar) {
+    toggle.setAttribute('aria-expanded', 'false');
+    toggle.setAttribute('aria-controls', 'main-nav-menu');
+    if (navUl && !navUl.id) navUl.id = 'main-nav-menu';
+
+    toggle.addEventListener('click', function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      setMenuOpen(!navBar.classList.contains('open'));
+    });
+
+    // close when clicking a plain link inside nav (not dropdown headers)
+    navBar.querySelectorAll('a').forEach(function (link) {
+      link.addEventListener('click', function () {
+        if (window.innerWidth <= 880) setMenuOpen(false);
+      });
+    });
+
+    // close when clicking outside
+    document.addEventListener('click', function (e) {
+      if (window.innerWidth > 880) return;
+      if (!navBar.classList.contains('open')) return;
+      if (!navBar.contains(e.target)) setMenuOpen(false);
+    });
+
+    // close on Escape
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') setMenuOpen(false);
+    });
+
+    // reset on resize to desktop
+    window.addEventListener('resize', function () {
+      if (window.innerWidth > 880) setMenuOpen(false);
+    });
+  }
+
+  // Mobile dropdown submenus
+  document.querySelectorAll('.nav-bar .drop > span').forEach(function (span) {
+    span.setAttribute('role', 'button');
+    span.setAttribute('tabindex', '0');
+    span.style.cursor = 'pointer';
+    function toggleDrop(e) {
+      if (window.innerWidth > 880) return;
+      e.preventDefault();
+      e.stopPropagation();
+      var parent = span.parentElement;
+      var wasOpen = parent.classList.contains('open');
+      // close siblings
+      document.querySelectorAll('.nav-bar .drop.open').forEach(function (d) {
+        d.classList.remove('open');
+      });
+      if (!wasOpen) parent.classList.add('open');
+    }
+    span.addEventListener('click', toggleDrop);
+    span.addEventListener('keydown', function (e) {
+      if (e.key === 'Enter' || e.key === ' ') toggleDrop(e);
+    });
+  });
+var loginBtn = document.getElementById('login-btn');
+  if (loginBtn) {
+    loginBtn.addEventListener('click', function () {
+      document.getElementById('login-note').classList.add('show');
+    });
+  }
+});
+</script>
+</body>
+</html>
+

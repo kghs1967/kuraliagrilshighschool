@@ -1,0 +1,849 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Dashboard | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --green-900:#0a2a1c;
+  --green-850:#0f3324;
+  --green-800:#15462f;
+  --green-700:#1f6b45;
+  --green-600:#2c8557;
+  --green-500:#3f9463;
+  --green-100:#e3f0e7;
+  --green-50:#f0f7f2;
+  --gold:#c99a2e;
+  --gold-light:#f6e6bd;
+  --surface:#ffffff;
+  --ink:#1b241d;
+  --muted:#5b6b60;
+  --border:#dbe4dd;
+  --sidebar:#122c1f;
+  --page-bg:#e8f0ea;
+  --heading:var(--green-900);
+  --label:var(--green-700);
+  --card-shadow:rgba(15,51,36,.06);
+}
+
+html.dark{
+  --green-100:#1a3328;
+  --green-50:#0f1f18;
+  --surface:#162820;
+  --ink:#e8f0ea;
+  --muted:#9bb5a5;
+  --border:#2a4538;
+  --page-bg:#0a1610;
+  --gold-light:#e8c56a;
+  --card-shadow:rgba(0,0,0,.25);
+  --heading:#eaf5ee;
+  --label:#8fbfa3;
+  --sidebar:#0a1a12;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  background:var(--page-bg);
+  color:var(--ink);
+  min-height:100vh;
+  transition:background .3s,color .3s;
+}
+
+.app{
+  display:flex;
+  min-height:100vh;
+  max-width:1100px;
+  margin:0 auto;
+  background:var(--surface);
+  box-shadow:0 0 40px rgba(15,51,36,.12);
+}
+
+.sidebar{
+  width:240px;
+  background:linear-gradient(180deg, var(--sidebar) 0%, var(--green-800) 100%);
+  color:#eaf5ee;
+  display:flex;
+  flex-direction:column;
+  flex-shrink:0;
+  position:relative;
+  overflow:hidden;
+}
+.sidebar::before{
+  content:"";position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px);
+  background-size:20px 20px;
+  pointer-events:none;
+}
+
+.side-profile{
+  padding:28px 20px 22px;
+  text-align:center;
+  border-bottom:1px solid rgba(255,255,255,.1);
+  position:relative;z-index:1;
+}
+.side-avatar{
+  width:86px;height:86px;border-radius:50%;
+  margin:0 auto 12px;
+  border:3px solid var(--gold);
+  box-shadow:0 0 0 4px rgba(201,154,46,.2), 0 8px 20px rgba(0,0,0,.3);
+  object-fit:cover;background:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1.7rem;font-family:'Noto Serif Bengali','Hind Siliguri',serif;color:#fff;
+  animation:avatarPop .55s cubic-bezier(.22,.8,.32,1) both;
+}
+@keyframes avatarPop{
+  from{opacity:0;transform:scale(.6);}
+  to{opacity:1;transform:scale(1);}
+}
+.side-name{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  font-size:1.05rem;font-weight:700;color:#fff;margin:0 0 4px;
+  line-height:1.3;
+}
+.side-role{
+  display:inline-block;
+  background:var(--gold);color:var(--green-900);
+  font-size:.7rem;font-weight:700;padding:3px 12px;border-radius:20px;
+  margin-bottom:6px;
+}
+.side-school{
+  font-size:.72rem;color:#a8c9b4;margin-top:4px;
+}
+
+.side-nav{
+  padding:16px 12px;
+  flex:1;
+  position:relative;z-index:1;
+}
+.side-nav a, .side-nav button{
+  display:flex;align-items:center;gap:10px;
+  width:100%;padding:11px 14px;margin-bottom:4px;
+  border:none;border-radius:10px;
+  background:transparent;color:#cfe6d7;
+  font-family:inherit;font-size:.9rem;font-weight:600;
+  cursor:pointer;text-decoration:none;text-align:left;
+  transition:background .18s,color .18s,transform .15s;
+}
+.side-nav a:hover, .side-nav button:hover{
+  background:rgba(255,255,255,.1);color:#fff;
+}
+.side-nav a.active, .side-nav button.active{
+  background:rgba(201,154,46,.2);color:var(--gold-light);
+  border-left:3px solid var(--gold);
+}
+.side-nav .icon{font-size:1.1rem;width:22px;text-align:center;}
+
+.side-foot{
+  padding:14px 16px 18px;
+  border-top:1px solid rgba(255,255,255,.1);
+  position:relative;z-index:1;
+}
+.side-foot img{
+  width:32px;height:32px;border-radius:50%;
+  border:1.5px solid var(--gold);background:#fff;
+  vertical-align:middle;margin-right:8px;
+}
+.side-foot span{font-size:.72rem;color:#a8c9b4;}
+
+.theme-toggle{
+  display:flex;align-items:center;gap:10px;
+  width:100%;padding:11px 14px;margin-bottom:4px;
+  border:none;border-radius:10px;
+  background:rgba(255,255,255,.08);color:#cfe6d7;
+  font-family:inherit;font-size:.9rem;font-weight:600;
+  cursor:pointer;text-align:left;
+  transition:background .18s,color .18s;
+}
+.theme-toggle:hover{background:rgba(255,255,255,.15);color:#fff;}
+.theme-toggle .icon{font-size:1.1rem;width:22px;text-align:center;}
+.theme-toggle .toggle-track{
+  margin-left:auto;
+  width:40px;height:22px;border-radius:11px;
+  background:rgba(255,255,255,.2);
+  position:relative;transition:background .25s;
+  flex-shrink:0;
+}
+.theme-toggle .toggle-thumb{
+  position:absolute;top:2px;left:2px;
+  width:18px;height:18px;border-radius:50%;
+  background:#fff;transition:transform .25s;
+  box-shadow:0 1px 4px rgba(0,0,0,.3);
+}
+html.dark .theme-toggle .toggle-track{background:var(--gold);}
+html.dark .theme-toggle .toggle-thumb{transform:translateX(18px);}
+html.dark .stat-card:not(.accent) .stat-value{color:var(--heading);}
+html.dark .stat-card:not(.accent) .stat-label{color:var(--muted);}
+html.dark .info-panel h2{color:var(--heading);}
+html.dark .main-top h1{color:var(--heading);}
+html.dark .info-item b{color:var(--label);}
+html.dark .info-item span{color:var(--ink);}
+html.dark .btn-outline{color:var(--label);border-color:var(--label);}
+html.dark .btn-outline:hover{background:var(--label);color:#0a2a1c;}
+html.dark .menu-toggle{color:var(--heading);}
+html.dark .side-role{color:var(--green-900);}
+html.dark .crumbs{color:var(--muted);}
+html.dark .crumbs a{color:var(--label);}
+html.dark .info-item:hover{background:#1e3d2e;border-color:var(--gold);}
+
+.main{
+  flex:1;
+  display:flex;
+  flex-direction:column;
+  min-width:0;
+  background:var(--green-50);
+}
+
+.main-top{
+  background:var(--surface);
+  padding:16px 24px;
+  display:flex;align-items:center;justify-content:space-between;
+  border-bottom:1px solid var(--border);
+  flex-wrap:wrap;gap:10px;
+}
+.main-top h1{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  font-size:1.25rem;color:var(--green-900);margin:0;
+}
+.main-top .crumbs{font-size:.8rem;color:var(--muted);}
+.main-top .crumbs a{color:var(--green-700);text-decoration:none;}
+.main-top .crumbs a:hover{color:var(--gold);}
+
+.main-body{
+  padding:22px 24px 30px;
+  flex:1;
+  overflow-y:auto;
+}
+
+.stats{
+  display:grid;
+  grid-template-columns:repeat(4,1fr);
+  gap:14px;
+  margin-bottom:22px;
+}
+.stat-card{
+  background:var(--surface);
+  border-radius:14px;
+  padding:16px 18px;
+  box-shadow:0 4px 14px rgba(15,51,36,.06);
+  border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;
+  animation:fadeUp .45s ease both;
+}
+.stat-card:nth-child(1){animation-delay:.1s;}
+.stat-card:nth-child(2){animation-delay:.18s;}
+.stat-card:nth-child(3){animation-delay:.26s;}
+.stat-card:nth-child(4){animation-delay:.34s;}
+@keyframes fadeUp{
+  from{opacity:0;transform:translateY(12px);}
+  to{opacity:1;transform:translateY(0);}
+}
+.stat-card:hover{transform:translateY(-3px);box-shadow:0 8px 22px rgba(15,51,36,.1);}
+.stat-card.accent{
+  background:linear-gradient(135deg,var(--green-700),var(--green-600));
+  color:#fff;border:none;
+}
+.stat-card.accent .stat-label{color:rgba(255,255,255,.8);}
+.stat-card.accent .stat-value{color:#fff;}
+.stat-label{
+  font-size:.72rem;font-weight:600;color:var(--muted);
+  text-transform:uppercase;letter-spacing:.04em;margin-bottom:4px;
+}
+.stat-value{
+  font-size:1.25rem;font-weight:700;color:var(--green-900);
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  word-break:break-word;
+}
+
+.info-panel{
+  background:var(--surface);
+  border-radius:16px;
+  padding:22px 24px;
+  box-shadow:0 4px 14px rgba(15,51,36,.06);
+  border:1px solid var(--border);
+  animation:fadeUp .5s ease .3s both;
+}
+.info-panel h2{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  font-size:1.05rem;color:var(--green-900);
+  margin:0 0 16px;padding-bottom:10px;
+  border-bottom:2px solid var(--green-100);
+}
+
+.info-grid{
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:12px 16px;
+}
+.info-item{
+  background:var(--green-100);
+  border-radius:10px;
+  padding:12px 14px;
+  border:1.5px solid transparent;
+  transition:background .15s,border-color .15s,transform .15s;
+}
+.info-item:hover{
+  background:var(--gold-light);
+  border-color:var(--gold);
+  transform:translateY(-1px);
+}
+.info-item.full{grid-column:1 / -1;}
+.info-item b{
+  display:block;font-size:.68rem;color:var(--green-700);
+  text-transform:uppercase;letter-spacing:.04em;margin-bottom:2px;
+}
+.info-item span{font-size:.95rem;font-weight:600;color:var(--ink);word-break:break-word;}
+.info-item span.muted{color:var(--muted);font-weight:500;font-style:italic;}
+
+.action-row{
+  display:flex;gap:10px;margin-top:18px;flex-wrap:wrap;
+}
+.btn{
+  flex:1;min-width:130px;padding:11px 16px;border-radius:10px;
+  font-weight:700;font-size:.88rem;font-family:inherit;
+  cursor:pointer;text-align:center;border:1.5px solid var(--green-700);
+  transition:.2s;text-decoration:none;display:inline-flex;
+  align-items:center;justify-content:center;gap:6px;
+}
+.btn-primary{
+  background:linear-gradient(135deg,var(--green-700),var(--green-600));
+  color:#fff;border-color:var(--green-700);
+  box-shadow:0 4px 12px rgba(31,107,69,.25);
+}
+.btn-primary:hover{background:linear-gradient(135deg,var(--green-800),var(--green-700));transform:translateY(-1px);}
+.btn-outline{background:transparent;color:var(--green-700);}
+.btn-outline:hover{background:var(--green-700);color:#fff;}
+
+.guard-msg{
+  text-align:center;padding:60px 24px;color:var(--muted);
+  font-size:.95rem;
+}
+.guard-msg a{color:var(--green-700);font-weight:700;}
+
+.menu-toggle{
+  display:none;background:none;border:none;color:var(--green-900);
+  font-size:1.5rem;cursor:pointer;padding:4px 8px;
+}
+
+@media (max-width:800px){
+  .app{flex-direction:column;max-width:100%;}
+  .sidebar{
+    width:100%;
+    max-height:0;overflow:hidden;
+    transition:max-height .3s ease;
+  }
+  .sidebar.open{max-height:420px;}
+  .side-profile{padding:18px 16px 14px;}
+  .side-avatar{width:70px;height:70px;font-size:1.4rem;}
+  .side-nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px;}
+  .side-nav a, .side-nav button{flex:1;min-width:120px;justify-content:center;}
+  .side-foot{display:none;}
+  .menu-toggle{display:block;}
+  .stats{grid-template-columns:1fr 1fr;}
+  .main-body{padding:16px 14px 24px;}
+  .info-grid{grid-template-columns:1fr;}
+  .main-top{padding:12px 14px;}
+}
+@media (max-width:420px){
+  .stats{grid-template-columns:1fr;}
+}
+
+/* ===== PRINT / PDF OPTIMIZED ===== */
+.print-only{display:none !important;}
+@media print{
+  *{
+    -webkit-print-color-adjust:exact !important;
+    print-color-adjust:exact !important;
+    color-adjust:exact !important;
+    box-shadow:none !important;
+    text-shadow:none !important;
+  }
+  html,body{
+    background:#ffffff !important;
+    color:#1b241d !important;
+    margin:0 !important;
+    padding:0 !important;
+    height:auto !important;
+    width:100% !important;
+    font-family:'Noto Serif Bengali','Hind Siliguri',serif !important;
+    font-size:11pt !important;
+    line-height:1.35 !important;
+    overflow:visible !important;
+  }
+  /* Hide UI chrome */
+  .sidebar,
+  .main-top,
+  .action-row,
+  .menu-toggle,
+  .theme-toggle,
+  .guard-msg,
+  .btn,
+  button,
+  .side-nav,
+  .side-foot{display:none !important;}
+
+  .print-only{display:block !important;}
+
+  .app{
+    display:block !important;
+    box-shadow:none !important;
+    max-width:100% !important;
+    width:100% !important;
+    margin:0 !important;
+    padding:0 !important;
+    background:#fff !important;
+  }
+  .main{
+    background:#fff !important;
+    width:100% !important;
+    display:block !important;
+    min-height:0 !important;
+  }
+  .main-body{
+    padding:0 !important;
+    overflow:visible !important;
+  }
+
+  /* ---- Header: logo + school ---- */
+  .print-header{
+    display:flex !important;
+    align-items:center;
+    gap:12px;
+    border-bottom:2.5px solid #1f6b45;
+    padding:0 0 10px 0;
+    margin:0 0 12px 0;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .print-header .print-logo{
+    width:56px !important;
+    height:56px !important;
+    border-radius:50%;
+    border:2.5px solid #c99a2e;
+    object-fit:cover;
+    background:#fff;
+    flex-shrink:0;
+  }
+  .print-header .print-title{flex:1;min-width:0;}
+  .print-header .print-title h1{
+    font-size:14pt !important;
+    color:#0a2a1c !important;
+    margin:0 0 2px 0 !important;
+    font-weight:700 !important;
+    line-height:1.25 !important;
+  }
+  .print-header .print-title p{
+    margin:0 !important;
+    font-size:8.5pt !important;
+    color:#1f6b45 !important;
+    line-height:1.3 !important;
+  }
+  .print-header .print-meta{
+    text-align:right;
+    font-size:8pt !important;
+    color:#5b6b60 !important;
+    white-space:nowrap;
+    flex-shrink:0;
+  }
+
+  /* ---- Profile strip ---- */
+  .print-profile{
+    display:flex !important;
+    align-items:center;
+    gap:12px;
+    background:#e8f5ec !important;
+    border:1.5px solid #b8d4c2 !important;
+    border-radius:8px;
+    padding:10px 12px;
+    margin:0 0 12px 0;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .print-profile .print-avatar{
+    width:52px !important;
+    height:52px !important;
+    border-radius:50%;
+    border:2px solid #c99a2e;
+    object-fit:cover;
+    background:#1f6b45 !important;
+    color:#fff !important;
+    display:flex !important;
+    align-items:center;
+    justify-content:center;
+    font-weight:800;
+    font-size:12pt !important;
+    overflow:hidden;
+    flex-shrink:0;
+  }
+  .print-profile .print-avatar img{
+    width:100% !important;
+    height:100% !important;
+    object-fit:cover;
+    border-radius:50%;
+  }
+  .print-profile .print-who h2{
+    margin:0 0 2px 0 !important;
+    font-size:12pt !important;
+    color:#0a2a1c !important;
+    font-weight:700 !important;
+  }
+  .print-profile .print-who .role-badge{
+    display:inline-block;
+    background:#c99a2e !important;
+    color:#0a2a1c !important;
+    font-size:7.5pt !important;
+    font-weight:700;
+    padding:2px 8px;
+    border-radius:10px;
+  }
+  .print-profile .print-who .school-line{
+    font-size:8pt !important;
+    color:#5b6b60 !important;
+    margin-top:2px;
+  }
+
+  /* ---- Stats row ---- */
+  .stats{
+    display:grid !important;
+    grid-template-columns:repeat(4,1fr) !important;
+    gap:8px !important;
+    margin:0 0 12px 0 !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .stat-card{
+    background:#f0f7f2 !important;
+    border:1.5px solid #b8d4c2 !important;
+    border-radius:8px !important;
+    padding:8px 10px !important;
+    color:#1b241d !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .stat-card.accent{
+    background:#1f6b45 !important;
+    background-image:linear-gradient(135deg,#1f6b45,#2c8557) !important;
+    color:#fff !important;
+    border:none !important;
+  }
+  .stat-card.accent .stat-label{color:rgba(255,255,255,.9) !important;}
+  .stat-card.accent .stat-value{color:#ffffff !important;}
+  .stat-label{
+    font-size:7pt !important;
+    font-weight:600 !important;
+    color:#5b6b60 !important;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    margin:0 0 2px 0 !important;
+  }
+  .stat-value{
+    font-size:11pt !important;
+    font-weight:700 !important;
+    color:#0a2a1c !important;
+    word-break:break-word;
+  }
+
+  /* ---- Info panels ---- */
+  .panels{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:10px !important;
+    margin:0 !important;
+  }
+  .info-panel,
+  .info-panel.full{
+    background:#ffffff !important;
+    border:1.5px solid #b8d4c2 !important;
+    border-radius:8px !important;
+    padding:10px 12px !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+    grid-column:auto !important;
+  }
+  /* student single panel full width */
+  .main-body > .info-panel{
+    grid-column:1 / -1;
+  }
+  .info-panel h2{
+    font-size:10pt !important;
+    color:#0a2a1c !important;
+    margin:0 0 8px 0 !important;
+    padding:0 0 5px 0 !important;
+    border-bottom:2px solid #1f6b45 !important;
+    font-weight:700 !important;
+  }
+  .info-grid{
+    display:grid !important;
+    grid-template-columns:1fr 1fr !important;
+    gap:6px !important;
+  }
+  .info-item{
+    background:#e8f5ec !important;
+    border:1px solid #c5ddce !important;
+    border-radius:6px !important;
+    padding:6px 8px !important;
+    color:#1b241d !important;
+    page-break-inside:avoid;
+    break-inside:avoid;
+  }
+  .info-item.full{grid-column:1 / -1;}
+  .info-item b{
+    display:block !important;
+    font-size:7pt !important;
+    color:#1f6b45 !important;
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    margin:0 0 1px 0 !important;
+    font-weight:700 !important;
+  }
+  .info-item span{
+    font-size:9.5pt !important;
+    font-weight:600 !important;
+    color:#1b241d !important;
+    word-break:break-word;
+  }
+  .info-item span.muted{color:#5b6b60 !important;font-style:italic;}
+
+  /* ---- Footer ---- */
+  .print-footer{
+    display:block !important;
+    margin:14px 0 0 0;
+    padding:8px 0 0 0;
+    border-top:1px dashed #b8d4c2;
+    font-size:7.5pt !important;
+    color:#5b6b60 !important;
+    text-align:center;
+    page-break-inside:avoid;
+  }
+
+  /* Single-page friendly */
+  @page{
+    size:A4 portrait;
+    margin:8mm 10mm;
+  }
+}
+</style>
+</head>
+<body>
+
+<div class="app" id="app" style="display:none;">
+  <aside class="sidebar" id="sidebar">
+    <div class="side-profile">
+      <div class="side-avatar" id="s-avatar"></div>
+      <div class="side-name" id="s-name">—</div>
+      <div class="side-role" id="s-class-chip">শিক্ষার্থী</div>
+      <div class="side-school">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</div>
+    </div>
+    <nav class="side-nav">
+      <a href="#" class="active"><span class="icon">🏠</span> হোম</a>
+      <a href="#info"><span class="icon">📋</span> শিক্ষার্থী তথ্য</a>
+      <button type="button" onclick="window.print()"><span class="icon">🖨️</span> প্রিন্ট</button>
+      <button type="button" class="theme-toggle" id="theme-toggle" title="Dark / Light mode">
+        <span class="icon" id="theme-icon">🌙</span>
+        <span id="theme-label">ডার্ক মোড</span>
+        <span class="toggle-track"><span class="toggle-thumb"></span></span>
+      </button>
+      <button type="button" id="s-logout-btn"><span class="icon">🚪</span> লগআউট</button>
+      <a href="index.html"><span class="icon">🌐</span> স্কুল ওয়েবসাইট</a>
+    </nav>
+    <div class="side-foot">
+      <img src="https://i.postimg.cc/fybLxtqX/12121.png" alt="Logo">
+      <span>Student Portal · KGHS</span>
+    </div>
+  </aside>
+
+  <div class="main">
+    <div class="main-top">
+      <div style="display:flex;align-items:center;gap:10px;">
+        <button class="menu-toggle" id="menu-toggle" aria-label="Menu">☰</button>
+        <div>
+          <h1>শিক্ষার্থী ড্যাশবোর্ড</h1>
+          <div class="crumbs"><a href="login.html">Login</a> / Student Dashboard</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="main-body">
+      <!-- Print-only header -->
+      <div class="print-only print-header">
+        <img class="print-logo" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="School Logo">
+        <div class="print-title">
+          <h1>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</h1>
+          <p>Kuralia Girls High School · EIIN: 128390 · রাজশাহী শিক্ষা বোর্ড</p>
+        </div>
+        <div class="print-meta">শিক্ষার্থী প্রোফাইল<br>Student Portal</div>
+      </div>
+      <div class="print-only print-profile">
+        <div class="print-avatar" id="s-print-avatar"></div>
+        <div class="print-who">
+          <h2 id="s-print-name">—</h2>
+          <span class="role-badge" id="s-print-role">শিক্ষার্থী</span>
+          <div class="school-line">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</div>
+        </div>
+      </div>
+      <div class="stats">
+        <div class="stat-card accent">
+          <div class="stat-label">UID</div>
+          <div class="stat-value" id="s-uid">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">রোল</div>
+          <div class="stat-value" id="s-roll">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">শ্রেণি</div>
+          <div class="stat-value" id="s-class">—</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-label">শাখা</div>
+          <div class="stat-value" id="s-section">—</div>
+        </div>
+      </div>
+
+      <div class="info-panel" id="info">
+        <h2>📋 বিস্তারিত তথ্য</h2>
+        <div class="info-grid">
+          <div class="info-item"><b>UID</b><span id="s-uid2">—</span></div>
+          <div class="info-item"><b>রোল নম্বর</b><span id="s-roll2">—</span></div>
+          <div class="info-item"><b>শ্রেণি</b><span id="s-class2">—</span></div>
+          <div class="info-item"><b>শাখা (Section)</b><span id="s-section2">—</span></div>
+          <div class="info-item full"><b>শিক্ষাবর্ষ</b><span id="s-year">—</span></div>
+        </div>
+        <div class="action-row">
+          <a href="#" class="btn btn-primary" onclick="window.print();return false;">🖨️ প্রিন্ট করুন</a>
+          <button type="button" class="btn btn-outline" id="s-logout-btn2">🚪 লগআউট</button>
+        </div>
+        <div class="print-only print-footer">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · Student Portal · প্রিন্ট কপি</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="guard-msg" id="guard-msg">⏳ লোড হচ্ছে...</div>
+
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  var raw = sessionStorage.getItem('kghs_student');
+  var guard = document.getElementById('guard-msg');
+  var app = document.getElementById('app');
+
+  if(!raw){
+    guard.innerHTML = '🔒 আপনি লগইন করেননি। <a href="login.html">লগইন পেজে</a> ফিরিয়ে নেওয়া হচ্ছে...';
+    setTimeout(function(){ window.location.href = 'login.html'; }, 1500);
+    return;
+  }
+
+  var s;
+  try{ s = JSON.parse(raw); } catch(e){ s = null; }
+  if(!s){ window.location.href = 'login.html'; return; }
+
+  guard.style.display = 'none';
+  app.style.display = 'flex';
+
+  var AVATAR_PALETTE = ["#1f6b45","#2c8557","#c99a2e","#15462f","#3f9463","#0f3324","#0d9488","#d97706"];
+  function avatarColor(name){
+    var hash = 0;
+    for(var i=0;i<(name||'').length;i++){ hash = name.charCodeAt(i) + ((hash << 5) - hash); }
+    return AVATAR_PALETTE[Math.abs(hash) % AVATAR_PALETTE.length];
+  }
+  function initialsOf(name){
+    var clean = (name||'').replace(/^(MST\.?|MOST\.?|MD\.?|MS\.?|K\.?\s*M\.?)\s*/i,'').trim();
+    var parts = clean.split(/\s+/).filter(Boolean);
+    if(parts.length === 0) return "?";
+    if(parts.length === 1) return parts[0].substring(0,2).toUpperCase();
+    return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
+  }
+
+  var av = document.getElementById('s-avatar');
+  if(s.photo && s.photo.length){
+    var img = document.createElement('img');
+    img.src = s.photo; img.alt = s.name||'';
+    img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
+    img.onerror = function(){ showInit(); };
+    av.appendChild(img);
+  } else { showInit(); }
+  function showInit(){
+    av.innerHTML = '';
+    av.style.background = avatarColor(s.name);
+    av.textContent = initialsOf(s.name);
+  }
+
+  function val(v){
+    return (v && String(v).length && String(v).toLowerCase() !== 'pending') ? v : 'তথ্য নেই';
+  }
+  function set(id, v){
+    var el = document.getElementById(id);
+    if(!el) return;
+    el.textContent = val(v);
+    if(val(v) === 'তথ্য নেই') el.classList.add('muted');
+  }
+
+  document.getElementById('s-name').textContent = s.name || '—';
+
+  // Print header data
+  var pName = document.getElementById('s-print-name');
+  var pRole = document.getElementById('s-print-role');
+  var pAv = document.getElementById('s-print-avatar');
+  if(pName) pName.textContent = s.name || '—';
+  if(pRole) pRole.textContent = (s.className || s.class || s.section || 'শিক্ষার্থী');
+  if(pAv){
+    if(s.photo && s.photo.length){
+      var pimg = document.createElement('img');
+      pimg.src = s.photo; pimg.alt = s.name||'';
+      pAv.appendChild(pimg);
+    } else {
+      pAv.style.background = avatarColor(s.name);
+      pAv.textContent = initialsOf(s.name);
+    }
+  }
+
+  document.getElementById('s-class-chip').textContent =
+    (s.classBn || s.class || 'শিক্ষার্থী') + (s.section ? ' · ' + s.section : '');
+
+  set('s-uid', s.uid); set('s-uid2', s.uid);
+  set('s-roll', s.roll); set('s-roll2', s.roll);
+  set('s-class', s.classBn || s.class); set('s-class2', s.classBn || s.class);
+  set('s-section', s.section); set('s-section2', s.section);
+  set('s-year', s.year);
+
+  function logout(){
+    sessionStorage.removeItem('kghs_student');
+    window.location.href = 'login.html';
+  }
+  document.getElementById('s-logout-btn').addEventListener('click', logout);
+  document.getElementById('s-logout-btn2').addEventListener('click', logout);
+
+  var toggle = document.getElementById('menu-toggle');
+  var sidebar = document.getElementById('sidebar');
+  if(toggle){
+    toggle.addEventListener('click', function(){
+      sidebar.classList.toggle('open');
+    });
+  }
+
+  /* Dark mode */
+  function applyTheme(dark){
+    document.documentElement.classList.toggle('dark', dark);
+    var icon = document.getElementById('theme-icon');
+    var label = document.getElementById('theme-label');
+    if(icon) icon.textContent = dark ? '☀️' : '🌙';
+    if(label) label.textContent = dark ? 'লাইট মোড' : 'ডার্ক মোড';
+    try{ localStorage.setItem('kghs_theme', dark ? 'dark' : 'light'); }catch(e){}
+  }
+  var saved = null;
+  try{ saved = localStorage.getItem('kghs_theme'); }catch(e){}
+  applyTheme(saved === 'dark');
+  var themeBtn = document.getElementById('theme-toggle');
+  if(themeBtn){
+    themeBtn.addEventListener('click', function(){
+      applyTheme(!document.documentElement.classList.contains('dark'));
+    });
+  }
+});
+</script>
+</body>
+</html>

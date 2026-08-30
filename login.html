@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Student Login | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
+
+:root{
+  --green-900:#0a2a1c;
+  --green-850:#0f3324;
+  --green-800:#15462f;
+  --green-700:#1f6b45;
+  --green-600:#2c8557;
+  --green-500:#3f9463;
+  --green-100:#e3f0e7;
+  --gold:#c99a2e;
+  --gold-light:#f6e6bd;
+  --surface:#ffffff;
+  --ink:#1b241d;
+  --muted:#5b6b60;
+  --border:#dbe4dd;
+}
+
+*{box-sizing:border-box;margin:0;padding:0;}
+html,body{height:100%;}
+body{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  background:var(--green-850);
+  color:var(--ink);
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  overflow-x:hidden;
+}
+
+.login-page{
+  flex:1;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  padding:32px 16px 80px;
+  position:relative;
+  background:linear-gradient(135deg, #0a2a1c 0%, #15462f 35%, #1f6b45 70%, #0f3324 100%);
+  background-size:300% 300%;
+  animation:bgShift 12s ease infinite;
+  min-height:100vh;
+}
+@keyframes bgShift{
+  0%{background-position:0% 50%;}
+  50%{background-position:100% 50%;}
+  100%{background-position:0% 50%;}
+}
+.login-page::before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:radial-gradient(rgba(255,255,255,.07) 1.2px, transparent 1.2px);
+  background-size:28px 28px;
+  opacity:.55;
+  pointer-events:none;
+  animation:dotDrift 40s linear infinite;
+}
+@keyframes dotDrift{
+  from{background-position:0 0;}
+  to{background-position:280px 140px;}
+}
+.orb{
+  position:absolute;border-radius:50%;filter:blur(40px);
+  pointer-events:none;opacity:.32;
+  animation:floatOrb 8s ease-in-out infinite;
+}
+.orb1{width:200px;height:200px;background:#c99a2e;top:10%;left:6%;animation-delay:0s;}
+.orb2{width:160px;height:160px;background:#3f9463;bottom:18%;right:8%;animation-delay:2s;}
+.orb3{width:130px;height:130px;background:#5eead4;top:42%;right:12%;animation-delay:3.5s;}
+@keyframes floatOrb{
+  0%,100%{transform:translate(0,0) scale(1);}
+  33%{transform:translate(16px,-20px) scale(1.08);}
+  66%{transform:translate(-12px,14px) scale(.94);}
+}
+
+.wave-wrap{
+  position:absolute;left:0;right:0;bottom:0;
+  height:140px;pointer-events:none;overflow:hidden;
+}
+.wave-wrap svg{position:absolute;bottom:0;width:100%;height:140px;}
+
+.login-card{
+  position:relative;z-index:2;
+  background:var(--surface);
+  border-radius:22px;
+  width:100%;max-width:400px;
+  padding:36px 32px 28px;
+  box-shadow:0 25px 60px rgba(0,0,0,.28), 0 4px 16px rgba(0,0,0,.12);
+  text-align:center;
+  animation:cardIn .55s cubic-bezier(.22,.8,.32,1) forwards;
+  opacity:0;transform:translateY(18px);
+  overflow:hidden;
+}
+@keyframes cardIn{to{opacity:1;transform:translateY(0);}}
+.login-card::before{
+  content:"";position:absolute;top:0;left:0;right:0;height:4px;
+  background:linear-gradient(90deg,#1f6b45,#c99a2e,#3f9463,#fbbf24,#1f6b45);
+  background-size:250% 100%;
+  animation:rainbowSlide 4s linear infinite;
+}
+@keyframes rainbowSlide{
+  0%{background-position:0% 0;}
+  100%{background-position:250% 0;}
+}
+
+.login-logo{
+  width:78px;height:78px;border-radius:50%;
+  border:3px solid var(--gold);
+  background:#fff;object-fit:cover;
+  margin:0 auto 14px;
+  box-shadow:0 6px 18px rgba(15,51,36,.18);
+}
+.login-card h1{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  font-size:1.55rem;font-weight:700;
+  color:var(--green-900);margin:0 0 4px;
+}
+.login-card .sub{
+  color:var(--muted);font-size:.9rem;margin-bottom:22px;
+}
+
+.login-tabs{
+  display:flex;background:var(--green-100);
+  border-radius:12px;padding:4px;margin-bottom:18px;gap:3px;
+}
+.login-tabs button{
+  flex:1;border:none;background:transparent;
+  padding:10px 4px;border-radius:9px;
+  font-family:inherit;font-weight:700;font-size:.8rem;
+  color:var(--green-800);cursor:pointer;
+  transition:background .18s,color .18s,box-shadow .18s;
+  white-space:nowrap;
+}
+.login-tabs button:hover{background:rgba(31,107,69,.12);}
+.login-tabs button.active{
+  background:var(--green-700);color:#fff;
+  box-shadow:0 3px 10px rgba(15,51,36,.25);
+}
+
+.register-row{
+  text-align:center;margin:0 0 16px;font-size:.84rem;color:var(--muted);
+}
+.register-row button{
+  background:none;border:none;padding:0;margin-left:4px;
+  font-family:inherit;font-size:.84rem;font-weight:700;
+  color:var(--green-700);cursor:pointer;text-decoration:underline;
+}
+.register-row button:hover{color:var(--gold);}
+
+.login-panel{display:none;text-align:left;}
+.login-panel.active{display:block;animation:fadeIn .25s ease;}
+@keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
+
+.field-label{
+  display:block;font-size:.78rem;font-weight:600;
+  color:var(--green-800);margin:10px 2px 3px;
+}
+.login-card input[type="text"],
+.login-card input[type="password"]{
+  width:100%;padding:13px 14px;margin:0 0 2px;
+  border:1.5px solid var(--border);border-radius:10px;
+  outline:none;font-size:15px;font-family:inherit;
+  background:#f7faf8;transition:border-color .15s,box-shadow .15s,background .15s;
+}
+.login-card input:focus{
+  border-color:var(--green-600);background:#fff;
+  box-shadow:0 0 0 4px rgba(44,133,87,.14);
+}
+.field-hint{font-size:.74rem;color:var(--muted);margin:2px 2px 8px;}
+
+.input-wrap{position:relative;}
+.input-wrap input{padding-right:44px !important;}
+.toggle-eye{
+  position:absolute;right:4px;top:50%;transform:translateY(-50%);
+  background:none;border:none;cursor:pointer;font-size:1rem;
+  padding:8px;color:var(--muted);line-height:1;border-radius:6px;
+}
+.toggle-eye:hover{color:var(--green-700);background:var(--green-100);}
+
+.login-submit{
+  width:100%;padding:14px;border:none;border-radius:12px;
+  background:var(--green-700);color:#fff;
+  font-size:16px;font-weight:700;cursor:pointer;
+  font-family:inherit;margin-top:10px;
+  box-shadow:0 8px 20px rgba(31,107,69,.28);
+  transition:background .2s,transform .15s,box-shadow .2s;
+}
+.login-submit:hover{
+  background:var(--green-800);transform:translateY(-1px);
+  box-shadow:0 10px 24px rgba(31,107,69,.35);
+}
+.login-submit:active{transform:translateY(0);}
+.login-submit:disabled{opacity:.7;cursor:default;transform:none;}
+
+.login-error{
+  margin-top:12px;padding:11px 13px;
+  background:#fdeceb;border:1px solid #f3b9b3;
+  color:#8a2b23;border-radius:10px;font-size:.83rem;
+  text-align:left;display:none;
+}
+.login-error.show{display:block;}
+
+.result-intro{
+  background:var(--green-100);border-radius:10px;
+  padding:12px 14px;margin-bottom:14px;
+  font-size:.85rem;color:var(--green-800);text-align:left;
+}
+.result-status{
+  margin-top:14px;padding:16px;border-radius:10px;
+  text-align:left;display:none;
+}
+.result-status.show{display:block;animation:fadeIn .25s ease;}
+.result-status.pending{background:var(--gold-light);border:1px solid #e2c576;}
+.result-status.notfound{background:#fdeceb;border:1px solid #f3b9b3;color:#8a2b23;}
+.result-status h4{margin:0 0 4px;font-size:.98rem;color:var(--green-900);}
+.result-status p{margin:0;font-size:.83rem;color:var(--green-800);}
+.result-status.notfound p{color:#8a2b23;}
+
+.card-foot-note{
+  margin-top:20px;padding-top:14px;
+  border-top:1px dashed var(--border);
+  font-size:.73rem;color:var(--muted);text-align:center;
+}
+
+.modal-overlay{
+  position:fixed;inset:0;background:rgba(10,42,28,.6);
+  backdrop-filter:blur(3px);
+  display:none;align-items:center;justify-content:center;
+  padding:20px;z-index:200;
+}
+.modal-overlay.show{display:flex;animation:fadeIn .2s ease;}
+.modal-box{
+  position:relative;background:var(--surface);border-radius:18px;
+  max-width:420px;width:100%;padding:30px 28px 26px;
+  box-shadow:0 24px 60px rgba(0,0,0,.35);
+  transform:translateY(10px);opacity:0;
+  animation:modalIn .3s cubic-bezier(.22,.8,.32,1) forwards;
+  text-align:center;
+}
+@keyframes modalIn{to{transform:translateY(0);opacity:1;}}
+.modal-box .modal-icon{font-size:2.4rem;margin-bottom:8px;}
+.modal-box h3{margin:0 0 8px;font-size:1.2rem;color:var(--green-900);}
+.modal-box p{margin:0 0 18px;font-size:.9rem;color:var(--muted);}
+.modal-close{
+  position:absolute;top:12px;right:12px;background:var(--green-100);
+  border:none;width:30px;height:30px;border-radius:50%;
+  font-size:1rem;cursor:pointer;color:var(--green-800);line-height:1;
+}
+.modal-close:hover{background:var(--gold-light);}
+.it-contact-card{
+  background:var(--green-100);border-radius:12px;padding:16px;
+  text-align:left;display:flex;align-items:center;gap:12px;margin-bottom:18px;
+}
+.it-contact-avatar{
+  width:48px;height:48px;border-radius:50%;flex-shrink:0;
+  background:var(--green-700);color:#fff;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:800;font-size:1.1rem;font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+}
+.it-contact-info b{display:block;font-size:.92rem;color:var(--green-900);}
+.it-contact-info span{display:block;font-size:.78rem;color:var(--muted);margin-top:1px;}
+.modal-actions{display:flex;gap:10px;}
+.modal-actions a{
+  flex:1;padding:12px;border-radius:9px;font-weight:700;font-size:.88rem;
+  text-align:center;border:1.5px solid var(--green-700);transition:.2s;
+}
+.modal-actions a.call-btn{background:var(--green-700);color:#fff !important;}
+.modal-actions a.call-btn:hover{background:var(--green-800);}
+.modal-actions a.mail-btn{background:transparent;color:var(--green-700) !important;}
+.modal-actions a.mail-btn:hover{background:var(--green-100);}
+
+.back-home{
+  position:absolute;top:18px;left:18px;z-index:5;
+  color:#cfe6d7;font-size:.88rem;font-weight:600;
+  text-decoration:none;display:inline-flex;align-items:center;gap:6px;
+  padding:8px 14px;border-radius:20px;background:rgba(255,255,255,.08);
+  transition:background .15s,color .15s;
+}
+.back-home:hover{background:rgba(255,255,255,.15);color:#fff;}
+
+@media (max-width:420px){
+  .login-card{padding:28px 20px 24px;border-radius:18px;}
+  .login-tabs button{font-size:.72rem;padding:9px 2px;}
+  .modal-actions{flex-direction:column;}
+  .back-home{top:12px;left:12px;font-size:.8rem;padding:6px 11px;}
+}
+</style>
+</head>
+<body>
+
+<div class="login-page">
+  <div class="orb orb1"></div>
+  <div class="orb orb2"></div>
+  <div class="orb orb3"></div>
+
+  <a class="back-home" href="index.html">← হোমে ফিরুন</a>
+
+  <div class="login-card">
+    <img class="login-logo" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়">
+    <h1 id="login-title">Student Login</h1>
+    <p class="sub" id="login-sub">শিক্ষার্থীদের নিজস্ব পোর্টালে প্রবেশ করুন</p>
+
+    <div class="login-tabs">
+      <button type="button" class="active" id="tab-student-btn" onclick="switchTab('student')">👩‍🎓 শিক্ষার্থী</button>
+      <button type="button" id="tab-teacher-btn" onclick="switchTab('teacher')">🧑‍🏫 শিক্ষক</button>
+      <button type="button" id="tab-result-btn" onclick="switchTab('result')">📄 ফলাফল</button>
+    </div>
+
+    <div class="register-row" id="register-row">
+      অ্যাকাউন্ট নেই?
+      <button type="button" onclick="openRegisterModal()">নতুন রেজিস্ট্রেশন</button>
+    </div>
+
+    <div class="login-panel active" id="panel-student">
+      <form id="student-form">
+        <label class="field-label" for="student-uid">UID (Username)</label>
+        <input type="text" id="student-uid" placeholder="যেমনঃ 6475600257" autocomplete="username" required>
+
+        <label class="field-label" for="student-pass">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="student-pass" placeholder="UID এর প্রথম ৪ ডিজিট" autocomplete="current-password" required>
+          <button type="button" class="toggle-eye" data-target="student-pass" aria-label="Show password">👁️</button>
+        </div>
+        <p class="field-hint">🔑 পাসওয়ার্ড হলো আপনার UID নম্বরের প্রথম ৪টি সংখ্যা।</p>
+
+        <button type="submit" class="login-submit" id="student-login-btn">LOGIN</button>
+      </form>
+      <div class="login-error" id="student-error"></div>
+    </div>
+
+    <div class="login-panel" id="panel-teacher">
+      <form id="teacher-form">
+        <label class="field-label" for="teacher-email">Email (Username)</label>
+        <input type="text" id="teacher-email" placeholder="যেমনঃ name@gmail.com" autocomplete="username" required>
+
+        <label class="field-label" for="teacher-pass">Password</label>
+        <div class="input-wrap">
+          <input type="password" id="teacher-pass" placeholder="ইনডেক্স নম্বর" autocomplete="current-password" required>
+          <button type="button" class="toggle-eye" data-target="teacher-pass" aria-label="Show password">👁️</button>
+        </div>
+        <p class="field-hint">🔑 পাসওয়ার্ড হলো আপনার ইনডেক্স নম্বর।</p>
+
+        <button type="submit" class="login-submit" id="teacher-login-btn">LOGIN</button>
+      </form>
+      <div class="login-error" id="teacher-error"></div>
+    </div>
+
+    <div class="login-panel" id="panel-result">
+      <div class="result-intro">📄 আপনার UID ব্যবহার করে পরীক্ষার ফলাফল যাচাই করুন।</div>
+      <form id="result-form">
+        <label class="field-label" for="result-uid">UID</label>
+        <input type="text" id="result-uid" placeholder="যেমনঃ 6475600257" required>
+        <button type="submit" class="login-submit" id="result-check-btn">ফলাফল দেখুন</button>
+      </form>
+      <div class="result-status" id="result-status"></div>
+    </div>
+
+    <div class="card-foot-note">© কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · Student &amp; Staff Portal</div>
+  </div>
+
+  <div class="wave-wrap">
+    <svg viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path fill="rgba(255,255,255,.08)" d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,140 L0,140 Z"/>
+      <path fill="rgba(255,255,255,.12)" d="M0,100 C320,40 640,130 960,80 C1120,55 1280,110 1440,70 L1440,140 L0,140 Z"/>
+      <path fill="rgba(238,242,238,.95)" d="M0,120 C360,80 720,140 1080,100 C1260,80 1380,115 1440,105 L1440,140 L0,140 Z"/>
+    </svg>
+  </div>
+</div>
+
+<div class="modal-overlay" id="register-modal">
+  <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="register-modal-title">
+    <button type="button" class="modal-close" onclick="closeRegisterModal()" aria-label="Close">✕</button>
+    <div class="modal-icon">🆕</div>
+    <h3 id="register-modal-title">নতুন রেজিস্ট্রেশন</h3>
+    <p>শিক্ষার্থী বা শিক্ষক পোর্টালে নতুন অ্যাকাউন্ট খোলার জন্য এখানে সরাসরি ফর্ম পূরণ করা যায় না। আপনার তথ্য যাচাই করে অ্যাকাউন্ট খুলে দেবে স্কুলের আইটি বিভাগ — নিচের নম্বরে কল বা ইমেইল করুন।</p>
+    <div class="it-contact-card">
+      <div class="it-contact-avatar">SM</div>
+      <div class="it-contact-info">
+        <b>MD. SUMON MIA</b>
+        <span>অফিস সহকারী-কাম-কম্পিউটার অপারেটর</span>
+        <span>📞 01741-476188</span>
+      </div>
+    </div>
+    <div class="modal-actions">
+      <a class="call-btn" href="tel:+8801741476188">📞 কল করুন</a>
+      <a class="mail-btn" href="mailto:mdsumonmiya6188@gmail.com">✉️ ইমেইল করুন</a>
+    </div>
+  </div>
+</div>
+
+<script>
+var STUDENTS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTyKMLcBZC87bn71-gKi79g3Uqc7Qn5-RyTvxjRKeFQW0y-lfHX75b91hLyndPkSw/pub?gid=1921666754&single=true&output=csv";
+var TEACHERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRrz7kf5-H1UlMJ_DFvColWR1m0ELEkzz_Qg9hZLQO9bcew385WZMpA-qzmk7MvhQ/pub?gid=37624629&single=true&output=csv";
+
+var STUDENTS = [];
+var TEACHERS = [];
+var DATA_READY = false;
+
+function parseCSV(text){
+  var rows = [], row = [], field = '', inQuotes = false;
+  for(var i=0;i<text.length;i++){
+    var c = text[i];
+    if(inQuotes){
+      if(c === '"'){ if(text[i+1] === '"'){ field += '"'; i++; } else { inQuotes = false; } }
+      else { field += c; }
+    } else {
+      if(c === '"'){ inQuotes = true; }
+      else if(c === ','){ row.push(field); field=''; }
+      else if(c === '\n'){ row.push(field); rows.push(row); row=[]; field=''; }
+      else if(c === '\r'){}
+      else { field += c; }
+    }
+  }
+  if(field.length || row.length){ row.push(field); rows.push(row); }
+  return rows.filter(function(r){ return r.length>1 || (r[0] && r[0].trim()!==''); });
+}
+
+function csvToObjects(text){
+  var rows = parseCSV(text);
+  if(!rows.length) return [];
+  var headers = rows[0].map(function(h){ return h.trim(); });
+  var out = [];
+  for(var i=1;i<rows.length;i++){
+    var r = rows[i]; if(!r.length) continue;
+    var obj = {};
+    for(var j=0;j<headers.length;j++){
+      obj[headers[j]] = (r[j] !== undefined ? r[j] : '').trim();
+    }
+    out.push(obj);
+  }
+  return out;
+}
+
+function setLoginLoading(isLoading, failed){
+  ['student-login-btn','teacher-login-btn'].forEach(function(id){
+    var btn = document.getElementById(id);
+    if(!btn) return;
+    btn.disabled = isLoading;
+    btn.textContent = isLoading ? 'তথ্য লোড হচ্ছে...' : 'LOGIN';
+  });
+  if(failed){
+    var msg = '⚠️ তথ্য লোড করা যায়নি। ইন্টারনেট সংযোগ পরীক্ষা করুন অথবা পরে আবার চেষ্টা করুন।';
+    ['student-error','teacher-error'].forEach(function(id){
+      var el = document.getElementById(id);
+      if(el){ el.textContent = msg; el.classList.add('show'); }
+    });
+  }
+}
+
+function loadPortalData(){
+  setLoginLoading(true, false);
+  var studentsFetch = fetch(STUDENTS_CSV_URL).then(function(r){ return r.text(); }).then(function(text){
+    STUDENTS = csvToObjects(text);
+  });
+  var teachersFetch = fetch(TEACHERS_CSV_URL).then(function(r){ return r.text(); }).then(function(text){
+    TEACHERS = csvToObjects(text);
+  });
+  Promise.all([studentsFetch, teachersFetch]).then(function(){
+    DATA_READY = true;
+    setLoginLoading(false, false);
+  }).catch(function(err){
+    console.error('Portal data load failed:', err);
+    setLoginLoading(false, true);
+  });
+}
+
+document.addEventListener('DOMContentLoaded', loadPortalData);
+
+var TAB_META = {
+  student: { title:'Student Login', sub:'শিক্ষার্থীদের নিজস্ব পোর্টালে প্রবেশ করুন' },
+  teacher: { title:'Teacher Login', sub:'শিক্ষক ও কর্মচারীদের নিজস্ব পোর্টালে প্রবেশ করুন' },
+  result:  { title:'ফলাফল যাচাই', sub:'আপনার পরীক্ষার ফলাফল খুঁজুন' }
+};
+function switchTab(which){
+  ['student','teacher','result'].forEach(function(tab){
+    var isActive = tab === which;
+    document.getElementById('tab-' + tab + '-btn').classList.toggle('active', isActive);
+    document.getElementById('panel-' + tab).classList.toggle('active', isActive);
+  });
+  document.getElementById('login-title').textContent = TAB_META[which].title;
+  document.getElementById('login-sub').textContent = TAB_META[which].sub;
+  var regRow = document.getElementById('register-row');
+  if(regRow) regRow.style.display = (which === 'result') ? 'none' : 'block';
+}
+
+function openRegisterModal(){ document.getElementById('register-modal').classList.add('show'); }
+function closeRegisterModal(){ document.getElementById('register-modal').classList.remove('show'); }
+
+document.addEventListener('DOMContentLoaded', function(){
+  var overlay = document.getElementById('register-modal');
+  if(overlay){
+    overlay.addEventListener('click', function(e){ if(e.target === overlay) closeRegisterModal(); });
+  }
+  document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeRegisterModal(); });
+
+  document.querySelectorAll('.toggle-eye').forEach(function(btn){
+    btn.addEventListener('click', function(){
+      var input = document.getElementById(btn.getAttribute('data-target'));
+      if(!input) return;
+      var showing = input.type === 'text';
+      input.type = showing ? 'password' : 'text';
+      btn.textContent = showing ? '👁️' : '🙈';
+    });
+  });
+});
+
+function showError(id, msg){
+  var el = document.getElementById(id);
+  el.textContent = msg;
+  el.classList.add('show');
+}
+function hideError(id){ document.getElementById(id).classList.remove('show'); }
+
+document.addEventListener('DOMContentLoaded', function(){
+
+  function doStudentLogin(){
+    hideError('student-error');
+    if(!DATA_READY){
+      showError('student-error', '⏳ তথ্য এখনো লোড হচ্ছে, একটু অপেক্ষা করুন।');
+      return;
+    }
+    var uid = document.getElementById('student-uid').value.trim();
+    var pass = document.getElementById('student-pass').value.trim();
+    if(!uid || !pass){
+      showError('student-error', '⚠️ UID ও পাসওয়ার্ড উভয়টি লিখুন।');
+      return;
+    }
+    var match = null;
+    for(var i=0;i<STUDENTS.length;i++){
+      if(STUDENTS[i].uid === uid){ match = STUDENTS[i]; break; }
+    }
+    if(!match){
+      showError('student-error', '❌ এই UID দিয়ে কোনো শিক্ষার্থী খুঁজে পাওয়া যায়নি।');
+      return;
+    }
+    if(match.uid.toLowerCase() === 'pending' || !/^\d+$/.test(match.uid)){
+      showError('student-error', '⏳ আপনার UID এখনো নির্ধারণ করা হয়নি। স্কুল অফিসে যোগাযোগ করুন।');
+      return;
+    }
+    var correctPass = match.uid.substring(0,4);
+    if(pass !== correctPass){
+      showError('student-error', '❌ ভুল পাসওয়ার্ড। পাসওয়ার্ড হলো আপনার UID এর প্রথম ৪টি সংখ্যা।');
+      return;
+    }
+    sessionStorage.setItem('kghs_student', JSON.stringify(match));
+    var btn = document.getElementById('student-login-btn');
+    btn.textContent = 'লগইন হচ্ছে...';
+    btn.disabled = true;
+    window.location.href = 'student-dashboard.html';
+  }
+
+  function doTeacherLogin(){
+    hideError('teacher-error');
+    if(!DATA_READY){
+      showError('teacher-error', '⏳ তথ্য এখনো লোড হচ্ছে, একটু অপেক্ষা করুন।');
+      return;
+    }
+    var email = document.getElementById('teacher-email').value.trim().toLowerCase();
+    var pass = document.getElementById('teacher-pass').value.trim();
+    if(!email || !pass){
+      showError('teacher-error', '⚠️ ইমেইল ও পাসওয়ার্ড উভয়টি লিখুন।');
+      return;
+    }
+    var match = null;
+    for(var i=0;i<TEACHERS.length;i++){
+      if(TEACHERS[i].email.toLowerCase() === email){ match = TEACHERS[i]; break; }
+    }
+    if(!match){
+      showError('teacher-error', '❌ এই ইমেইল দিয়ে কোনো শিক্ষক/কর্মচারী খুঁজে পাওয়া যায়নি।');
+      return;
+    }
+    if(pass !== match.index){
+      showError('teacher-error', '❌ ভুল পাসওয়ার্ড। পাসওয়ার্ড হলো আপনার ইনডেক্স নম্বর।');
+      return;
+    }
+    sessionStorage.setItem('kghs_teacher', JSON.stringify(match));
+    var btn = document.getElementById('teacher-login-btn');
+    btn.textContent = 'লগইন হচ্ছে...';
+    btn.disabled = true;
+    window.location.href = 'teacher-dashboard.html';
+  }
+
+  document.getElementById('student-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    doStudentLogin();
+  });
+
+  document.getElementById('teacher-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    doTeacherLogin();
+  });
+
+  function doResultCheck(){
+    var box = document.getElementById('result-status');
+    var uid = document.getElementById('result-uid').value.trim();
+    box.className = 'result-status';
+    if(!DATA_READY){
+      box.classList.add('notfound','show');
+      box.innerHTML = '<h4>⏳ তথ্য লোড হচ্ছে</h4><p>একটু অপেক্ষা করে আবার চেষ্টা করুন।</p>';
+      return;
+    }
+    if(!uid){
+      box.classList.add('notfound','show');
+      box.innerHTML = '<h4>⚠️ UID লিখুন</h4><p>ফলাফল দেখতে আপনার UID লিখুন।</p>';
+      return;
+    }
+    var match = null;
+    for(var i=0;i<STUDENTS.length;i++){
+      if(STUDENTS[i].uid === uid){ match = STUDENTS[i]; break; }
+    }
+    if(!match){
+      box.classList.add('notfound','show');
+      box.innerHTML = '<h4>❌ শিক্ষার্থী খুঁজে পাওয়া যায়নি</h4><p>UID টি সঠিকভাবে লিখেছেন কিনা যাচাই করুন।</p>';
+      return;
+    }
+    box.classList.add('pending','show');
+    box.innerHTML = '<h4>⏳ ' + match.name + ' — ' + match.classBn + ' শ্রেণি, রোল ' + match.roll + '</h4>' +
+      '<p>আপনার ফলাফল এখনো প্রকাশ করা হয়নি। প্রকাশিত হলে এখানেই দেখা যাবে। নোটিশ বোর্ডে নজর রাখুন।</p>';
+  }
+
+  document.getElementById('result-form').addEventListener('submit', function(e){
+    e.preventDefault();
+    doResultCheck();
+  });
+});
+</script>
+</body>
+</html>
