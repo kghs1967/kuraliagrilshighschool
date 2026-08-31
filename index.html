@@ -724,6 +724,72 @@ img{max-width:100%;height:auto;}
   word-break:break-all;
 }
 
+
+/* Footer font consistency */
+.site-footer,
+.site-footer h4,
+.site-footer p,
+.site-footer a,
+.site-footer .link-list,
+.site-footer .contact-block,
+.site-footer .bottom{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif !important;
+}
+.site-footer h4{
+  font-weight:700 !important;
+  font-size:1rem !important;
+  letter-spacing:.01em;
+}
+.site-footer .contact-block p,
+.site-footer .link-list a,
+.site-footer .bottom{
+  font-size:.86rem !important;
+  font-weight:400 !important;
+}
+.imp-strip h3,
+.news-strip h3,
+.social-bar,
+.social-bar span{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif !important;
+}
+
+
+/* Email one line */
+.site-footer .contact-email,
+.site-footer .contact-email-text{
+  display:flex !important;
+  flex-wrap:nowrap !important;
+  align-items:center !important;
+  gap:6px !important;
+  min-width:0;
+}
+.site-footer .contact-email-text{
+  white-space:nowrap !important;
+  overflow:hidden;
+  text-overflow:ellipsis;
+  max-width:100%;
+}
+.site-footer .contact-email-text a{
+  white-space:nowrap !important;
+  font-size:.78rem !important;
+  word-break:normal !important;
+  overflow-wrap:normal !important;
+}
+.site-footer .contact-block{
+  min-width:0;
+  overflow:hidden;
+}
+
+
+/* Contact column wider for email */
+.site-footer .wrap{
+  grid-template-columns:1.55fr 1fr 1fr 1fr !important;
+}
+.site-footer .contact-email-text a{
+  font-size:.74rem !important;
+  letter-spacing:-0.01em;
+}
+
 </style>
 </head>
 <body>
@@ -793,6 +859,7 @@ img{max-width:100%;height:auto;}
           <a href="books/class-9-10.html">নবম-দশম শ্রেণির বই</a>
         </div>
       </li>
+      <li><a class="" href="sports.html">ক্রীড়া</a></li>
       <li><a class="" href="login.html">Student Login</a></li>
     </ul>
   </div>
@@ -804,7 +871,6 @@ img{max-width:100%;height:auto;}
     <img src="https://i.postimg.cc/R0FT0gQv/1.png" alt="School moment 2">
     <img src="https://i.postimg.cc/50pcGN4g/7030fc76-c918-4a40-aa58-b972277439a7.jpg" alt="School moment 3">
     <img src="https://i.postimg.cc/2SP5q6n3/4.png" alt="School moment 4">
-     <img src="https://i.postimg.cc/bY4v5R0F/GK8h-L.jpg" alt="School moment 5">
   </div>
   <div class="hero-caption">
     <div class="wrap">
@@ -857,10 +923,12 @@ img{max-width:100%;height:auto;}
         <img src="https://i.postimg.cc/j5vcqBBq/image-621515-1670024932.jpg" alt="Girls Guide">
         <div class="box-body"><h4>গার্লস গাইড</h4><p>ছাত্রীদের গার্ল গাইড ক্লাব</p></div>
       </div>
+      <a href="sports.html" style="text-decoration:none;color:inherit;display:block;">
       <div class="box">
-        <img src="https://i.postimg.cc/MTrB79YM/sports.jpg" alt="Sports">
+        <img src="https://i.postimg.cc/bY4v5R0F/GK8h-L.jpg" alt="Sports">
         <div class="box-body"><h4>Sports</h4><p>ক্রীড়া ও সহপাঠ কার্যক্রম</p></div>
       </div>
+      </a>
     </div>
 
     <div class="card" style="margin-top:22px;padding:0;overflow:hidden;" data-reveal>
