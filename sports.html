@@ -733,60 +733,267 @@ img{max-width:100%;height:auto;}
 </div>
 
 <style>
-.sports-wrap{max-width:960px;margin:28px auto 40px;padding:0 20px;}
-.sports-card{
+.sports-wrap{max-width:1100px;margin:28px auto 50px;padding:0 20px;}
+
+/* Category tabs */
+.gallery-tabs{
+  display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px;align-items:center;
+}
+.gallery-tabs button{
+  border:1.5px solid var(--border);background:#fff;color:var(--green-800);
+  padding:8px 16px;border-radius:999px;font-family:inherit;font-size:.9rem;
+  cursor:pointer;transition:.2s;font-weight:600;
+}
+.gallery-tabs button:hover{background:var(--green-100);border-color:var(--green-600);}
+.gallery-tabs button.active{
+  background:var(--green-700);color:#fff;border-color:var(--green-700);
+}
+.gallery-tabs .count{
+  margin-left:auto;font-size:.85rem;color:var(--muted);
+}
+
+/* Gallery grid */
+.gallery-grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fill,minmax(260px,1fr));
+  gap:18px;
+}
+.g-card{
   background:#fff;border-radius:var(--radius);overflow:hidden;
-  box-shadow:var(--shadow);border:1px solid var(--border);margin-bottom:22px;
+  box-shadow:var(--shadow);border:1px solid var(--border);
+  transition:transform .2s,box-shadow .2s;cursor:pointer;
+  display:flex;flex-direction:column;
 }
-.sports-card img{
-  width:100%;max-height:520px;object-fit:contain;background:#0f3324;cursor:pointer;display:block;
+.g-card:hover{transform:translateY(-4px);box-shadow:0 12px 28px rgba(15,51,36,.14);}
+.g-card .thumb{
+  position:relative;aspect-ratio:4/3;background:#0f3324;overflow:hidden;
 }
-.sports-card .info{padding:18px 20px;text-align:center;}
-.sports-card .info h3{margin:0 0 6px;color:var(--green-900);}
-.sports-card .info p{margin:0;color:var(--muted);font-size:.95rem;}
-.sports-badge{
-  display:inline-block;margin-top:10px;background:var(--green-900);color:#fff;
-  font-size:.8rem;padding:4px 14px;border-radius:20px;
+.g-card .thumb img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  transition:transform .35s;
 }
-.sports-note{
-  background:var(--green-100);border-left:4px solid var(--green-700);
-  padding:14px 18px;border-radius:0 10px 10px 0;font-size:.92rem;color:var(--ink);
+.g-card:hover .thumb img{transform:scale(1.05);}
+.g-card .thumb .cat-tag{
+  position:absolute;left:10px;bottom:10px;
+  background:rgba(15,51,36,.85);color:#fff;font-size:.72rem;
+  padding:3px 10px;border-radius:20px;backdrop-filter:blur(4px);
 }
-.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.92);z-index:9999;
-  align-items:center;justify-content:center;padding:16px;}
+.g-card .meta{padding:14px 16px;flex:1;display:flex;flex-direction:column;}
+.g-card .meta h3{
+  margin:0 0 4px;font-size:1rem;color:var(--green-900);line-height:1.35;
+}
+.g-card .meta p{margin:0;color:var(--muted);font-size:.88rem;line-height:1.45;flex:1;}
+.g-card .meta .year{
+  margin-top:10px;font-size:.78rem;color:var(--green-700);font-weight:600;
+}
+
+/* Empty state */
+.gallery-empty{
+  grid-column:1/-1;text-align:center;padding:48px 20px;
+  background:#fff;border-radius:var(--radius);border:1px dashed var(--border);
+  color:var(--muted);
+}
+.gallery-empty span{font-size:2.2rem;display:block;margin-bottom:8px;}
+
+/* Lightbox */
+.lb{display:none;position:fixed;inset:0;background:rgba(0,0,0,.93);z-index:9999;
+  align-items:center;justify-content:center;padding:16px;flex-direction:column;}
 .lb.show{display:flex;}
-.lb img{max-width:96%;max-height:92vh;border-radius:8px;}
-.lb button{position:absolute;top:12px;right:18px;background:none;border:none;color:#fff;font-size:2rem;cursor:pointer;}
+.lb img{max-width:94%;max-height:78vh;border-radius:10px;box-shadow:0 8px 40px rgba(0,0,0,.5);}
+.lb .lb-cap{
+  color:#e8f0ea;text-align:center;margin-top:14px;max-width:640px;font-size:.95rem;
+}
+.lb .lb-cap strong{display:block;font-size:1.05rem;margin-bottom:4px;color:#fff;}
+.lb button.close{
+  position:absolute;top:14px;right:18px;background:rgba(255,255,255,.12);
+  border:none;color:#fff;font-size:1.6rem;cursor:pointer;width:42px;height:42px;
+  border-radius:50%;line-height:1;transition:.2s;
+}
+.lb button.close:hover{background:rgba(255,255,255,.25);}
+.lb .lb-nav{
+  position:absolute;top:50%;transform:translateY(-50%);
+  background:rgba(255,255,255,.12);border:none;color:#fff;font-size:1.8rem;
+  width:46px;height:46px;border-radius:50%;cursor:pointer;transition:.2s;
+}
+.lb .lb-nav:hover{background:rgba(255,255,255,.25);}
+.lb .lb-prev{left:14px;}
+.lb .lb-next{right:14px;}
+
+/* Section intro */
+.sports-intro{
+  background:linear-gradient(135deg,var(--green-100),#fff);
+  border:1px solid var(--border);border-radius:var(--radius);
+  padding:18px 22px;margin-bottom:22px;display:flex;gap:16px;align-items:flex-start;
+}
+.sports-intro .ico{font-size:1.8rem;line-height:1;}
+.sports-intro p{margin:0;color:var(--ink);font-size:.95rem;}
+.sports-intro strong{color:var(--green-800);}
+
+@media(max-width:600px){
+  .gallery-grid{grid-template-columns:1fr 1fr;gap:12px;}
+  .g-card .meta h3{font-size:.9rem;}
+  .g-card .meta p{font-size:.8rem;}
+  .lb .lb-nav{width:38px;height:38px;font-size:1.4rem;}
+}
 </style>
 
 <div class="sports-wrap">
-  <div class="section-title" style="margin-bottom:18px;">
-    <h2>প্রাইম মিনিস্টার গোল্ড কাপ ২০২৬</h2>
-    <span>ফুটবল · ছাত্রী দল</span>
+
+  <div class="sports-intro">
+    <div class="ico">🏅</div>
+    <p>
+      <strong>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</strong>-এর ক্রীড়া, বার্ষিক ক্রীড়া প্রতিযোগিতা,
+      শিক্ষা সফর ও অন্যান্য সহপাঠ কার্যক্রমের ছবি এখানে দেখুন। ছবিতে ক্লিক করলে বড় করে দেখা যাবে।
+    </p>
   </div>
 
-  <div class="sports-card">
-    <img src="football_team.jpg" alt="প্রাইম মিনিস্টার গোল্ড কাপ ২০২৬ - ফুটবল টিম" onclick="openLb(this.src)">
-    <div class="info">
-      <h3>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় ফুটবল টিম</h3>
-      <p>প্রাইম মিনিস্টার গোল্ড কাপ ২০২৬-এ অংশগ্রহণকারী ছাত্রীদের দল</p>
-      <span class="sports-badge">ফুটবল · ২০২৬</span>
-    </div>
+  <div class="gallery-tabs" id="galleryTabs" role="tablist">
+    <button type="button" class="active" data-cat="all">সব</button>
+    <button type="button" data-cat="football">ফুটবল</button>
+    <button type="button" data-cat="annual">বার্ষিক ক্রীড়া প্রতিযোগিতা</button>
+    <button type="button" data-cat="tour">শিক্ষা সফর</button>
+    <button type="button" data-cat="other">অন্যান্য</button>
+    <span class="count" id="photoCount"></span>
   </div>
 
-  <div class="sports-note">
-    ছবিতে ক্লিক করলে বড় করে দেখা যাবে।
+  <div class="gallery-grid" id="galleryGrid">
+    <!-- filled by JS -->
   </div>
 </div>
 
-<div class="lb" id="lb" onclick="closeLb()">
-  <button type="button" onclick="closeLb()">&times;</button>
+<!-- Lightbox -->
+<div class="lb" id="lb">
+  <button type="button" class="close" onclick="closeLb()" aria-label="বন্ধ">&times;</button>
+  <button type="button" class="lb-nav lb-prev" onclick="lbNav(-1)" aria-label="আগের">‹</button>
+  <button type="button" class="lb-nav lb-next" onclick="lbNav(1)" aria-label="পরের">›</button>
   <img id="lb-img" src="" alt="">
+  <div class="lb-cap" id="lb-cap"></div>
 </div>
+
 <script>
-function openLb(src){document.getElementById('lb-img').src=src;document.getElementById('lb').classList.add('show');}
-function closeLb(){document.getElementById('lb').classList.remove('show');}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')closeLb();});
+/* =========================================================
+   PHOTO GALLERY — নতুন ছবি যোগ করতে নিচের PHOTOS অ্যারেতে
+   একটা অবজেক্ট যোগ করুন।
+
+   src     = ছবির লিংক (লোকাল ফাইল বা online URL)
+   title   = শিরোনাম
+   desc    = সংক্ষিপ্ত বিবরণ
+   cat     = football | annual | tour | other
+   year    = বছর (ঐচ্ছিক)
+   ========================================================= */
+var PHOTOS = [
+  {
+    src: "football_team.jpg",
+    title: "কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় ফুটবল টিম",
+    desc: "প্রাইম মিনিস্টার গোল্ড কাপ ২০২৬-এ অংশগ্রহণকারী ছাত্রীদের দল",
+    cat: "football",
+    year: "২০২৬"
+  }
+  // আরও ছবি যোগ করার উদাহরণ:
+  // {
+  //   src: "https://i.postimg.cc/xxxx/photo.jpg",
+  //   title: "বার্ষিক ক্রীড়া প্রতিযোগিতা ২০২৫",
+  //   desc: "১০০ মিটার দৌড় প্রতিযোগিতা",
+  //   cat: "annual",
+  //   year: "২০২৫"
+  // },
+  // {
+  //   src: "tour1.jpg",
+  //   title: "শিক্ষা সফর — জাতীয় জাদুঘর",
+  //   desc: "নবম-দশম শ্রেণির শিক্ষার্থীদের শিক্ষা সফর",
+  //   cat: "tour",
+  //   year: "২০২৫"
+  // }
+];
+
+var CAT_LABEL = {
+  football: "ফুটবল",
+  annual: "বার্ষিক ক্রীড়া প্রতিযোগিতা",
+  tour: "শিক্ষা সফর",
+  other: "অন্যান্য"
+};
+
+var currentList = [];
+var lbIndex = 0;
+
+function renderGallery(cat) {
+  var grid = document.getElementById("galleryGrid");
+  var list = cat === "all" ? PHOTOS.slice() : PHOTOS.filter(function (p) { return p.cat === cat; });
+  currentList = list;
+
+  document.getElementById("photoCount").textContent = list.length + " টি ছবি";
+
+  if (!list.length) {
+    grid.innerHTML = '<div class="gallery-empty"><span>📷</span>এই ক্যাটাগরিতে এখনো কোনো ছবি নেই</div>';
+    return;
+  }
+
+  grid.innerHTML = list.map(function (p, i) {
+    return (
+      '<article class="g-card" onclick="openLb(' + i + ')">' +
+        '<div class="thumb">' +
+          '<img src="' + p.src + '" alt="' + escapeAttr(p.title) + '" loading="lazy">' +
+          '<span class="cat-tag">' + (CAT_LABEL[p.cat] || p.cat) + '</span>' +
+        '</div>' +
+        '<div class="meta">' +
+          '<h3>' + escapeHtml(p.title) + '</h3>' +
+          '<p>' + escapeHtml(p.desc || "") + '</p>' +
+          (p.year ? '<div class="year">' + escapeHtml(p.year) + '</div>' : '') +
+        '</div>' +
+      '</article>'
+    );
+  }).join("");
+}
+
+function escapeHtml(s) {
+  return String(s || "").replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;");
+}
+function escapeAttr(s) { return escapeHtml(s).replace(/'/g, "&#39;"); }
+
+function openLb(i) {
+  lbIndex = i;
+  var p = currentList[i];
+  if (!p) return;
+  document.getElementById("lb-img").src = p.src;
+  document.getElementById("lb-cap").innerHTML =
+    "<strong>" + escapeHtml(p.title) + "</strong>" +
+    (p.desc ? escapeHtml(p.desc) : "") +
+    (p.year ? " · " + escapeHtml(p.year) : "");
+  document.getElementById("lb").classList.add("show");
+  document.body.style.overflow = "hidden";
+}
+function closeLb() {
+  document.getElementById("lb").classList.remove("show");
+  document.body.style.overflow = "";
+}
+function lbNav(dir) {
+  if (!currentList.length) return;
+  lbIndex = (lbIndex + dir + currentList.length) % currentList.length;
+  openLb(lbIndex);
+}
+
+// Tabs
+document.querySelectorAll("#galleryTabs button[data-cat]").forEach(function (btn) {
+  btn.addEventListener("click", function () {
+    document.querySelectorAll("#galleryTabs button").forEach(function (b) { b.classList.remove("active"); });
+    btn.classList.add("active");
+    renderGallery(btn.getAttribute("data-cat"));
+  });
+});
+
+// Keyboard + click outside
+document.getElementById("lb").addEventListener("click", function (e) {
+  if (e.target.id === "lb") closeLb();
+});
+document.addEventListener("keydown", function (e) {
+  if (!document.getElementById("lb").classList.contains("show")) return;
+  if (e.key === "Escape") closeLb();
+  if (e.key === "ArrowLeft") lbNav(-1);
+  if (e.key === "ArrowRight") lbNav(1);
+});
+
+// Init
+renderGallery("all");
 </script>
 
 
