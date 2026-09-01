@@ -89,6 +89,21 @@ img{max-width:100%;display:block;}
 }
 .brand-text h1{font-size:1.45rem;margin:0;}
 .brand-text p{margin:2px 0 0;color:var(--muted);font-size:.92rem;}
+.brand-row .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.brand-row .btn-admit{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--gold);color:var(--green-900);
+  font-weight:700;font-size:.9rem;padding:10px 18px;
+  border-radius:10px;text-decoration:none;
+  box-shadow:0 3px 10px rgba(201,154,46,.3);
+  transition:background .2s,transform .2s,box-shadow .2s;
+  white-space:nowrap;font-family:inherit;
+}
+.brand-row .btn-admit:hover{
+  background:#b6871f;color:var(--green-900);
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(201,154,46,.35);
+}
 
 /* ---------- Elegant school-name typeface ---------- */
 .site-name{
@@ -429,6 +444,8 @@ table.data tr:hover td{background:var(--gold-light);}
   .brand-row .badge{width:56px;height:56px;border-width:2px;}
   .brand-text h1{font-size:1.02rem;}
   .brand-text p{font-size:.74rem;}
+  .brand-row .header-actions{margin-left:0;width:100%;justify-content:flex-end;}
+  .brand-row .btn-admit{font-size:.82rem;padding:8px 14px;}
   .nav-bar a, .nav-bar .drop > span{padding:12px 14px;font-size:.9rem;white-space:normal;}
   .hero-slider{height:260px;}
   .hero-caption p{display:none;}
@@ -818,6 +835,9 @@ img{max-width:100%;height:auto;}
       <h1 class="site-name">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</h1>
       <p>Kuralia Girls High School · প্রতিষ্ঠা: ১৯৬৭ · EIIN: 128390 · রাজশাহী শিক্ষা বোর্ড</p>
     </div>
+    <div class="header-actions">
+      <a class="btn-admit" href="admission.html">📝 ভর্তি আবেদন</a>
+    </div>
   </div>
 </header>
 
@@ -871,7 +891,6 @@ img{max-width:100%;height:auto;}
     <img src="https://i.postimg.cc/R0FT0gQv/1.png" alt="School moment 2">
     <img src="https://i.postimg.cc/50pcGN4g/7030fc76-c918-4a40-aa58-b972277439a7.jpg" alt="School moment 3">
     <img src="https://i.postimg.cc/2SP5q6n3/4.png" alt="School moment 4">
-    <img src="football_team.jpg" alt="School moment 5">
   </div>
   <div class="hero-caption">
     <div class="wrap">
