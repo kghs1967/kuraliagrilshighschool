@@ -377,7 +377,7 @@ document.getElementById('photoInput').addEventListener('change', function(e){
       - Who has access: Anyone
    5. Web App URL কপি করে নিচের SCRIPT_URL এ বসান
    ========================================================= */
-var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbyRKIdsDxNdwfb-P-UstK5QnPNKmbUrFuFAauVJ-2I/dev";
+var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbx2jKc6gKo3ZPcZOMh--3lyFa-7HO9bWsS_IeUtuNxSe7xaL3xQfXaDXKUHJHlrL-b7/exec";
 
 /*
 // ===== Google Apps Script (ছবি Drive এ সেভ + Sheet এ লিংক) =====
@@ -517,55 +517,27 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     photo: photoBase64 || ''
   };
 
-  // FormData is more reliable with Google Apps Script than raw JSON body
-  var fd = new FormData();
-  fd.append('data', JSON.stringify(payload));
-
+  // Proven method for Google Apps Script Web App
   fetch(SCRIPT_URL, {
     method: 'POST',
-    body: fd
+    mode: 'no-cors',
+    cache: 'no-cache',
+    headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+    body: JSON.stringify(payload)
   })
-  .then(function(res){ return res.text(); })
-  .then(function(text){
-    var ok = true;
-    try {
-      var json = JSON.parse(text);
-      ok = json.ok !== false;
-      if (!ok) throw new Error(json.message || 'Server error');
-    } catch (parseErr) {
-      // Some deployments return HTML/redirect; still check network succeeded
-      if (text && text.indexOf('error') !== -1) ok = false;
-    }
-    if (ok) {
-      showStatus('ok', 'আবেদন সফলভাবে জমা হয়েছে। ধন্যবাদ!');
-      form.reset();
-      document.getElementById('photoPreview').innerHTML = 'ছবি';
-      photoBase64 = '';
-    } else {
-      showStatus('err', 'সার্ভার থেকে ত্রুটি এসেছে। Apps Script Deploy আবার করুন।');
-    }
+  .then(function(){
+    showStatus('ok', 'আবেদন পাঠানো হয়েছে। ৫–১০ সেকেন্ড পর Google Sheet রিফ্রেশ করে দেখুন।');
+    form.reset();
+    document.getElementById('photoPreview').innerHTML = 'ছবি';
+    photoBase64 = '';
     btn.disabled = false;
     btn.textContent = 'আবেদন জমা দিন';
   })
   .catch(function(err){
     console.error(err);
-    // CORS fallback: try no-cors send (cannot verify, but data often arrives)
-    var fd2 = new FormData();
-    fd2.append('data', JSON.stringify(payload));
-    fetch(SCRIPT_URL, { method: 'POST', mode: 'no-cors', body: fd2 })
-      .then(function(){
-        showStatus('ok', 'আবেদন পাঠানো হয়েছে। Google Sheet চেক করুন (১০ সেকেন্ড পর রিফ্রেশ)।');
-        form.reset();
-        document.getElementById('photoPreview').innerHTML = 'ছবি';
-        photoBase64 = '';
-        btn.disabled = false;
-        btn.textContent = 'আবেদন জমা দিন';
-      })
-      .catch(function(){
-        showStatus('err', 'জমা দিতে সমস্যা হয়েছে। ইন্টারনেট ও Script URL পরীক্ষা করুন।');
-        btn.disabled = false;
-        btn.textContent = 'আবেদন জমা দিন';
-      });
+    showStatus('err', 'জমা দিতে সমস্যা হয়েছে। ইন্টারনেট সংযোগ পরীক্ষা করুন।');
+    btn.disabled = false;
+    btn.textContent = 'আবেদন জমা দিন';
   });
 });
 </script>
