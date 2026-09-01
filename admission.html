@@ -342,25 +342,39 @@ document.querySelector('[name=presentAddress]').addEventListener('input', functi
   }
 });
 
-// Photo preview
+// Photo preview + compress (max width 800px) so Drive upload is reliable
 var photoBase64 = '';
+function compressImage(file, maxW, quality, cb) {
+  var reader = new FileReader();
+  reader.onload = function () {
+    var img = new Image();
+    img.onload = function () {
+      var w = img.width, h = img.height;
+      if (w > maxW) { h = Math.round(h * maxW / w); w = maxW; }
+      var canvas = document.createElement('canvas');
+      canvas.width = w; canvas.height = h;
+      canvas.getContext('2d').drawImage(img, 0, 0, w, h);
+      cb(canvas.toDataURL('image/jpeg', quality));
+    };
+    img.src = reader.result;
+  };
+  reader.readAsDataURL(file);
+}
 document.getElementById('photoInput').addEventListener('change', function(e){
   var file = e.target.files[0];
   var preview = document.getElementById('photoPreview');
   photoBase64 = '';
   if(!file){ preview.innerHTML = 'ছবি'; return; }
-  if(file.size > 1024*1024){
-    alert('ছবির সাইজ ১ MB এর কম হতে হবে।');
+  if(file.size > 3*1024*1024){
+    alert('ছবির সাইজ ৩ MB এর কম হতে হবে।');
     e.target.value = '';
     preview.innerHTML = 'ছবি';
     return;
   }
-  var reader = new FileReader();
-  reader.onload = function(){
-    photoBase64 = reader.result;
-    preview.innerHTML = '<img src="'+reader.result+'" alt="preview">';
-  };
-  reader.readAsDataURL(file);
+  compressImage(file, 800, 0.7, function(dataUrl){
+    photoBase64 = dataUrl;
+    preview.innerHTML = '<img src="'+dataUrl+'" alt="preview">';
+  });
 });
 
 /* =========================================================
