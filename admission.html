@@ -540,7 +540,7 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     body: JSON.stringify(payload)
   })
   .then(function(){
-    showStatus('ok', 'আবেদন পাঠানো হয়েছে। ৫–১০ সেকেন্ড পর Google Sheet রিফ্রেশ করে দেখুন।');
+    showStatus('ok', 'আবেদনটি সফলভাবে জমা হয়েছে ');
     form.reset();
     document.getElementById('photoPreview').innerHTML = 'ছবি';
     photoBase64 = '';
