@@ -659,7 +659,13 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     body: JSON.stringify(payload)
   })
   .then(function(){
+    // PDF অটো ডাউনলোড (রিসেটের আগে)
+    generateAdmissionPDF(payload);
+
     form.reset();
+    photoBase64 = '';
+    var prev = document.getElementById('photoPreview');
+    if(prev) prev.innerHTML = 'ছবি';
     openSuccessModal();
     btn.disabled = false;
     btn.textContent = 'আবেদন জমা দিন';
@@ -671,6 +677,104 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     btn.textContent = 'আবেদন জমা দিন';
   });
 });
+
+/* =========================================================
+   PDF GENERATOR
+   পরে নতুন ফিল্ড যোগ: fields অ্যারেতে {label, value} যোগ করুন
+   ========================================================= */
+function generateAdmissionPDF(data){
+  if(typeof html2pdf === 'undefined'){
+    console.error('html2pdf library not loaded');
+    alert('PDF লাইব্রেরি লোড হয়নি। ইন্টারনেট সংযোগ পরীক্ষা করে পেজ রিফ্রেশ করুন।');
+    return;
+  }
+
+  var now = new Date();
+  var refNo = 'ADM-' + now.getFullYear() + '-' +
+    String(now.getMonth()+1).padStart(2,'0') +
+    String(now.getDate()).padStart(2,'0') + '-' +
+    String(now.getTime()).slice(-6);
+  var dateStr = now.toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
+
+  // >>> পরে নতুন ফিল্ড এখানে যোগ করুন <<<
+  var fields = [
+    { label: 'নাম (বাংলা)',        value: data.nameBn || '—' },
+    { label: 'Name (English)',     value: data.nameEn || '—' },
+    { label: 'পিতার নাম',          value: data.father || '—' },
+    { label: 'মাতার নাম',          value: data.mother || '—' },
+    { label: 'জন্ম তারিখ',         value: data.dob || '—' },
+    { label: 'জন্ম নিবন্ধন নম্বর',  value: data.birthReg || '—' },
+    { label: 'শ্রেণি',             value: data.className || '—' },
+    { label: 'মোবাইল নম্বর',       value: data.mobile || '—' },
+    { label: 'লিঙ্গ',              value: data.gender || 'Female' },
+    { label: 'বর্তমান ঠিকানা',     value: data.presentAddress || '—' },
+    { label: 'স্থায়ী ঠিকানা',     value: data.permanentAddress || '—' }
+  ];
+
+  var rowsHtml = fields.map(function(f){
+    return '<tr>' +
+      '<td style="padding:8px 10px;border:1px solid #dbe4dd;font-weight:600;width:38%;background:#e3f0e7;color:#0f3324;">' + f.label + '</td>' +
+      '<td style="padding:8px 10px;border:1px solid #dbe4dd;color:#1b241d;">' + f.value + '</td>' +
+      '</tr>';
+  }).join('');
+
+  var photoHtml = (data.photo && data.photo.indexOf('base64') !== -1)
+    ? '<img src="' + data.photo + '" style="width:90px;height:110px;object-fit:cover;border:2px solid #c99a2e;border-radius:6px;">'
+    : '<div style="width:90px;height:110px;background:#e3f0e7;border:1px dashed #dbe4dd;border-radius:6px;text-align:center;line-height:110px;font-size:12px;color:#5b6b60;">No Photo</div>';
+
+  var wrap = document.createElement('div');
+  wrap.id = 'pdf-temp-wrap';
+  // visible but transparent — html2canvas works more reliably
+  wrap.style.cssText = 'position:fixed;left:0;top:0;width:700px;background:#fff;z-index:99999;opacity:0;pointer-events:none;';
+  wrap.innerHTML =
+    '<div id="pdf-content" style="width:700px;padding:28px 32px;font-family:Arial,Helvetica,sans-serif;color:#1b241d;background:#fff;box-sizing:border-box;">' +
+      '<div style="display:flex;align-items:center;gap:14px;border-bottom:3px solid #1f6b45;padding-bottom:14px;margin-bottom:14px;">' +
+        '<div style="width:60px;height:60px;border-radius:50%;border:3px solid #c99a2e;background:#1f6b45;color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">KG</div>' +
+        '<div style="flex:1;">' +
+          '<div style="font-size:18px;font-weight:700;color:#0f3324;">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</div>' +
+          '<div style="font-size:12px;color:#5b6b60;">Kuralia Girls High School · EIIN: 128390</div>' +
+          '<div style="font-size:12px;color:#1f6b45;font-weight:600;">Online Admission Receipt</div>' +
+        '</div>' +
+        '<div>' + photoHtml + '</div>' +
+      '</div>' +
+      '<div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6b60;margin-bottom:10px;">' +
+        '<span><b>Ref:</b> ' + refNo + '</span>' +
+        '<span><b>Date:</b> ' + dateStr + '</span>' +
+      '</div>' +
+      '<table style="width:100%;border-collapse:collapse;font-size:13px;">' + rowsHtml + '</table>' +
+      '<div style="margin-top:16px;padding:10px 12px;background:#e3f0e7;border-left:4px solid #1f6b45;font-size:12px;color:#0f3324;">' +
+        'This receipt was generated automatically. School will contact you after verification. Phone: 01309128390' +
+      '</div>' +
+      '<div style="margin-top:12px;text-align:center;font-size:11px;color:#5b6b60;">© Kuralia Girls High School · Online Admission</div>' +
+    '</div>';
+
+  document.body.appendChild(wrap);
+
+  var safeName = (data.nameEn || data.nameBn || 'Student').replace(/[^\w\-]+/g, '_');
+  var fileName = 'Admission_' + safeName + '_' + refNo + '.pdf';
+  var content = document.getElementById('pdf-content');
+
+  var opt = {
+    margin: [10, 10, 10, 10],
+    filename: fileName,
+    image: { type: 'jpeg', quality: 0.98 },
+    html2canvas: { scale: 2, useCORS: true, allowTaint: true, logging: false, backgroundColor: '#ffffff' },
+    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+  };
+
+  // small delay so browser paints the node before capture
+  setTimeout(function(){
+    html2pdf().set(opt).from(content).save()
+      .then(function(){
+        if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
+      })
+      .catch(function(err){
+        console.error('PDF save failed:', err);
+        if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
+        alert('PDF তৈরি করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
+      });
+  }, 300);
+}
 </script>
 </body>
 </html>
