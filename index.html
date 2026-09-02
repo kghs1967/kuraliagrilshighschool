@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://i.postimg.cc/fybLxtqX/12121.png">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/fybLxtqX/12121.png">
+
 <title>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
 /* ===========================================================
@@ -545,6 +548,42 @@ img{max-width:100%;height:auto;}
   .nav-bar .drop .menu a:hover{background:var(--green-700);color:#fff !important;}
 }
 
+/* ========== FULL RESPONSIVE HARDENING (Mobile / Tablet / PC) ========== */
+@media (max-width:1024px){
+  .wrap{max-width:100%;padding:0 18px;}
+  .layout{gap:20px;}
+}
+@media (max-width:768px){
+  .wrap{padding:0 14px;}
+  .brand-row{flex-wrap:wrap;gap:10px;}
+  .brand-text h1{font-size:1.05rem !important;}
+  .hero-slider{height:240px !important;}
+  .hero-caption h2{font-size:1.25rem !important;}
+  .grid-boxes,.staff-grid,.shelf-grid{grid-template-columns:repeat(2,1fr) !important;gap:12px;}
+  .imp-strip{grid-template-columns:1fr !important;}
+  .layout{grid-template-columns:1fr !important;}
+  .card{padding:16px;}
+  .btn,.btn-sm{min-height:42px;}
+  table.data{font-size:.86rem;}
+  .table-wrap{overflow-x:auto;-webkit-overflow-scrolling:touch;}
+}
+@media (max-width:480px){
+  .wrap{padding:0 12px;}
+  .topbar{font-size:.72rem;}
+  .brand-row .badge{width:48px;height:48px;}
+  .brand-text h1{font-size:.95rem !important;}
+  .brand-text p{font-size:.68rem;}
+  .hero-slider{height:200px !important;}
+  .hero-caption h2{font-size:1.1rem !important;}
+  .hero-caption p{display:none;}
+  .grid-boxes,.staff-grid,.shelf-grid,.fact-grid{grid-template-columns:1fr !important;}
+  .stat-strip .wrap{flex-wrap:wrap;justify-content:center;gap:8px;font-size:.75rem;}
+  .page-banner h2{font-size:1.05rem;}
+  .site-footer .wrap{grid-template-columns:1fr !important;gap:16px;}
+  .btn{width:100%;justify-content:center;}
+  input,select,textarea,button{font-size:16px !important;} /* prevent iOS zoom */
+}
+
 /* Footer contact icons */
 .site-footer .wrap{grid-template-columns:1.3fr 1fr 1fr 1fr !important;gap:24px;}
 .site-footer .contact-block p{
@@ -807,9 +846,129 @@ img{max-width:100%;height:auto;}
   letter-spacing:-0.01em;
 }
 
+/* ========== HOME POPUP (editable notice) ========== */
+.home-popup-overlay{
+  position:fixed;inset:0;z-index:9999;
+  background:rgba(10,42,28,.65);
+  backdrop-filter:blur(4px);
+  display:none;align-items:center;justify-content:center;
+  padding:18px;
+}
+.home-popup-overlay.show{display:flex;animation:fadeIn .3s ease;}
+.home-popup{
+  position:relative;
+  background:#fff;
+  border-radius:18px;
+  max-width:480px;width:100%;
+  box-shadow:0 28px 70px rgba(0,0,0,.35);
+  overflow:hidden;
+  transform:scale(.9);opacity:0;
+  animation:popupIn .4s cubic-bezier(.22,1.2,.36,1) .05s forwards;
+}
+@keyframes popupIn{to{transform:scale(1);opacity:1;}}
+.home-popup-close{
+  position:absolute;top:12px;right:12px;z-index:5;
+  width:36px;height:36px;border-radius:50%;
+  border:2px solid rgba(255,255,255,.7);
+  background:rgba(255,255,255,.2);
+  color:#fff;font-size:1.2rem;font-weight:700;cursor:pointer;
+  display:flex;align-items:center;justify-content:center;
+  transition:background .15s,border-color .15s,transform .15s;
+  line-height:1;
+}
+.home-popup-close:hover{
+  background:#fff;color:var(--green-800);
+  border-color:#fff;transform:scale(1.08);
+}
+.home-popup-banner{
+  background:linear-gradient(135deg,var(--green-800),var(--green-700));
+  color:#fff;padding:18px 48px 14px 22px;text-align:center;
+  position:relative;
+}
+.home-popup-banner .badge-tag{
+  display:inline-block;background:var(--gold);color:var(--green-900);
+  font-size:.72rem;font-weight:800;padding:4px 12px;border-radius:20px;
+  margin-bottom:8px;letter-spacing:.03em;
+}
+.home-popup-banner h3{
+  margin:0;font-size:1.25rem;color:#fff;
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+}
+.home-popup-banner p{margin:6px 0 0;font-size:.88rem;opacity:.92;}
+.home-popup-body{padding:18px 22px 8px;text-align:left;}
+.home-popup-body .popup-list{
+  list-style:none;margin:0 0 12px;padding:0;
+}
+.home-popup-body .popup-list li{
+  padding:7px 0;border-bottom:1px dashed var(--border);
+  font-size:.9rem;color:var(--ink);
+  display:flex;gap:8px;align-items:flex-start;
+}
+.home-popup-body .popup-list li:last-child{border-bottom:none;}
+.home-popup-body .popup-list li b{color:var(--green-800);min-width:90px;}
+.home-popup-footer{padding:8px 22px 22px;text-align:center;}
+.home-popup-footer .popup-btn{
+  display:inline-flex;align-items:center;justify-content:center;
+  background:var(--green-700);color:#fff !important;
+  font-weight:700;font-size:.95rem;font-family:inherit;
+  padding:12px 28px;border-radius:12px;border:none;
+  text-decoration:none;cursor:pointer;
+  box-shadow:0 8px 20px rgba(31,107,69,.28);
+  transition:background .2s,transform .15s;
+}
+.home-popup-footer .popup-btn:hover{background:var(--green-800);transform:translateY(-1px);}
+.home-popup-footer .popup-skip{
+  display:inline-block;margin-top:12px;
+  font-size:.88rem;font-weight:600;color:var(--green-700);
+  background:var(--green-100);border:1.5px solid var(--border);
+  cursor:pointer;font-family:inherit;
+  padding:8px 18px;border-radius:10px;
+  transition:background .15s,color .15s;
+}
+.home-popup-footer .popup-skip:hover{
+  background:var(--gold-light);color:var(--green-900);
+}
+@media (max-width:480px){
+  .home-popup{max-width:100%;border-radius:14px;}
+  .home-popup-banner h3{font-size:1.1rem;}
+}
+
 </style>
 </head>
 <body>
+
+<!-- ============================================================
+     HOME POPUP — এখানে কনটেন্ট বদলান
+     ----------------------------------------------------------
+     SHOW_POPUP = true  → popup দেখাবে
+     SHOW_POPUP = false → popup বন্ধ
+     নিচের টেক্সট, লিংক, বাটন যা খুশি বদলাতে পারবেন
+     ============================================================ -->
+<div class="home-popup-overlay" id="homePopup">
+  <div class="home-popup" role="dialog" aria-modal="true" aria-labelledby="popupTitle">
+    <button type="button" class="home-popup-close" id="popupClose" aria-label="বন্ধ">✕</button>
+
+    <div class="home-popup-banner">
+      <span class="badge-tag">📢 গুরুত্বপূর্ণ নোটিশ</span>
+      <h3 id="popupTitle">২০২৬ শিক্ষাবর্ষে ভর্তি চলছে</h3>
+      <p>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</p>
+    </div>
+
+    <div class="home-popup-body">
+      <ul class="popup-list">
+        <li><b>শ্রেণি:</b> <span>ষষ্ঠ থেকে দশম</span></li>
+        <li><b>আবেদন:</b> <span>অনলাইনে আবেদন করুন</span></li>
+        <li><b>শেষ তারিখ:</b> <span>৩০ সেপ্টেম্বর ২০২৬</span></li>
+        <li><b>যোগাযোগ:</b> <span>০১৩০৯১২৮৩৯০</span></li>
+      </ul>
+    </div>
+
+    <div class="home-popup-footer">
+      <a class="popup-btn" href="admission.html">ভর্তি আবেদন করুন</a>
+      <button type="button" class="popup-skip" id="popupSkip">এখন নয়</button>
+    </div>
+  </div>
+</div>
 
 <div class="topbar">
   <div class="wrap">
@@ -1213,6 +1372,30 @@ document.addEventListener('DOMContentLoaded', function () {
     revealEls.forEach(function (el) { revealObserver.observe(el); });
   } else {
     revealEls.forEach(function (el) { el.classList.add('in-view'); });
+  }
+
+  // ===== HOME POPUP =====
+  // true = popup দেখাবে | false = বন্ধ থাকবে
+  var SHOW_POPUP = true;
+
+  var popup = document.getElementById('homePopup');
+  if (popup && SHOW_POPUP) {
+    // প্রতিবার page refresh / reload এ popup দেখাবে
+    setTimeout(function () {
+      popup.classList.add('show');
+    }, 600);
+
+    function closePopup() {
+      popup.classList.remove('show');
+    }
+    document.getElementById('popupClose').addEventListener('click', closePopup);
+    document.getElementById('popupSkip').addEventListener('click', closePopup);
+    popup.addEventListener('click', function (e) {
+      if (e.target === popup) closePopup();
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') closePopup();
+    });
   }
 });
 </script>
