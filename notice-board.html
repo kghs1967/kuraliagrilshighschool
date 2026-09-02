@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://i.postimg.cc/fybLxtqX/12121.png">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/fybLxtqX/12121.png">
+
 <title>নোটিশ বোর্ড | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
 /* ===========================================================
@@ -309,6 +312,32 @@ img{max-width:100%;height:auto;}
   .nav-bar .drop.open > span{background:var(--green-700);}
   .nav-bar .drop .menu a{color:#eaf5ee !important;padding:12px 18px 12px 28px;}
   .nav-bar .drop .menu a:hover{background:var(--green-700);color:#fff !important;}
+}
+
+/* ========== FULL RESPONSIVE HARDENING (Mobile / Tablet / PC) ========== */
+@media (max-width:1024px){
+  .wrap{max-width:100%;padding:0 18px;}
+  .layout{gap:20px;}
+}
+@media (max-width:768px){
+  .wrap{padding:0 14px;}
+  .brand-row{flex-wrap:wrap;gap:10px;}
+  .brand-text h1{font-size:1.05rem !important;}
+  .layout{grid-template-columns:1fr !important;}
+  .card{padding:16px;}
+  .btn,.btn-sm{min-height:42px;}
+  .corkboard-inner{padding:14px;}
+}
+@media (max-width:480px){
+  .wrap{padding:0 12px;}
+  .topbar{font-size:.72rem;}
+  .brand-row .badge{width:48px;height:48px;}
+  .brand-text h1{font-size:.95rem !important;}
+  .brand-text p{font-size:.68rem;}
+  .page-banner h2{font-size:1.05rem;}
+  .site-footer .wrap{grid-template-columns:1fr !important;gap:16px;}
+  .btn{width:100%;justify-content:center;}
+  input,select,textarea,button{font-size:16px !important;}
 }
 
 /* Footer contact icons */
