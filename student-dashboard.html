@@ -3,6 +3,9 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" type="image/png" href="https://i.postimg.cc/fybLxtqX/12121.png">
+<link rel="apple-touch-icon" href="https://i.postimg.cc/fybLxtqX/12121.png">
+
 <title>Student Dashboard | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -336,7 +339,7 @@ html.dark .info-item:hover{background:#1e3d2e;border-color:var(--gold);}
     max-height:0;overflow:hidden;
     transition:max-height .3s ease;
   }
-  .sidebar.open{max-height:420px;}
+  .sidebar.open{max-height:480px;}
   .side-profile{padding:18px 16px 14px;}
   .side-avatar{width:70px;height:70px;font-size:1.4rem;}
   .side-nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px;}
@@ -347,9 +350,14 @@ html.dark .info-item:hover{background:#1e3d2e;border-color:var(--gold);}
   .main-body{padding:16px 14px 24px;}
   .info-grid{grid-template-columns:1fr;}
   .main-top{padding:12px 14px;}
+  html,body{overflow-x:clip;max-width:100%;}
+  img{max-width:100%;height:auto;}
 }
-@media (max-width:420px){
+@media (max-width:480px){
   .stats{grid-template-columns:1fr;}
+  .main-body{padding:14px 12px 20px;}
+  .side-nav a, .side-nav button{min-width:100%;font-size:.88rem;}
+  input,select,textarea,button{font-size:16px !important;}
 }
 
 /* ===== PRINT / PDF OPTIMIZED ===== */
