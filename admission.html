@@ -336,6 +336,30 @@ body{
           <input type="text" name="gender" value="মহিলা / Female" readonly>
         </div>
 
+        <div class="form-group">
+          <label>ধর্ম (Religion)<span class="req">*</span></label>
+          <select name="religion" required>
+            <option value="">-- ধর্ম বাছুন --</option>
+            <option value="Islam">ইসলাম (Islam)</option>
+            <option value="Hinduism">হিন্দু (Hinduism)</option>
+            <option value="Buddhism">বৌদ্ধ (Buddhism)</option>
+            <option value="Christianity">খ্রিস্টান (Christianity)</option>
+            <option value="Other">অন্যান্য (Other)</option>
+          </select>
+          <span class="error-msg">ধর্ম নির্বাচন করুন</span>
+        </div>
+
+        <div class="form-group">
+          <label>শিক্ষাবর্ষ (Student Session)<span class="req">*</span></label>
+          <select name="session" required>
+            <option value="">-- শিক্ষাবর্ষ বাছুন --</option>
+            <option value="2025">২০২৫</option>
+            <option value="2026" selected>২০২৬</option>
+            <option value="2027">২০২৭</option>
+          </select>
+          <span class="error-msg">শিক্ষাবর্ষ নির্বাচন করুন</span>
+        </div>
+
         <div class="form-group full" id="photoGroup">
           <label>ছবি (পাসপোর্ট সাইজ)<span class="req">*</span></label>
           <div class="photo-box">
@@ -604,6 +628,9 @@ function validate(){
   form.mobile.value = mob;
   if(!/^01\d{9}$/.test(mob)) fail('mobile');
 
+  if(!form.religion.value) fail('religion');
+  if(!form.session.value) fail('session');
+
   if(!form.presentAddress.value.trim()) fail('presentAddress');
   if(!form.permanentAddress.value.trim()) fail('permanentAddress');
 
@@ -645,6 +672,8 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     className: form.className.value,
     mobile: form.mobile.value.trim(),
     gender: 'Female',
+    religion: form.religion.value,
+    session: form.session.value,
     presentAddress: form.presentAddress.value.trim(),
     permanentAddress: form.permanentAddress.value.trim(),
     photo: photoBase64 || ''
@@ -698,54 +727,61 @@ function generateAdmissionPDF(data){
 
   // >>> পরে নতুন ফিল্ড এখানে যোগ করুন <<<
   var fields = [
-    { label: 'নাম (বাংলা)',        value: data.nameBn || '—' },
+    { label: 'Name (Bangla)',      value: data.nameBn || '—' },
     { label: 'Name (English)',     value: data.nameEn || '—' },
-    { label: 'পিতার নাম',          value: data.father || '—' },
-    { label: 'মাতার নাম',          value: data.mother || '—' },
-    { label: 'জন্ম তারিখ',         value: data.dob || '—' },
-    { label: 'জন্ম নিবন্ধন নম্বর',  value: data.birthReg || '—' },
-    { label: 'শ্রেণি',             value: data.className || '—' },
-    { label: 'মোবাইল নম্বর',       value: data.mobile || '—' },
-    { label: 'লিঙ্গ',              value: data.gender || 'Female' },
-    { label: 'বর্তমান ঠিকানা',     value: data.presentAddress || '—' },
-    { label: 'স্থায়ী ঠিকানা',     value: data.permanentAddress || '—' }
+    { label: 'Father Name',        value: data.father || '—' },
+    { label: 'Mother Name',        value: data.mother || '—' },
+    { label: 'Date of Birth',      value: data.dob || '—' },
+    { label: 'Birth Registration', value: data.birthReg || '—' },
+    { label: 'Class',              value: data.className || '—' },
+    { label: 'Mobile',             value: data.mobile || '—' },
+    { label: 'Gender',             value: data.gender || 'Female' },
+    { label: 'Religion',           value: data.religion || '—' },
+    { label: 'Student Session',    value: data.session || '—' },
+    { label: 'Present Address',    value: data.presentAddress || '—' },
+    { label: 'Permanent Address',  value: data.permanentAddress || '—' }
   ];
 
-  var rowsHtml = fields.map(function(f){
-    return '<tr>' +
-      '<td style="padding:8px 10px;border:1px solid #dbe4dd;font-weight:600;width:38%;background:#e3f0e7;color:#0f3324;">' + f.label + '</td>' +
-      '<td style="padding:8px 10px;border:1px solid #dbe4dd;color:#1b241d;">' + f.value + '</td>' +
+  var rowsHtml = '';
+  for(var i=0;i<fields.length;i++){
+    rowsHtml += '<tr>' +
+      '<td style="padding:9px 12px;border:1px solid #cccccc;font-weight:bold;width:40%;background:#e8f5e9;color:#000000;">' + fields[i].label + '</td>' +
+      '<td style="padding:9px 12px;border:1px solid #cccccc;color:#000000;background:#ffffff;">' + fields[i].value + '</td>' +
       '</tr>';
-  }).join('');
+  }
 
   var photoHtml = (data.photo && data.photo.indexOf('base64') !== -1)
-    ? '<img src="' + data.photo + '" style="width:90px;height:110px;object-fit:cover;border:2px solid #c99a2e;border-radius:6px;">'
-    : '<div style="width:90px;height:110px;background:#e3f0e7;border:1px dashed #dbe4dd;border-radius:6px;text-align:center;line-height:110px;font-size:12px;color:#5b6b60;">No Photo</div>';
+    ? '<img src="' + data.photo + '" width="90" height="110" style="width:90px;height:110px;object-fit:cover;border:2px solid #c99a2e;">'
+    : '<div style="width:90px;height:110px;background:#eeeeee;border:1px solid #cccccc;text-align:center;line-height:110px;font-size:12px;color:#666;">No Photo</div>';
+
+  // Remove old temp if any
+  var old = document.getElementById('pdf-temp-wrap');
+  if(old && old.parentNode) old.parentNode.removeChild(old);
 
   var wrap = document.createElement('div');
   wrap.id = 'pdf-temp-wrap';
-  // visible but transparent — html2canvas works more reliably
-  wrap.style.cssText = 'position:fixed;left:0;top:0;width:700px;background:#fff;z-index:99999;opacity:0;pointer-events:none;';
+  // MUST be visible (not opacity:0) — otherwise PDF becomes black
+  wrap.style.cssText = 'position:fixed;left:0;top:0;width:794px;background:#ffffff;color:#000000;z-index:99999;';
   wrap.innerHTML =
-    '<div id="pdf-content" style="width:700px;padding:28px 32px;font-family:Arial,Helvetica,sans-serif;color:#1b241d;background:#fff;box-sizing:border-box;">' +
-      '<div style="display:flex;align-items:center;gap:14px;border-bottom:3px solid #1f6b45;padding-bottom:14px;margin-bottom:14px;">' +
-        '<div style="width:60px;height:60px;border-radius:50%;border:3px solid #c99a2e;background:#1f6b45;color:#fff;font-weight:800;font-size:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0;">KG</div>' +
-        '<div style="flex:1;">' +
-          '<div style="font-size:18px;font-weight:700;color:#0f3324;">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</div>' +
-          '<div style="font-size:12px;color:#5b6b60;">Kuralia Girls High School · EIIN: 128390</div>' +
-          '<div style="font-size:12px;color:#1f6b45;font-weight:600;">Online Admission Receipt</div>' +
+    '<div id="pdf-content" style="width:794px;min-height:400px;padding:32px 36px;font-family:Arial,Helvetica,sans-serif;color:#000000;background:#ffffff;box-sizing:border-box;">' +
+      '<div style="overflow:hidden;border-bottom:3px solid #1f6b45;padding-bottom:14px;margin-bottom:14px;">' +
+        '<div style="float:left;width:60px;height:60px;border-radius:50%;border:3px solid #c99a2e;background:#1f6b45;color:#ffffff;font-weight:bold;font-size:18px;text-align:center;line-height:54px;">KG</div>' +
+        '<div style="float:left;margin-left:14px;padding-top:4px;">' +
+          '<div style="font-size:18px;font-weight:bold;color:#0f3324;">Kuralia Girls High School</div>' +
+          '<div style="font-size:12px;color:#333333;">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · EIIN: 128390</div>' +
+          '<div style="font-size:12px;color:#1f6b45;font-weight:bold;">Online Admission Receipt</div>' +
         '</div>' +
-        '<div>' + photoHtml + '</div>' +
+        '<div style="float:right;">' + photoHtml + '</div>' +
       '</div>' +
-      '<div style="display:flex;justify-content:space-between;font-size:12px;color:#5b6b60;margin-bottom:10px;">' +
-        '<span><b>Ref:</b> ' + refNo + '</span>' +
-        '<span><b>Date:</b> ' + dateStr + '</span>' +
+      '<div style="overflow:hidden;font-size:12px;color:#333333;margin-bottom:12px;">' +
+        '<span style="float:left;"><b>Ref:</b> ' + refNo + '</span>' +
+        '<span style="float:right;"><b>Date:</b> ' + dateStr + '</span>' +
       '</div>' +
-      '<table style="width:100%;border-collapse:collapse;font-size:13px;">' + rowsHtml + '</table>' +
-      '<div style="margin-top:16px;padding:10px 12px;background:#e3f0e7;border-left:4px solid #1f6b45;font-size:12px;color:#0f3324;">' +
-        'This receipt was generated automatically. School will contact you after verification. Phone: 01309128390' +
+      '<table style="width:100%;border-collapse:collapse;font-size:13px;color:#000000;background:#ffffff;">' + rowsHtml + '</table>' +
+      '<div style="margin-top:16px;padding:10px 12px;background:#e8f5e9;border-left:4px solid #1f6b45;font-size:12px;color:#000000;">' +
+        'This receipt was generated automatically. School will contact after verification. Phone: 01309128390' +
       '</div>' +
-      '<div style="margin-top:12px;text-align:center;font-size:11px;color:#5b6b60;">© Kuralia Girls High School · Online Admission</div>' +
+      '<div style="margin-top:12px;text-align:center;font-size:11px;color:#555555;">© Kuralia Girls High School · Online Admission</div>' +
     '</div>';
 
   document.body.appendChild(wrap);
@@ -755,25 +791,35 @@ function generateAdmissionPDF(data){
   var content = document.getElementById('pdf-content');
 
   var opt = {
-    margin: [10, 10, 10, 10],
-    filename: fileName,
-    image: { type: 'jpeg', quality: 0.98 },
-    html2canvas: { scale: 2, useCORS: true, allowTaint: true, logging: false, backgroundColor: '#ffffff' },
-    jsPDF: { unit: 'mm', format: 'a4', orientation: 'portrait' }
+    margin:       [8, 8, 8, 8],
+    filename:     fileName,
+    image:        { type: 'jpeg', quality: 0.98 },
+    html2canvas:  {
+      scale: 2,
+      useCORS: true,
+      allowTaint: true,
+      backgroundColor: '#ffffff',
+      logging: false,
+      scrollX: 0,
+      scrollY: 0,
+      windowWidth: 794
+    },
+    jsPDF:        { unit: 'pt', format: 'a4', orientation: 'portrait' }
   };
 
-  // small delay so browser paints the node before capture
   setTimeout(function(){
     html2pdf().set(opt).from(content).save()
       .then(function(){
-        if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
+        var el = document.getElementById('pdf-temp-wrap');
+        if(el && el.parentNode) el.parentNode.removeChild(el);
       })
       .catch(function(err){
         console.error('PDF save failed:', err);
-        if(wrap.parentNode) wrap.parentNode.removeChild(wrap);
+        var el = document.getElementById('pdf-temp-wrap');
+        if(el && el.parentNode) el.parentNode.removeChild(el);
         alert('PDF তৈরি করতে সমস্যা হয়েছে। আবার চেষ্টা করুন।');
       });
-  }, 300);
+  }, 400);
 }
 </script>
 </body>
