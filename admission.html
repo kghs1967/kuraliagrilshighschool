@@ -708,103 +708,126 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
 });
 
 /* =========================================================
-   PDF GENERATOR
-   পরে নতুন ফিল্ড যোগ: fields অ্যারেতে {label, value} যোগ করুন
+   PDF GENERATOR — clean print-style layout (like teacher/routine)
+   পরে নতুন ফিল্ড: fields অ্যারেতে {label, value} যোগ করুন
    ========================================================= */
 function generateAdmissionPDF(data){
   if(typeof html2pdf === 'undefined'){
-    console.error('html2pdf library not loaded');
-    alert('PDF লাইব্রেরি লোড হয়নি। ইন্টারনেট সংযোগ পরীক্ষা করে পেজ রিফ্রেশ করুন।');
+    alert('PDF লাইব্রেরি লোড হয়নি। পেজ রিফ্রেশ করুন।');
     return;
   }
 
   var now = new Date();
-  var refNo = 'ADM-' + now.getFullYear() + '-' +
+  var refNo = 'ADM-' + now.getFullYear() +
     String(now.getMonth()+1).padStart(2,'0') +
     String(now.getDate()).padStart(2,'0') + '-' +
-    String(now.getTime()).slice(-6);
+    String(now.getTime()).slice(-5);
   var dateStr = now.toLocaleString('en-GB', { day:'2-digit', month:'short', year:'numeric', hour:'2-digit', minute:'2-digit' });
 
   // >>> পরে নতুন ফিল্ড এখানে যোগ করুন <<<
   var fields = [
-    { label: 'Name (Bangla)',      value: data.nameBn || '—' },
-    { label: 'Name (English)',     value: data.nameEn || '—' },
-    { label: 'Father Name',        value: data.father || '—' },
-    { label: 'Mother Name',        value: data.mother || '—' },
-    { label: 'Date of Birth',      value: data.dob || '—' },
-    { label: 'Birth Registration', value: data.birthReg || '—' },
-    { label: 'Class',              value: data.className || '—' },
-    { label: 'Mobile',             value: data.mobile || '—' },
-    { label: 'Gender',             value: data.gender || 'Female' },
-    { label: 'Religion',           value: data.religion || '—' },
-    { label: 'Student Session',    value: data.session || '—' },
-    { label: 'Present Address',    value: data.presentAddress || '—' },
-    { label: 'Permanent Address',  value: data.permanentAddress || '—' }
+    { label: 'নাম (বাংলা) / Name (Bangla)', value: data.nameBn || '—' },
+    { label: 'Name (English)',              value: data.nameEn || '—' },
+    { label: 'পিতার নাম / Father',          value: data.father || '—' },
+    { label: 'মাতার নাম / Mother',          value: data.mother || '—' },
+    { label: 'জন্ম তারিখ / Date of Birth',  value: data.dob || '—' },
+    { label: 'জন্ম নিবন্ধন / Birth Reg.',   value: data.birthReg || '—' },
+    { label: 'শ্রেণি / Class',              value: data.className || '—' },
+    { label: 'মোবাইল / Mobile',             value: data.mobile || '—' },
+    { label: 'লিঙ্গ / Gender',              value: data.gender || 'Female' },
+    { label: 'ধর্ম / Religion',             value: data.religion || '—' },
+    { label: 'শিক্ষাবর্ষ / Session',        value: data.session || '—' },
+    { label: 'বর্তমান ঠিকানা / Present',    value: data.presentAddress || '—' },
+    { label: 'স্থায়ী ঠিকানা / Permanent',  value: data.permanentAddress || '—' }
   ];
 
-  var rowsHtml = '';
+  var rows = '';
   for(var i=0;i<fields.length;i++){
-    rowsHtml += '<tr>' +
-      '<td style="padding:9px 12px;border:1px solid #cccccc;font-weight:bold;width:40%;background:#e8f5e9;color:#000000;">' + fields[i].label + '</td>' +
-      '<td style="padding:9px 12px;border:1px solid #cccccc;color:#000000;background:#ffffff;">' + fields[i].value + '</td>' +
+    var bg = (i % 2 === 0) ? '#f3faf5' : '#ffffff';
+    rows += '<tr>' +
+      '<td style="width:42%;padding:10px 12px;border:1px solid #c5d9cc;font-weight:700;font-size:12px;color:#0f3324;background:#e3f0e7;vertical-align:top;">' + fields[i].label + '</td>' +
+      '<td style="padding:10px 12px;border:1px solid #c5d9cc;font-size:13px;color:#1b241d;background:' + bg + ';vertical-align:top;">' + fields[i].value + '</td>' +
       '</tr>';
   }
 
-  var photoHtml = (data.photo && data.photo.indexOf('base64') !== -1)
-    ? '<img src="' + data.photo + '" width="90" height="110" style="width:90px;height:110px;object-fit:cover;border:2px solid #c99a2e;">'
-    : '<div style="width:90px;height:110px;background:#eeeeee;border:1px solid #cccccc;text-align:center;line-height:110px;font-size:12px;color:#666;">No Photo</div>';
+  var hasPhoto = data.photo && data.photo.indexOf('base64') !== -1;
+  var photoCell = hasPhoto
+    ? '<img src="' + data.photo + '" style="width:100px;height:120px;object-fit:cover;border:2px solid #c99a2e;display:block;">'
+    : '<div style="width:100px;height:120px;background:#eef5f0;border:1px solid #c5d9cc;text-align:center;line-height:120px;font-size:11px;color:#5b6b60;">Photo</div>';
 
-  // Remove old temp if any
   var old = document.getElementById('pdf-temp-wrap');
   if(old && old.parentNode) old.parentNode.removeChild(old);
 
   var wrap = document.createElement('div');
   wrap.id = 'pdf-temp-wrap';
-  // MUST be visible (not opacity:0) — otherwise PDF becomes black
-  wrap.style.cssText = 'position:fixed;left:0;top:0;width:794px;background:#ffffff;color:#000000;z-index:99999;';
+  wrap.style.cssText = 'position:fixed;left:0;top:0;width:700px;background:#ffffff;z-index:99999;';
+
+  // Table-based layout only (no float) — reliable for html2canvas
   wrap.innerHTML =
-    '<div id="pdf-content" style="width:794px;min-height:400px;padding:32px 36px;font-family:Arial,Helvetica,sans-serif;color:#000000;background:#ffffff;box-sizing:border-box;">' +
-      '<div style="overflow:hidden;border-bottom:3px solid #1f6b45;padding-bottom:14px;margin-bottom:14px;">' +
-        '<div style="float:left;width:60px;height:60px;border-radius:50%;border:3px solid #c99a2e;background:#1f6b45;color:#ffffff;font-weight:bold;font-size:18px;text-align:center;line-height:54px;">KG</div>' +
-        '<div style="float:left;margin-left:14px;padding-top:4px;">' +
-          '<div style="font-size:18px;font-weight:bold;color:#0f3324;">Kuralia Girls High School</div>' +
-          '<div style="font-size:12px;color:#333333;">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · EIIN: 128390</div>' +
-          '<div style="font-size:12px;color:#1f6b45;font-weight:bold;">Online Admission Receipt</div>' +
-        '</div>' +
-        '<div style="float:right;">' + photoHtml + '</div>' +
+    '<div id="pdf-content" style="width:700px;padding:28px 30px;font-family:\'Noto Serif Bengali\',Arial,sans-serif;background:#ffffff;color:#1b241d;box-sizing:border-box;">' +
+
+      // Header table
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:6px;">' +
+        '<tr>' +
+          '<td style="width:70px;vertical-align:middle;">' +
+            '<div style="width:62px;height:62px;border-radius:50%;border:3px solid #c99a2e;background:#1f6b45;color:#fff;font-weight:800;font-size:16px;text-align:center;line-height:56px;">KGHS</div>' +
+          '</td>' +
+          '<td style="vertical-align:middle;padding-left:12px;">' +
+            '<div style="font-size:18px;font-weight:800;color:#0f3324;line-height:1.25;">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</div>' +
+            '<div style="font-size:12px;color:#5b6b60;margin-top:2px;">Kuralia Girls High School · EIIN: 128390 · Rajshahi Board</div>' +
+            '<div style="font-size:12px;font-weight:700;color:#1f6b45;margin-top:2px;">অনলাইন ভর্তি আবেদন রসিদ / Admission Receipt</div>' +
+          '</td>' +
+          '<td style="width:110px;vertical-align:middle;text-align:right;">' + photoCell + '</td>' +
+        '</tr>' +
+      '</table>' +
+
+      // Green line
+      '<div style="height:3px;background:#1f6b45;margin:10px 0 12px;"></div>' +
+
+      // Ref + Date
+      '<table style="width:100%;border-collapse:collapse;margin-bottom:12px;font-size:12px;color:#5b6b60;">' +
+        '<tr>' +
+          '<td><b style="color:#0f3324;">Ref:</b> ' + refNo + '</td>' +
+          '<td style="text-align:right;"><b style="color:#0f3324;">Date:</b> ' + dateStr + '</td>' +
+        '</tr>' +
+      '</table>' +
+
+      // Data table
+      '<table style="width:100%;border-collapse:collapse;">' + rows + '</table>' +
+
+      // Note
+      '<div style="margin-top:16px;padding:10px 14px;background:#e3f0e7;border-left:4px solid #1f6b45;font-size:12px;color:#0f3324;line-height:1.5;">' +
+        'এই রসিদ স্বয়ংক্রিয়ভাবে তৈরি। স্কুল কর্তৃপক্ষ যাচাই করে যোগাযোগ করবে।<br>' +
+        'This receipt is auto-generated. School will contact after verification. Phone: 01309128390' +
       '</div>' +
-      '<div style="overflow:hidden;font-size:12px;color:#333333;margin-bottom:12px;">' +
-        '<span style="float:left;"><b>Ref:</b> ' + refNo + '</span>' +
-        '<span style="float:right;"><b>Date:</b> ' + dateStr + '</span>' +
+
+      // Footer
+      '<div style="margin-top:14px;text-align:center;font-size:11px;color:#5b6b60;border-top:1px solid #dbe4dd;padding-top:10px;">' +
+        '© কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · Kuralia Girls High School · Online Admission' +
       '</div>' +
-      '<table style="width:100%;border-collapse:collapse;font-size:13px;color:#000000;background:#ffffff;">' + rowsHtml + '</table>' +
-      '<div style="margin-top:16px;padding:10px 12px;background:#e8f5e9;border-left:4px solid #1f6b45;font-size:12px;color:#000000;">' +
-        'This receipt was generated automatically. School will contact after verification. Phone: 01309128390' +
-      '</div>' +
-      '<div style="margin-top:12px;text-align:center;font-size:11px;color:#555555;">© Kuralia Girls High School · Online Admission</div>' +
+
     '</div>';
 
   document.body.appendChild(wrap);
 
-  var safeName = (data.nameEn || data.nameBn || 'Student').replace(/[^\w\-]+/g, '_');
+  var safeName = (data.nameEn || data.nameBn || 'Student').toString().replace(/[^\w\-]+/g, '_').slice(0, 40);
   var fileName = 'Admission_' + safeName + '_' + refNo + '.pdf';
   var content = document.getElementById('pdf-content');
 
   var opt = {
-    margin:       [8, 8, 8, 8],
-    filename:     fileName,
-    image:        { type: 'jpeg', quality: 0.98 },
-    html2canvas:  {
+    margin:      [12, 12, 12, 12],
+    filename:    fileName,
+    image:       { type: 'jpeg', quality: 0.98 },
+    html2canvas: {
       scale: 2,
       useCORS: true,
       allowTaint: true,
       backgroundColor: '#ffffff',
       logging: false,
       scrollX: 0,
-      scrollY: 0,
-      windowWidth: 794
+      scrollY: 0
     },
-    jsPDF:        { unit: 'pt', format: 'a4', orientation: 'portrait' }
+    jsPDF:       { unit: 'pt', format: 'a4', orientation: 'portrait' }
   };
 
   setTimeout(function(){
