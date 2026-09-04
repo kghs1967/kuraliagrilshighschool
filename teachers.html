@@ -79,14 +79,37 @@ img{max-width:100%;display:block;}
   padding:10px 0;
 }
 .brand-row .badge{
-  width:72px;height:72px;border-radius:50%;
+  width:80px;height:80px;border-radius:50%;
   background:#fff;
-  border:3px solid var(--gold);
+  border:3px double var(--gold);
   object-fit:cover;
   flex-shrink:0;
 }
-.brand-text h1{font-family:'Noto Serif Bengali','Hind Siliguri',serif;font-weight:700;font-size:1.45rem;margin:0;}
+.brand-text h1{font-size:1.45rem;margin:0;}
 .brand-text p{margin:2px 0 0;color:var(--muted);font-size:.92rem;}
+
+.brand-row .header-actions{margin-left:auto;display:flex;align-items:center;gap:10px;}
+.brand-row .btn-admit{
+  display:inline-flex;align-items:center;gap:6px;
+  background:var(--gold);color:var(--green-900);
+  font-weight:700;font-size:.9rem;padding:10px 18px;
+  border-radius:10px;text-decoration:none;
+  box-shadow:0 3px 10px rgba(201,154,46,.3);
+  transition:background .2s,transform .2s,box-shadow .2s;
+  white-space:nowrap;font-family:inherit;
+}
+.brand-row .btn-admit:hover{
+  background:#b6871f;color:var(--green-900);
+  transform:translateY(-2px);
+  box-shadow:0 8px 18px rgba(201,154,46,.35);
+}
+
+/* ---------- Elegant school-name typeface ---------- */
+.site-name{
+  font-family:'Noto Serif Bengali','Hind Siliguri',serif;
+  font-weight:700;
+  letter-spacing:.015em;
+}
 
 /* ---------- Nav ---------- */
 .nav-bar{
@@ -94,8 +117,8 @@ img{max-width:100%;display:block;}
   position:-webkit-sticky;position:sticky;top:0;z-index:1000;
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
-.nav-bar .wrap{display:flex;flex-wrap:wrap;}
-.nav-bar ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;}
+.nav-bar .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;}
+.nav-bar ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;}
 .nav-bar > .wrap > ul > li{position:relative;}
 .nav-bar a, .nav-bar .drop > span{
   display:block;padding:14px 18px;color:#eaf5ee;
@@ -360,7 +383,7 @@ table.data tr:hover td{background:var(--gold-light);}
   .login-tabs button{font-size:.72rem;padding:9px 2px;}
 }
 /* prevent horizontal overflow */
-html{max-width:100%;}body{max-width:100%;overflow-x:clip;}
+html{max-width:100%;}body{max-width:100%;}
 img{max-width:100%;height:auto;}
 
 /* Mobile nav toggle reliability */
@@ -642,12 +665,15 @@ img{max-width:100%;height:auto;}
 
 <header class="site-header">
   <div class="wrap brand-row">
-   <a href="index.html">
-  <img class="badge" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="Kuralia Girls High School Logo">
-</a>
+    <a href="index.html">
+      <img class="badge" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="Kuralia Girls High School Logo">
+    </a>
     <div class="brand-text">
-      <h1>কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</h1>
+      <h1 class="site-name">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</h1>
       <p>Kuralia Girls High School · প্রতিষ্ঠা: ১৯৬৭ · EIIN: 128390 · রাজশাহী শিক্ষা বোর্ড</p>
+    </div>
+    <div class="header-actions">
+      <a class="btn-admit" href="admission.html">📝 ভর্তি আবেদন</a>
     </div>
   </div>
 </header>
@@ -689,6 +715,7 @@ img{max-width:100%;height:auto;}
           <a href="books/class-9-10.html">নবম-দশম শ্রেণির বই</a>
         </div>
       </li>
+      <li><a class="" href="sports.html">ক্রীড়া</a></li>
       <li><a class="" href="login.html">Student Login</a></li>
     </ul>
   </div>
