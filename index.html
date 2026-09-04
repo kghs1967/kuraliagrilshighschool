@@ -33,7 +33,7 @@
 }
 
 *{box-sizing:border-box;}
-html{max-width:100%;}body{max-width:100%;overflow-x:clip;}
+html{max-width:100%;}body{max-width:100%;}
 html{scroll-behavior:smooth;}
 
 /* Clean solid background */
@@ -55,7 +55,7 @@ h1,h2,h3,h4{
 a{color:var(--green-700);text-decoration:none;}
 a:hover{color:var(--gold);}
 img{max-width:100%;display:block;}
-.wrap{max-width:1450px;margin:0 auto;padding:0 20px;}
+.wrap{max-width:1180px;margin:0 auto;padding:0 20px;}
 
 /* ---------- Top utility strip ---------- */
 .topbar{
@@ -84,9 +84,9 @@ img{max-width:100%;display:block;}
   padding:10px 0;
 }
 .brand-row .badge{
-  width:72px;height:72px;border-radius:50%;
+  width:80px;height:80px;border-radius:50%;
   background:#fff;
-  border:3px solid var(--gold);
+  border:3px double var(--gold);
   object-fit:cover;
   flex-shrink:0;
 }
@@ -121,8 +121,8 @@ img{max-width:100%;display:block;}
   position:-webkit-sticky;position:sticky;top:0;z-index:1000;
   box-shadow:0 2px 10px rgba(0,0,0,.08);
 }
-.nav-bar .wrap{display:flex;flex-wrap:wrap;}
-.nav-bar ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;}
+.nav-bar .wrap{display:flex;flex-wrap:wrap;justify-content:center;align-items:center;}
+.nav-bar ul{list-style:none;margin:0;padding:0;display:flex;flex-wrap:wrap;justify-content:center;}
 .nav-bar > .wrap > ul > li{position:relative;}
 .nav-bar a, .nav-bar .drop > span{
   display:block;padding:14px 18px;color:#eaf5ee;
@@ -301,7 +301,7 @@ img{max-width:100%;display:block;}
 /* ---------- Layout grid ---------- */
 .layout{
   display:grid;grid-template-columns:2.1fr 1fr;gap:26px;
-  max-width:1450px;margin:28px auto;padding:0 20px;
+  max-width:1180px;margin:28px auto;padding:0 20px;
   align-items:start;
 }
 @media (max-width:900px){.layout{grid-template-columns:1fr;}}
@@ -433,7 +433,7 @@ table.data tr:hover td{background:var(--gold-light);}
   border-top:1px solid rgba(255,255,255,.12);text-align:center;
   padding:14px 20px;font-size:.82rem;color:#a9c6b3;
 }
-.footer-banner{max-width:1450px;margin:26px auto 0;padding:0 20px;text-align:center;}
+.footer-banner{max-width:1180px;margin:26px auto 0;padding:0 20px;text-align:center;}
 .footer-banner img{border-radius:var(--radius);box-shadow:var(--shadow);margin:0 auto;width:100%;}
 
 /* ---------- Mobile hardening ---------- */
@@ -520,7 +520,7 @@ table.data tr:hover td{background:var(--gold-light);}
   .login-tabs button{font-size:.72rem;padding:9px 2px;}
 }
 /* prevent horizontal overflow */
-html{max-width:100%;}body{max-width:100%;overflow-x:clip;}
+html{max-width:100%;}body{max-width:100%;}
 img{max-width:100%;height:auto;}
 
 /* Mobile nav toggle reliability */
