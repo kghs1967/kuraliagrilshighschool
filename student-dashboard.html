@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://i.postimg.cc/fybLxtqX/12121.png">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/fybLxtqX/12121.png">
-
 <title>Student Dashboard | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Noto+Serif+Bengali:wght@400;500;600;700&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -339,7 +336,7 @@ html.dark .info-item:hover{background:#1e3d2e;border-color:var(--gold);}
     max-height:0;overflow:hidden;
     transition:max-height .3s ease;
   }
-  .sidebar.open{max-height:480px;}
+  .sidebar.open{max-height:420px;}
   .side-profile{padding:18px 16px 14px;}
   .side-avatar{width:70px;height:70px;font-size:1.4rem;}
   .side-nav{display:flex;flex-wrap:wrap;gap:4px;padding:10px;}
@@ -350,14 +347,9 @@ html.dark .info-item:hover{background:#1e3d2e;border-color:var(--gold);}
   .main-body{padding:16px 14px 24px;}
   .info-grid{grid-template-columns:1fr;}
   .main-top{padding:12px 14px;}
-  html,body{overflow-x:clip;max-width:100%;}
-  img{max-width:100%;height:auto;}
 }
-@media (max-width:480px){
+@media (max-width:420px){
   .stats{grid-template-columns:1fr;}
-  .main-body{padding:14px 12px 20px;}
-  .side-nav a, .side-nav button{min-width:100%;font-size:.88rem;}
-  input,select,textarea,button{font-size:16px !important;}
 }
 
 /* ===== PRINT / PDF OPTIMIZED ===== */
@@ -719,6 +711,8 @@ html.dark .info-item:hover{background:#1e3d2e;border-color:var(--gold);}
           <div class="info-item"><b>রোল নম্বর</b><span id="s-roll2">—</span></div>
           <div class="info-item"><b>শ্রেণি</b><span id="s-class2">—</span></div>
           <div class="info-item"><b>শাখা (Section)</b><span id="s-section2">—</span></div>
+          <div class="info-item"><b>মোবাইল</b><span id="s-mobile">—</span></div>
+          <div class="info-item"><b>জন্ম নিবন্ধন</b><span id="s-birthReg">—</span></div>
           <div class="info-item full"><b>শিক্ষাবর্ষ</b><span id="s-year">—</span></div>
         </div>
         <div class="action-row">
@@ -766,19 +760,59 @@ document.addEventListener('DOMContentLoaded', function(){
     return (parts[0][0] + parts[parts.length-1][0]).toUpperCase();
   }
 
+  // Google Drive / image URL helpers
+  function extractDriveId(url){
+    if(!url) return '';
+    url = String(url).trim();
+    var m = url.match(/\/file\/d\/([^/]+)/) ||
+            url.match(/[?&]id=([^&]+)/) ||
+            url.match(/\/d\/([^/]+)/);
+    return m ? m[1] : '';
+  }
+  function photoCandidates(url){
+    if(!url) return [];
+    url = String(url).trim();
+    if(!url || url.indexOf('Photo error') === 0) return [];
+    var id = extractDriveId(url);
+    var list = [];
+    if(id){
+      list.push('https://drive.google.com/thumbnail?id=' + id + '&sz=w400');
+      list.push('https://lh3.googleusercontent.com/d/' + id + '=w400');
+      list.push('https://drive.google.com/uc?export=view&id=' + id);
+    }
+    if(url.indexOf('http') === 0) list.push(url);
+    return list;
+  }
+  function setPhotoEl(el, urls, fallbackFn){
+    if(!el || !urls.length){ fallbackFn(); return; }
+    var i = 0;
+    function tryNext(){
+      if(i >= urls.length){ fallbackFn(); return; }
+      var img = document.createElement('img');
+      img.alt = s.name || '';
+      img.referrerPolicy = 'no-referrer';
+      img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;display:block;';
+      img.onload = function(){
+        el.innerHTML = '';
+        el.style.background = 'transparent';
+        el.appendChild(img);
+      };
+      img.onerror = function(){ i++; tryNext(); };
+      img.src = urls[i];
+    }
+    tryNext();
+  }
+  // Debug: session-এ photo আছে কিনা (কনসোলে দেখা যাবে)
+  try { console.log('student.photo =', s.photo); } catch(e) {}
+  var photoUrls = photoCandidates(s.photo);
+
   var av = document.getElementById('s-avatar');
-  if(s.photo && s.photo.length){
-    var img = document.createElement('img');
-    img.src = s.photo; img.alt = s.name||'';
-    img.style.cssText = 'width:100%;height:100%;border-radius:50%;object-fit:cover;';
-    img.onerror = function(){ showInit(); };
-    av.appendChild(img);
-  } else { showInit(); }
   function showInit(){
     av.innerHTML = '';
     av.style.background = avatarColor(s.name);
     av.textContent = initialsOf(s.name);
   }
+  setPhotoEl(av, photoUrls, showInit);
 
   function val(v){
     return (v && String(v).length && String(v).toLowerCase() !== 'pending') ? v : 'তথ্য নেই';
@@ -799,14 +833,11 @@ document.addEventListener('DOMContentLoaded', function(){
   if(pName) pName.textContent = s.name || '—';
   if(pRole) pRole.textContent = (s.className || s.class || s.section || 'শিক্ষার্থী');
   if(pAv){
-    if(s.photo && s.photo.length){
-      var pimg = document.createElement('img');
-      pimg.src = s.photo; pimg.alt = s.name||'';
-      pAv.appendChild(pimg);
-    } else {
+    setPhotoEl(pAv, photoUrls, function(){
+      pAv.innerHTML = '';
       pAv.style.background = avatarColor(s.name);
       pAv.textContent = initialsOf(s.name);
-    }
+    });
   }
 
   document.getElementById('s-class-chip').textContent =
@@ -816,6 +847,8 @@ document.addEventListener('DOMContentLoaded', function(){
   set('s-roll', s.roll); set('s-roll2', s.roll);
   set('s-class', s.classBn || s.class); set('s-class2', s.classBn || s.class);
   set('s-section', s.section); set('s-section2', s.section);
+  set('s-mobile', s.mobile);
+  set('s-birthReg', s.birthReg);
   set('s-year', s.year);
 
   function logout(){
