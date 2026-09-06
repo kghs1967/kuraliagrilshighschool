@@ -3,9 +3,6 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://i.postimg.cc/fybLxtqX/12121.png">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/fybLxtqX/12121.png">
-
 <title>Student Login | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&display=swap');
@@ -322,15 +319,18 @@ body{
 
     <div class="login-panel active" id="panel-student">
       <form id="student-form">
-        <label class="field-label" for="student-uid">UID (Username)</label>
-        <input type="text" id="student-uid" placeholder="যেমনঃ 6475600257" autocomplete="username" required>
+        <label class="field-label" for="student-uid">Username (UID অথবা মোবাইল)</label>
+        <input type="text" id="student-uid" placeholder="৬ ডিজিট UID অথবা 01XXXXXXXXX" autocomplete="username" required>
 
         <label class="field-label" for="student-pass">Password</label>
         <div class="input-wrap">
-          <input type="password" id="student-pass" placeholder="UID এর প্রথম ৪ ডিজিট" autocomplete="current-password" required>
+          <input type="password" id="student-pass" placeholder="UID-এর প্রথম ৪ অঙ্ক অথবা জন্ম নিবন্ধন" autocomplete="current-password" required>
           <button type="button" class="toggle-eye" data-target="student-pass" aria-label="Show password">👁️</button>
         </div>
-        <p class="field-hint">🔑 পাসওয়ার্ড হলো আপনার UID নম্বরের প্রথম ৪টি সংখ্যা।</p>
+        <p class="field-hint">
+          🔑 <b>পুরনো শিক্ষার্থী:</b> UID + UID-এর প্রথম ৪ সংখ্যা<br>
+          🆕 <b>নতুন ভর্তি আবেদন:</b> মোবাইল <b>অথবা</b> ৬ ডিজিট UID + পাসওয়ার্ড = জন্ম নিবন্ধন
+        </p>
 
         <button type="submit" class="login-submit" id="student-login-btn">LOGIN</button>
       </form>
@@ -400,6 +400,8 @@ body{
 <script>
 var STUDENTS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vTyKMLcBZC87bn71-gKi79g3Uqc7Qn5-RyTvxjRKeFQW0y-lfHX75b91hLyndPkSw/pub?gid=1921666754&single=true&output=csv";
 var TEACHERS_CSV_URL = "https://docs.google.com/spreadsheets/d/e/2PACX-1vRrz7kf5-H1UlMJ_DFvColWR1m0ELEkzz_Qg9hZLQO9bcew385WZMpA-qzmk7MvhQ/pub?gid=37624629&single=true&output=csv";
+// Admission login check (Apps Script — Sheet publish ছাড়া)
+var ADMISSION_LOGIN_URL = "https://script.google.com/macros/s/AKfycbxZyD6Gjyeh5Z-D5uWyuXnqlZMWIBK0zUry0oioGn5WtOTZXvcby90h7KCuuDET0W7J/exec";
 
 var STUDENTS = [];
 var TEACHERS = [];
@@ -522,6 +524,40 @@ function hideError(id){ document.getElementById(id).classList.remove('show'); }
 
 document.addEventListener('DOMContentLoaded', function(){
 
+  function finishStudentLogin(match){
+    sessionStorage.setItem('kghs_student', JSON.stringify(match));
+    var btn = document.getElementById('student-login-btn');
+    btn.textContent = 'লগইন হচ্ছে...';
+    btn.disabled = true;
+    window.location.href = 'student-dashboard.html';
+  }
+
+  function tryAdmissionLogin(user, birthReg, btn){
+    btn.textContent = 'যাচাই হচ্ছে...';
+    btn.disabled = true;
+    var url = ADMISSION_LOGIN_URL +
+      '?action=login' +
+      '&user=' + encodeURIComponent(user) +
+      '&birthReg=' + encodeURIComponent(birthReg);
+    fetch(url)
+      .then(function(r){ return r.json(); })
+      .then(function(res){
+        if(res && res.ok && res.student){
+          finishStudentLogin(res.student);
+        } else {
+          showError('student-error', '❌ ভুল Username বা Password। পুরনো: UID + প্রথম ৪ অঙ্ক। নতুন: মোবাইল/৬-ডিজিট UID + জন্ম নিবন্ধন।');
+          btn.textContent = 'LOGIN';
+          btn.disabled = false;
+        }
+      })
+      .catch(function(err){
+        console.error(err);
+        showError('student-error', '⚠️ লগইন সার্ভারে সংযোগ করা যায়নি। ইন্টারনেট পরীক্ষা করে আবার চেষ্টা করুন।');
+        btn.textContent = 'LOGIN';
+        btn.disabled = false;
+      });
+  }
+
   function doStudentLogin(){
     hideError('student-error');
     if(!DATA_READY){
@@ -530,32 +566,55 @@ document.addEventListener('DOMContentLoaded', function(){
     }
     var uid = document.getElementById('student-uid').value.trim();
     var pass = document.getElementById('student-pass').value.trim();
+    var btn = document.getElementById('student-login-btn');
     if(!uid || !pass){
-      showError('student-error', '⚠️ UID ও পাসওয়ার্ড উভয়টি লিখুন।');
+      showError('student-error', '⚠️ Username ও পাসওয়ার্ড উভয়টি লিখুন।');
       return;
     }
+
+    // 1) পুরনো শিক্ষার্থী — students CSV (UID + প্রথম ৪ অঙ্ক)
+    // শুধু যখন পাসওয়ার্ড ৪ অঙ্ক (নতুন আবেদনের জন্ম নিবন্ধন ১৭ অঙ্ক)
     var match = null;
     for(var i=0;i<STUDENTS.length;i++){
-      if(STUDENTS[i].uid === uid){ match = STUDENTS[i]; break; }
+      if(String(STUDENTS[i].uid || '').trim() === uid){ match = STUDENTS[i]; break; }
     }
-    if(!match){
-      showError('student-error', '❌ এই UID দিয়ে কোনো শিক্ষার্থী খুঁজে পাওয়া যায়নি।');
+    if(match && /^\d{4}$/.test(pass)){
+      if(match.uid.toLowerCase() === 'pending' || !/^\d+$/.test(match.uid)){
+        showError('student-error', '⏳ আপনার UID এখনো নির্ধারণ করা হয়নি। স্কুল অফিসে যোগাযোগ করুন।');
+        return;
+      }
+      var correctPass = match.uid.substring(0,4);
+      if(pass !== correctPass){
+        showError('student-error', '❌ ভুল পাসওয়ার্ড। পাসওয়ার্ড হলো আপনার UID এর প্রথম ৪টি সংখ্যা।');
+        return;
+      }
+      finishStudentLogin(match);
       return;
     }
-    if(match.uid.toLowerCase() === 'pending' || !/^\d+$/.test(match.uid)){
-      showError('student-error', '⏳ আপনার UID এখনো নির্ধারণ করা হয়নি। স্কুল অফিসে যোগাযোগ করুন।');
+
+    // 2) নতুন ভর্তি — মোবাইল অথবা ৬-ডিজিট UID + জন্ম নিবন্ধন
+    var user = uid.replace(/\D/g,'');
+    var birthReg = pass.replace(/\D/g,'');
+    if(birthReg.length < 17){
+      // pad leading zeros if sheet/user dropped them
+      while(birthReg.length < 17) birthReg = '0' + birthReg;
+    }
+    if(birthReg.length > 17) birthReg = birthReg.slice(-17);
+
+    var isMobile = /^01\d{9}$/.test(user);
+    var isSixUid = /^\d{6}$/.test(user);
+    if((isMobile || isSixUid) && /^\d{17}$/.test(birthReg)){
+      tryAdmissionLogin(user, birthReg, btn);
       return;
     }
-    var correctPass = match.uid.substring(0,4);
-    if(pass !== correctPass){
-      showError('student-error', '❌ ভুল পাসওয়ার্ড। পাসওয়ার্ড হলো আপনার UID এর প্রথম ৪টি সংখ্যা।');
+
+    // পুরনো UID কিন্তু ভুল পাসওয়ার্ড ফরম্যাট
+    if(match){
+      showError('student-error', '❌ ভুল পাসওয়ার্ড। পুরনো শিক্ষার্থী: UID-এর প্রথম ৪ সংখ্যা।');
       return;
     }
-    sessionStorage.setItem('kghs_student', JSON.stringify(match));
-    var btn = document.getElementById('student-login-btn');
-    btn.textContent = 'লগইন হচ্ছে...';
-    btn.disabled = true;
-    window.location.href = 'student-dashboard.html';
+
+    showError('student-error', '❌ Username/Password মিলেনি। নতুন আবেদন: মোবাইল বা ৬-ডিজিট UID + ১৭ অঙ্কের জন্ম নিবন্ধন।');
   }
 
   function doTeacherLogin(){
