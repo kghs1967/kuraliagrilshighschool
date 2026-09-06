@@ -8,7 +8,6 @@
 <title>ভর্তি আবেদন | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Baloo+Da+2:wght@500;600;700;800&family=Hind+Siliguri:wght@400;500;600;700&family=Inter:wght@400;500;600;700&family=Noto+Serif+Bengali:wght@300;400;500;600;700&display=swap');
-
 :root{
   --green-900:#0a2a1c;
   --green-850:#0f3324;
@@ -25,7 +24,6 @@
   --border:#dbe4dd;
   --danger:#b33;
 }
-
 *{box-sizing:border-box;margin:0;padding:0;}
 html,body{min-height:100%;}
 body{
@@ -37,7 +35,6 @@ body{
   flex-direction:column;
   overflow-x:hidden;
 }
-
 .login-page{
   flex:1;
   display:flex;
@@ -81,13 +78,11 @@ body{
   33%{transform:translate(16px,-20px) scale(1.08);}
   66%{transform:translate(-12px,14px) scale(.94);}
 }
-
 .wave-wrap{
   position:absolute;left:0;right:0;bottom:0;
   height:140px;pointer-events:none;overflow:hidden;
 }
 .wave-wrap svg{position:absolute;bottom:0;width:100%;height:140px;}
-
 .login-card{
   position:relative;z-index:2;
   background:var(--surface);
@@ -112,7 +107,6 @@ body{
   0%{background-position:0% 0;}
   100%{background-position:250% 0;}
 }
-
 .login-logo{
   width:78px;height:78px;border-radius:50%;
   border:3px solid var(--gold);
@@ -130,13 +124,11 @@ body{
 .login-card .sub{
   color:var(--muted);font-size:.9rem;margin-bottom:22px;
 }
-
 .note-box{
   background:var(--green-100);border-left:4px solid var(--green-700);
   padding:12px 16px;border-radius:0 10px 10px 0;font-size:.88rem;margin-bottom:20px;
   text-align:left;
 }
-
 .form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px 18px;}
 .form-group{display:flex;flex-direction:column;gap:5px;}
 .form-group.full{grid-column:1/-1;}
@@ -156,7 +148,6 @@ body{
 .form-group .error-msg{font-size:.8rem;color:var(--danger);display:none;}
 .form-group.has-error input,.form-group.has-error select,.form-group.has-error textarea{border-color:var(--danger);}
 .form-group.has-error .error-msg{display:block;}
-
 .photo-box{
   border:1.5px dashed var(--border);border-radius:12px;padding:16px;
   display:flex;gap:16px;align-items:center;background:#f7faf8;
@@ -168,9 +159,7 @@ body{
 }
 .photo-preview img{width:100%;height:100%;object-fit:cover;}
 .photo-box input[type=file]{font-size:.88rem;font-family:inherit;}
-
 .addr-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
-
 .form-actions{margin-top:22px;display:flex;flex-wrap:wrap;gap:12px;align-items:center;}
 .btn{
   display:inline-flex;align-items:center;justify-content:center;gap:6px;
@@ -186,14 +175,12 @@ body{
 .btn.gold:hover{background:#b6871f;}
 .btn.ghost{background:#fff;color:var(--green-800);border:1.5px solid var(--border);box-shadow:none;}
 .btn.ghost:hover{background:var(--green-100);transform:none;}
-
 .status-box{
   display:none;margin-top:16px;padding:14px 16px;border-radius:10px;font-size:.92rem;text-align:left;
 }
 .status-box.ok{display:block;background:#e8f5e9;border:1px solid #a5d6a7;color:#1b5e20;animation:fadeIn .25s ease;}
 .status-box.err{display:block;background:#fdecea;border:1px solid #f5c6cb;color:#7f1d1d;animation:fadeIn .25s ease;}
 @keyframes fadeIn{from{opacity:0;transform:translateY(4px);}to{opacity:1;transform:translateY(0);}}
-
 .modal-overlay{
   position:fixed;inset:0;background:rgba(10,42,28,.6);
   backdrop-filter:blur(3px);
@@ -224,15 +211,24 @@ body{
 }
 @keyframes circleDraw{to{stroke-dashoffset:0;}}
 @keyframes markDraw{to{stroke-dashoffset:0;}}
+.success-box{max-width:420px;}
 .success-box h3{margin:0 0 8px;font-size:1.2rem;color:var(--green-900);}
-.success-box p{margin:0 0 20px;font-size:.9rem;color:var(--muted);}
-
+.success-box p{margin:0 0 14px;font-size:.9rem;color:var(--muted);}
+.cred-box{
+  text-align:left;background:#f3faf5;border:1px solid #b7d0c0;border-radius:12px;
+  padding:12px 14px;margin:0 0 16px;font-size:.9rem;
+}
+.cred-box .cred-title{font-weight:700;color:var(--green-900);margin-bottom:8px;font-size:.92rem;}
+.cred-box .cred-row{display:flex;justify-content:space-between;gap:10px;padding:5px 0;border-top:1px dashed #cfe0d4;}
+.cred-box .cred-row:first-of-type{border-top:none;}
+.cred-box .cred-label{color:var(--muted);}
+.cred-box .cred-val{font-weight:700;color:var(--green-800);word-break:break-all;}
+.cred-box .cred-note{margin-top:8px;font-size:.78rem;color:#666;line-height:1.4;}
 .card-foot-note{
   margin-top:20px;padding-top:14px;
   border-top:1px dashed var(--border);
   font-size:.73rem;color:var(--muted);text-align:center;
 }
-
 .back-home{
   position:absolute;top:18px;left:18px;z-index:5;
   color:#cfe6d7;font-size:.88rem;font-weight:600;
@@ -241,7 +237,6 @@ body{
   transition:background .15s,color .15s;
 }
 .back-home:hover{background:rgba(255,255,255,.15);color:#fff;}
-
 @media (max-width:420px){
   .login-card{padding:28px 20px 24px;border-radius:18px;}
   .back-home{top:12px;left:12px;font-size:.8rem;padding:6px 11px;}
@@ -252,65 +247,53 @@ body{
 </style>
 </head>
 <body>
-
 <div class="login-page">
   <div class="orb orb1"></div>
   <div class="orb orb2"></div>
   <div class="orb orb3"></div>
-
   <a class="back-home" href="index.html">← হোমে ফিরুন</a>
-
   <div class="login-card wide">
     <div class="head">
       <img class="login-logo" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়">
       <h1>অনলাইন ভর্তি আবেদন</h1>
       <p class="sub">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · Kuralia Girls High School</p>
     </div>
-
     <div class="note-box">
       লিঙ্গ <strong>মহিলা</strong> হিসেবে নির্ধারিত — এটি বালিকা বিদ্যালয়। জন্ম নিবন্ধন নম্বর অবশ্যই ১৭ সংখ্যার হতে হবে।
     </div>
-
     <form id="admissionForm" novalidate>
       <div class="form-grid">
-
         <div class="form-group">
           <label>নাম (বাংলা)<span class="req">*</span></label>
           <input type="text" name="nameBn" required placeholder="মোছাঃ ফাতিমা আক্তার">
           <span class="error-msg">বাংলা নাম দিন</span>
         </div>
-
         <div class="form-group">
           <label>Name (English)<span class="req">*</span></label>
           <input type="text" name="nameEn" required placeholder="MST. Fatima Akter">
           <span class="error-msg">English name required</span>
         </div>
-
         <div class="form-group">
           <label>পিতার নাম<span class="req">*</span></label>
           <input type="text" name="father" required placeholder="পিতার পূর্ণ নাম">
           <span class="error-msg">পিতার নাম দিন</span>
         </div>
-
         <div class="form-group">
           <label>মাতার নাম<span class="req">*</span></label>
           <input type="text" name="mother" required placeholder="মাতার পূর্ণ নাম">
           <span class="error-msg">মাতার নাম দিন</span>
         </div>
-
         <div class="form-group">
           <label>জন্ম তারিখ<span class="req">*</span></label>
           <input type="date" name="dob" required>
           <span class="error-msg">জন্ম তারিখ দিন</span>
         </div>
-
         <div class="form-group">
           <label>জন্ম নিবন্ধন নম্বর (১৭ সংখ্যা)<span class="req">*</span></label>
           <input type="text" name="birthReg" required maxlength="17" inputmode="numeric" pattern="\d{17}" placeholder="১৭ সংখ্যার নম্বর">
           <span class="hint">শুধু ইংরেজি সংখ্যা, মোট ১৭ ডিজিট</span>
           <span class="error-msg">সঠিক ১৭ সংখ্যার জন্ম নিবন্ধন নম্বর দিন</span>
         </div>
-
         <div class="form-group">
           <label>শ্রেণি নির্বাচন<span class="req">*</span></label>
           <select name="className" required>
@@ -323,19 +306,22 @@ body{
           </select>
           <span class="error-msg">শ্রেণি নির্বাচন করুন</span>
         </div>
-
         <div class="form-group">
           <label>মোবাইল নম্বর<span class="req">*</span></label>
           <input type="tel" name="mobile" required maxlength="11" inputmode="numeric" placeholder="01XXXXXXXXX">
           <span class="hint">১১ সংখ্যার মোবাইল (01 দিয়ে শুরু)</span>
           <span class="error-msg">সঠিক মোবাইল নম্বর দিন</span>
         </div>
-
+        <div class="form-group">
+          <label>ইমেইল (Email)<span class="req">*</span></label>
+          <input type="email" name="email" required placeholder="example@gmail.com" autocomplete="email">
+          <span class="hint">UID ও Password এই মেইলে পাঠানো হবে</span>
+          <span class="error-msg">সঠিক ইমেইল দিন</span>
+        </div>
         <div class="form-group">
           <label>লিঙ্গ</label>
           <input type="text" name="gender" value="মহিলা / Female" readonly>
         </div>
-
         <div class="form-group">
           <label>ধর্ম (Religion)<span class="req">*</span></label>
           <select name="religion" required>
@@ -348,7 +334,6 @@ body{
           </select>
           <span class="error-msg">ধর্ম নির্বাচন করুন</span>
         </div>
-
         <div class="form-group">
           <label>শিক্ষাবর্ষ (Student Session)<span class="req">*</span></label>
           <select name="session" required>
@@ -359,7 +344,6 @@ body{
           </select>
           <span class="error-msg">শিক্ষাবর্ষ নির্বাচন করুন</span>
         </div>
-
         <div class="form-group full" id="photoGroup">
           <label>ছবি (পাসপোর্ট সাইজ)<span class="req">*</span></label>
           <div class="photo-box">
@@ -371,7 +355,6 @@ body{
             </div>
           </div>
         </div>
-
         <div class="form-group full">
           <label>ঠিকানা</label>
           <div class="addr-row">
@@ -389,18 +372,14 @@ body{
           </div>
         </div>
       </div>
-
       <div class="form-actions">
         <button type="submit" class="btn gold" id="submitBtn">আবেদন জমা দিন</button>
         <button type="reset" class="btn ghost">রিসেট</button>
       </div>
-
       <div class="status-box" id="statusBox"></div>
     </form>
-
     <div class="card-foot-note">© কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · অনলাইন ভর্তি আবেদন</div>
   </div>
-
   <div class="wave-wrap">
     <svg viewBox="0 0 1440 140" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
       <path fill="rgba(255,255,255,.08)" d="M0,80 C240,140 480,20 720,70 C960,120 1200,40 1440,90 L1440,140 L0,140 Z"/>
@@ -409,7 +388,6 @@ body{
     </svg>
   </div>
 </div>
-
 <div class="modal-overlay" id="success-modal">
   <div class="success-box" role="dialog" aria-modal="true" aria-labelledby="success-modal-title">
     <svg class="success-icon" viewBox="0 0 52 52" xmlns="http://www.w3.org/2000/svg">
@@ -417,11 +395,26 @@ body{
       <path class="check-mark" d="M14 27l7 7 16-16"/>
     </svg>
     <h3 id="success-modal-title">আবেদন সফলভাবে জমা হয়েছে!</h3>
-    <p>আপনার ভর্তি আবেদনটি গ্রহণ করা হয়েছে। প্রয়োজনে স্কুল থেকে যোগাযোগ করা হবে।</p>
+    <p>আপনার ভর্তি আবেদনটি গ্রহণ করা হয়েছে। নিচের তথ্য দিয়ে Student Login করতে পারবেন।</p>
+    <div class="cred-box">
+      <div class="cred-title">🔐 আপনার লগইন তথ্য</div>
+      <div class="cred-row">
+        <span class="cred-label">UID</span>
+        <span class="cred-val" id="cred-uid">—</span>
+      </div>
+      <div class="cred-row">
+        <span class="cred-label">Username</span>
+        <span class="cred-val" id="cred-user">—</span>
+      </div>
+      <div class="cred-row">
+        <span class="cred-label">Password</span>
+        <span class="cred-val" id="cred-pass">—</span>
+      </div>
+      <div class="cred-note">Username = মোবাইল <b>অথবা</b> UID · Password = জন্ম নিবন্ধন। PDF রসিদেও আছে।</div>
+    </div>
     <button type="button" class="btn gold" onclick="closeSuccessModal()">ঠিক আছে</button>
   </div>
 </div>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"></script>
 <script>
 // Same address checkbox
@@ -436,7 +429,6 @@ document.querySelector('[name=presentAddress]').addEventListener('input', functi
     document.querySelector('[name=permanentAddress]').value = this.value;
   }
 });
-
 // Photo preview + compress (max width 800px) so Drive upload is reliable
 var photoBase64 = '';
 function compressImage(file, maxW, quality, cb) {
@@ -471,7 +463,6 @@ document.getElementById('photoInput').addEventListener('change', function(e){
     preview.innerHTML = '<img src="'+dataUrl+'" alt="preview">';
   });
 });
-
 /* =========================================================
    GOOGLE SHEET সংযোগ
    ---------------------------------------------------------
@@ -490,76 +481,6 @@ document.getElementById('photoInput').addEventListener('change', function(e){
       Edit → Version: New version → Deploy করতে হবে
    ========================================================= */
 var SCRIPT_URL = "https://script.google.com/macros/s/AKfycbxZyD6Gjyeh5Z-D5uWyuXnqlZMWIBK0zUry0oioGn5WtOTZXvcby90h7KCuuDET0W7J/exec";
-
-/*
-// ===== Google Apps Script (ছবি Drive এ সেভ + Sheet এ লিংক) =====
-// পুরনো কোড মুছে এটা পেস্ট করুন
-// তারপর: Deploy → Manage deployments → Edit (pencil) → Version: New version → Deploy
-
-function doPost(e) {
-  try {
-    var ss = SpreadsheetApp.openById('1XJWXwmOv6_sDW22R5Lc3iUqp6XDDxs_n_2dr2YMasR0');
-    var sheet = ss.getSheets()[0];
-    var data = JSON.parse(e.postData.contents);
-
-    var photoUrl = '';
-    if (data.photo && String(data.photo).indexOf('base64,') !== -1) {
-      try {
-        var parts = data.photo.split('base64,');
-        var contentType = parts[0].indexOf('png') !== -1 ? 'image/png' : 'image/jpeg';
-        var bytes = Utilities.base64Decode(parts[1]);
-        var blob = Utilities.newBlob(bytes, contentType, (data.nameEn || 'student') + '.jpg');
-        var folder = getOrCreateFolder_('Admission Photos');
-        var file = folder.createFile(blob);
-        file.setSharing(DriveApp.Access.ANYONE_WITH_LINK, DriveApp.Permission.VIEW);
-        photoUrl = file.getUrl();
-      } catch (pe) {
-        photoUrl = 'Photo error: ' + pe;
-      }
-    }
-
-    sheet.appendRow([
-      new Date(),
-      data.nameBn || '',
-      data.nameEn || '',
-      data.father || '',
-      data.mother || '',
-      data.dob || '',
-      data.birthReg || '',
-      data.className || '',
-      data.mobile || '',
-      data.gender || 'Female',
-      data.presentAddress || '',
-      data.permanentAddress || '',
-      photoUrl
-    ]);
-
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: true }))
-      .setMimeType(ContentService.MimeType.JSON);
-  } catch (err) {
-    return ContentService
-      .createTextOutput(JSON.stringify({ ok: false, message: String(err) }))
-      .setMimeType(ContentService.MimeType.JSON);
-  }
-}
-
-function getOrCreateFolder_(name) {
-  var folders = DriveApp.getFoldersByName(name);
-  if (folders.hasNext()) return folders.next();
-  return DriveApp.createFolder(name);
-}
-
-function doGet() {
-  return ContentService.createTextOutput('OK');
-}
-
-// Drive অনুমতি দেওয়ার জন্য একবার Run করুন
-function authorizeDrive() {
-  DriveApp.getRootFolder();
-}
-*/
-
 function showStatus(type, msg){
   var box = document.getElementById('statusBox');
   box.className = 'status-box ' + type;
@@ -570,13 +491,17 @@ function clearStatus(){
   box.className = 'status-box';
   box.textContent = '';
 }
-
-function openSuccessModal(){
+function openSuccessModal(creds){
   var overlay = document.getElementById('success-modal');
-  // Restart the checkmark draw animation each time it opens
   var svg = overlay.querySelector('.success-icon');
   var clone = svg.cloneNode(true);
   svg.parentNode.replaceChild(clone, svg);
+  var idEl = document.getElementById('cred-uid');
+  var u = document.getElementById('cred-user');
+  var p = document.getElementById('cred-pass');
+  if(idEl) idEl.textContent = (creds && creds.uid) ? creds.uid : '—';
+  if(u) u.textContent = (creds && creds.user) ? creds.user : '—';
+  if(p) p.textContent = (creds && creds.pass) ? creds.pass : '—';
   overlay.classList.add('show');
 }
 function closeSuccessModal(){
@@ -587,7 +512,6 @@ function closeSuccessModal(){
   overlay.addEventListener('click', function(e){ if(e.target === overlay) closeSuccessModal(); });
   document.addEventListener('keydown', function(e){ if(e.key === 'Escape') closeSuccessModal(); });
 })();
-
 // রিসেট বাটনে ক্লিক করলে পুরনো সফল/এরর মেসেজ ও ছবি প্রিভিউ পরিষ্কার করে দাও
 document.getElementById('admissionForm').addEventListener('reset', function(){
   clearStatus();
@@ -597,12 +521,10 @@ document.getElementById('admissionForm').addEventListener('reset', function(){
     g.classList.remove('has-error');
   });
 });
-
 function validate(){
   var form = document.getElementById('admissionForm');
   var ok = true;
   form.querySelectorAll('.form-group').forEach(function(g){ g.classList.remove('has-error'); });
-
   function fail(name){
     var el = form.querySelector('[name="'+name+'"]');
     if(el){
@@ -611,57 +533,47 @@ function validate(){
     }
     ok = false;
   }
-
   if(!form.nameBn.value.trim()) fail('nameBn');
   if(!form.nameEn.value.trim()) fail('nameEn');
   if(!form.father.value.trim()) fail('father');
   if(!form.mother.value.trim()) fail('mother');
   if(!form.dob.value) fail('dob');
-
   var br = form.birthReg.value.replace(/\D/g,'');
   form.birthReg.value = br;
   if(!/^\d{17}$/.test(br)) fail('birthReg');
-
   if(!form.className.value) fail('className');
-
   var mob = form.mobile.value.replace(/\D/g,'');
   form.mobile.value = mob;
   if(!/^01\d{9}$/.test(mob)) fail('mobile');
-
+  var em = (form.email && form.email.value) ? form.email.value.trim() : '';
+  if(!em || !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(em)) fail('email');
   if(!form.religion.value) fail('religion');
   if(!form.session.value) fail('session');
-
   if(!form.presentAddress.value.trim()) fail('presentAddress');
   if(!form.permanentAddress.value.trim()) fail('permanentAddress');
-
   // ছবি আবশ্যক
   if(!photoBase64){
     var pg = document.getElementById('photoGroup');
     if(pg) pg.classList.add('has-error');
     ok = false;
   }
-
   return ok;
 }
-
 document.getElementById('admissionForm').addEventListener('submit', function(e){
   e.preventDefault();
   if(!validate()){
     showStatus('err', 'অনুগ্রহ করে লাল চিহ্নিত ঘরগুলো ঠিক করুন।');
     return;
   }
-
   if(!SCRIPT_URL || SCRIPT_URL.indexOf('PASTE_YOUR') !== -1){
     showStatus('err', 'Google Apps Script URL এখনো সেট করা হয়নি। admission.html এ SCRIPT_URL আপডেট করুন।');
     return;
   }
-
   var form = e.target;
   var btn = document.getElementById('submitBtn');
   btn.disabled = true;
   btn.textContent = 'জমা হচ্ছে...';
   clearStatus();
-
   var payload = {
     nameBn: form.nameBn.value.trim(),
     nameEn: form.nameEn.value.trim(),
@@ -671,6 +583,7 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     birthReg: form.birthReg.value.trim(),
     className: form.className.value,
     mobile: form.mobile.value.trim(),
+    email: (form.email && form.email.value) ? form.email.value.trim() : '',
     gender: 'Female',
     religion: form.religion.value,
     session: form.session.value,
@@ -678,11 +591,23 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     permanentAddress: form.permanentAddress.value.trim(),
     photo: photoBase64 || ''
   };
-
-  // PDF সাথে সাথে শুরু (নেটওয়ার্ক অপেক্ষা না করে)
-  generateAdmissionPDF(payload);
-
-  // Google Sheet এ পাঠানো
+  function finishAdmit(uid){
+    payload.uid = uid || '';
+    generateAdmissionPDF(payload);
+    var creds = {
+      uid: uid || '—',
+      user: payload.mobile + (uid ? '  বা  ' + uid : ''),
+      pass: payload.birthReg
+    };
+    form.reset();
+    photoBase64 = '';
+    var prev = document.getElementById('photoPreview');
+    if(prev) prev.innerHTML = 'ছবি';
+    openSuccessModal(creds);
+    btn.disabled = false;
+    btn.textContent = 'আবেদন জমা দিন';
+  }
+  // Google Sheet এ পাঠানো, তারপর UID নিয়ে PDF + সাকসেস
   fetch(SCRIPT_URL, {
     method: 'POST',
     mode: 'no-cors',
@@ -691,27 +616,25 @@ document.getElementById('admissionForm').addEventListener('submit', function(e){
     body: JSON.stringify(payload)
   })
   .then(function(){
-    form.reset();
-    photoBase64 = '';
-    var prev = document.getElementById('photoPreview');
-    if(prev) prev.innerHTML = 'ছবি';
-    openSuccessModal();
-    btn.disabled = false;
-    btn.textContent = 'আবেদন জমা দিন';
+    // UID পেতে login API কল (১–২ সেকেন্ড অপেক্ষা)
+    setTimeout(function(){
+      var q = SCRIPT_URL +
+        '?action=login&user=' + encodeURIComponent(payload.mobile) +
+        '&birthReg=' + encodeURIComponent(payload.birthReg);
+      fetch(q)
+        .then(function(r){ return r.json(); })
+        .then(function(res){
+          var uid = (res && res.ok && res.student && res.student.uid) ? res.student.uid : '';
+          finishAdmit(uid);
+        })
+        .catch(function(){ finishAdmit(''); });
+    }, 1500);
   })
   .catch(function(err){
     console.error(err);
-    // PDF তবুও তৈরি হয়েছে; শুধু Sheet পাঠাতে সমস্যা
-    form.reset();
-    photoBase64 = '';
-    var prev = document.getElementById('photoPreview');
-    if(prev) prev.innerHTML = 'ছবি';
-    openSuccessModal();
-    btn.disabled = false;
-    btn.textContent = 'আবেদন জমা দিন';
+    finishAdmit('');
   });
 });
-
 /* =========================================================
    PDF GENERATOR — iframe isolated (no parent CSS interference)
    পরে নতুন ফিল্ড: fields অ্যারেতে {label, value} যোগ করুন
@@ -721,7 +644,6 @@ function generateAdmissionPDF(data){
     alert('PDF লাইব্রেরি লোড হয়নি। পেজ রিফ্রেশ করুন।');
     return;
   }
-
   var now = new Date();
   var refNo = 'ADM-' + now.getFullYear() +
     String(now.getMonth()+1).padStart(2,'0') +
@@ -731,7 +653,6 @@ function generateAdmissionPDF(data){
     day:'2-digit', month:'short', year:'numeric',
     hour:'2-digit', minute:'2-digit'
   });
-
   // >>> পরে নতুন ফিল্ড এখানে যোগ করুন <<<
   var fields = [
     { label: 'Name (Bangla)',       value: data.nameBn || '—' },
@@ -742,13 +663,16 @@ function generateAdmissionPDF(data){
     { label: 'Birth Registration',  value: data.birthReg || '—' },
     { label: 'Class',               value: data.className || '—' },
     { label: 'Mobile',              value: data.mobile || '—' },
+    { label: 'Email',               value: data.email || '—' },
     { label: 'Gender',              value: data.gender || 'Female' },
     { label: 'Religion',            value: data.religion || '—' },
     { label: 'Student Session',     value: data.session || '—' },
     { label: 'Present Address',     value: data.presentAddress || '—' },
-    { label: 'Permanent Address',   value: data.permanentAddress || '—' }
+    { label: 'Permanent Address',   value: data.permanentAddress || '—' },
+    { label: 'Student UID',         value: data.uid || '—' },
+    { label: 'Login Username',      value: (data.mobile || '—') + (data.uid ? ' / ' + data.uid : '') },
+    { label: 'Login Password',      value: data.birthReg || '—' }
   ];
-
   var rows = '';
   for(var i = 0; i < fields.length; i++){
     var bg = (i % 2 === 0) ? '#f3faf5' : '#ffffff';
@@ -762,19 +686,16 @@ function generateAdmissionPDF(data){
         '</td>' +
       '</tr>';
   }
-
   var photoBlock = (data.photo && data.photo.indexOf('base64') !== -1)
     ? '<img src="' + data.photo + '" width="100" height="120" style="width:100px;height:120px;object-fit:cover;border:2px solid #c99a2e;">'
     : '<div style="width:100px;height:120px;border:1px solid #ccc;background:#f0f0f0;text-align:center;line-height:120px;font-size:12px;color:#666;">No Photo</div>';
-
   var html =
     '<!DOCTYPE html><html><head><meta charset="UTF-8"><style>' +
     'html,body{margin:0;padding:0;background:#fff;}' +
     'body{font-family:Arial,Helvetica,sans-serif;color:#111;}' +
     'table{border-collapse:collapse;}' +
-    '</style></head><body>' +
+    '<\/style><\/head><body>' +
     '<div id="receipt" style="width:680px;padding:36px 40px;background:#ffffff;box-sizing:border-box;">' +
-
       '<table style="width:100%;margin-bottom:10px;">' +
         '<tr>' +
           '<td style="width:78px;vertical-align:middle;">' +
@@ -788,41 +709,52 @@ function generateAdmissionPDF(data){
           '<td style="width:110px;vertical-align:middle;text-align:right;">' + photoBlock + '</td>' +
         '</tr>' +
       '</table>' +
-
       '<div style="height:3px;background:#1f6b45;margin:10px 0 14px;"></div>' +
-
       '<table style="width:100%;margin-bottom:14px;font-size:12px;color:#444;">' +
         '<tr>' +
           '<td><b style="color:#0f3324;">Ref:</b> ' + refNo + '</td>' +
           '<td style="text-align:right;"><b style="color:#0f3324;">Date:</b> ' + dateStr + '</td>' +
         '</tr>' +
       '</table>' +
-
       '<table style="width:100%;">' + rows + '</table>' +
-
-      '<div style="margin-top:16px;padding:12px 14px;background:#e3f0e7;border-left:4px solid #1f6b45;font-size:12px;color:#0f3324;line-height:1.45;">' +
-        'This receipt was generated automatically. School will contact after verification.<br>Phone: 01309128390' +
+      '<div style="margin-top:18px;padding:14px 16px;background:#fff8e8;border:2px solid #c99a2e;border-radius:10px;">' +
+        '<div style="font-size:13px;font-weight:800;color:#0f3324;margin-bottom:10px;">Student Login Credentials</div>' +
+        '<table style="width:100%;font-size:12px;">' +
+          '<tr>' +
+            '<td style="padding:6px 0;color:#555;width:35%;"><b>Username</b></td>' +
+            '<td style="padding:6px 0;font-weight:700;color:#0f3324;">' +
+              String(data.mobile || '—').replace(/</g,'&lt;') +
+              (data.uid ? ' &nbsp;|&nbsp; UID: ' + String(data.uid).replace(/</g,'&lt;') : '') +
+            '</td>' +
+          '</tr>' +
+          '<tr>' +
+            '<td style="padding:6px 0;color:#555;"><b>Password</b></td>' +
+            '<td style="padding:6px 0;font-weight:700;color:#0f3324;">' +
+              String(data.birthReg || '—').replace(/</g,'&lt;') +
+            '</td>' +
+          '</tr>' +
+        '</table>' +
+        '<div style="margin-top:8px;font-size:11px;color:#666;line-height:1.4;">' +
+          'Login with Mobile number OR 6-digit UID. Password = Birth Registration number.' +
+        '</div>' +
       '</div>' +
-
+      '<div style="margin-top:14px;padding:12px 14px;background:#e3f0e7;border-left:4px solid #1f6b45;font-size:12px;color:#0f3324;line-height:1.45;">' +
+        'This receipt was generated automatically. School will contact after verification. Phone: 01309128390' +
+      '</div>' +
       '<div style="margin-top:14px;text-align:center;font-size:11px;color:#666;border-top:1px solid #ddd;padding-top:10px;">' +
         '© Kuralia Girls High School · Online Admission Portal' +
       '</div>' +
-
-    '</div></body></html>';
-
+    '</div><\/body><\/html>';
   // Isolated iframe — parent page CSS cannot break the layout
   var iframe = document.createElement('iframe');
   iframe.style.cssText = 'position:fixed;left:0;top:0;width:720px;height:1000px;border:0;opacity:0.01;z-index:99999;background:#fff;';
   document.body.appendChild(iframe);
-
   var idoc = iframe.contentDocument || iframe.contentWindow.document;
   idoc.open();
   idoc.write(html);
   idoc.close();
-
   var safeName = (data.nameEn || data.nameBn || 'Student').toString().replace(/[^\w\-]+/g, '_').slice(0, 40);
   var fileName = 'Admission_' + safeName + '_' + refNo + '.pdf';
-
   setTimeout(function(){
     var receipt = idoc.getElementById('receipt');
     if(!receipt){
@@ -830,7 +762,6 @@ function generateAdmissionPDF(data){
       alert('PDF content missing. Try again.');
       return;
     }
-
     html2pdf().set({
       margin: [10, 10, 10, 10],
       filename: fileName,
