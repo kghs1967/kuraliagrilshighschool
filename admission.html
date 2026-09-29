@@ -107,12 +107,16 @@ body{
   0%{background-position:0% 0;}
   100%{background-position:250% 0;}
 }
-.login-logo{
-  width:auto;height:80px;border-radius:0%;
-  border:none solid var(--gold);
-  background:#fff;object-fit:cover;
-  margin:0 auto 14px;
-  box-shadow:0 6px 18px rgba(15,51,36,.18);
+.login-logo {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%; /* পুরোপুরি গোল করার জন্য */
+  border: 3px double var(--gold); /* গোল্ডেন বর্ডার সুন্দর দেখাবে */
+  background: #fff;
+  object-fit: cover; /* ইমেজ ফ্রেম অনুযায়ী অ্যাডজাস্ট করবে */
+  margin: 0 auto 14px;
+  box-shadow: 0 6px 18px rgba(15, 51, 36, .18);
+  display: block; /* সেন্টারে রাখার জন্য */
 }
 .login-card.wide .login-logo{margin:0 auto 14px;}
 .login-card .head{text-align:center;}
