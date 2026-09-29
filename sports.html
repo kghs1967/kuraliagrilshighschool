@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" type="image/png" href="https://i.postimg.cc/fybLxtqX/12121.png">
-<link rel="apple-touch-icon" href="https://i.postimg.cc/fybLxtqX/12121.png">
+<link rel="icon" type="image/png" href="Logo.png">
+<link rel="apple-touch-icon" href="Logo.png">
 
 <title>ক্রীড়া | কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</title>
 <style>
@@ -79,12 +79,13 @@ img{max-width:100%;display:block;}
   display:flex;align-items:center;gap:14px;
   padding:10px 0;
 }
-.brand-row .badge{
-  width:80px;height:80px;border-radius:50%;
-  background:#fff;
-  border:3px double var(--gold);
-  object-fit:cover;
-  flex-shrink:0;
+.brand-row .badge {
+  width: auto; /* বা প্রয়োজন অনুযায়ী নির্দিষ্ট সাইজ যেমন 80px */
+  height: 80px;
+  border-radius: 0; /* গোল সার্কেল বাদ */
+  border: none; /* গোল্ডেন বর্ডার বাদ */
+  object-fit: contain;
+  flex-shrink: 0;
 }
 .brand-text h1{font-size:1.45rem;margin:0;}
 .brand-text p{margin:2px 0 0;color:var(--muted);font-size:.92rem;}
@@ -725,7 +726,7 @@ img{max-width:100%;height:auto;}
 <header class="site-header">
   <div class="wrap brand-row">
     <a href="index.html">
-      <img class="badge" src="https://i.postimg.cc/fybLxtqX/12121.png" alt="Kuralia Girls High School Logo">
+      <img class="badge" src="Logo.png" alt="Kuralia Girls High School Logo">
     </a>
     <div class="brand-text">
       <h1 class="site-name">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয়</h1>
