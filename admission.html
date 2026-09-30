@@ -673,19 +673,17 @@ function generateAdmissionPDF(data){
     { label: 'Student Session',     value: data.session || '—' },
     { label: 'Present Address',     value: data.presentAddress || '—' },
     { label: 'Permanent Address',   value: data.permanentAddress || '—' },
-    { label: 'Student UID',         value: data.uid || '—' },
-    { label: 'Login Username',      value: (data.mobile || '—') + (data.uid ? ' / ' + data.uid : '') },
-    { label: 'Login Password',      value: data.birthReg || '—' }
+    { label: 'Student UID',         value: data.uid || '—' }
   ];
   var rows = '';
   for(var i = 0; i < fields.length; i++){
     var bg = (i % 2 === 0) ? '#f3faf5' : '#ffffff';
     rows +=
       '<tr>' +
-        '<td style="width:40%;padding:9px 11px;border:1px solid #b7d0c0;font-weight:700;font-size:12px;color:#0f3324;background:#e3f0e7;">' +
+        '<td style="width:40%;padding:6px 11px;border:1px solid #b7d0c0;font-weight:700;font-size:12px;color:#0f3324;background:#e3f0e7;">' +
           fields[i].label +
         '</td>' +
-        '<td style="padding:9px 11px;border:1px solid #b7d0c0;font-size:13px;color:#111;background:' + bg + ';">' +
+        '<td style="padding:6px 11px;border:1px solid #b7d0c0;font-size:13px;color:#111;background:' + bg + ';">' +
           String(fields[i].value).replace(/</g,'&lt;') +
         '</td>' +
       '</tr>';
@@ -699,14 +697,14 @@ function generateAdmissionPDF(data){
     'body{font-family:Arial,Helvetica,sans-serif;color:#111;}' +
     'table{border-collapse:collapse;}' +
     '<\/style><\/head><body>' +
-    '<div id="receipt" style="width:680px;padding:36px 40px;background:#ffffff;box-sizing:border-box;">' +
+    '<div id="receipt" style="width:680px;padding:20px 40px;background:#ffffff;box-sizing:border-box;">' +
       '<table style="width:100%;margin-bottom:10px;">' +
         '<tr>' +
           '<td style="width:126px;vertical-align:middle;">' +
-         '<img src=Logo.png width="112" height="auto" style="width:112px;height:auto;border-radius:50%;object-fit:cover;display:block;background:#fff;">' +
-         '</td>' +
-         '<td style="vertical-align:middle;padding-left:16px;">' +
-          '<div style="font-size:19px;font-weight:800;color:#0f3324;">Kuralia Girls High School</div>' +
+            '<img src=Logo.png width="112" height="auto" style="width:112px;height:auto;border-radius:50%;object-fit:cover;display:block;background:#fff;">' +
+          '</td>' +
+          '<td style="vertical-align:middle;padding-left:16px;">' +
+            '<div style="font-size:19px;font-weight:800;color:#0f3324;">Kuralia Girls High School</div>' +
             '<div style="font-size:12px;color:#555;margin-top:2px;">কুড়ালিয়া বালিকা উচ্চ বিদ্যালয় · EIIN: 128390</div>' +
             '<div style="font-size:12px;font-weight:700;color:#1f6b45;margin-top:2px;">Online Admission Receipt</div>' +
           '</td>' +
@@ -751,7 +749,7 @@ function generateAdmissionPDF(data){
     '</div><\/body><\/html>';
   // Isolated iframe — parent page CSS cannot break the layout
   var iframe = document.createElement('iframe');
-  iframe.style.cssText = 'position:fixed;left:0;top:0;width:720px;height:1000px;border:0;opacity:0.01;z-index:99999;background:#fff;';
+  iframe.style.cssText = 'position:fixed;left:0;top:0;width:1100px;height:1400px;border:0;opacity:0.01;z-index:99999;background:#fff;';
   document.body.appendChild(iframe);
   var idoc = iframe.contentDocument || iframe.contentWindow.document;
   idoc.open();
@@ -766,12 +764,19 @@ function generateAdmissionPDF(data){
       alert('PDF content missing. Try again.');
       return;
     }
+    // এক পাতায় ফিট করার safety net (680px width এ A4 এর সর্বোচ্চ height প্রায় 960px)
+    var maxH = 960;
+    var curH = receipt.offsetHeight;
+    if(curH > maxH){
+      receipt.style.width = Math.ceil(680 * curH / maxH) + 'px';
+    }
     html2pdf().set({
-      margin: [10, 10, 10, 10],
+      margin: [8, 8, 8, 8],
       filename: fileName,
       image: { type: 'jpeg', quality: 1 },
-       html2canvas: {
-       scale: /Mobi|Android/i.test(navigator.userAgent) ? 3 : 4,
+      pagebreak: { mode: 'avoid-all' },
+      html2canvas: {
+        scale: /Mobi|Android/i.test(navigator.userAgent) ? 3 : 4,
         useCORS: true,
         allowTaint: true,
         backgroundColor: '#ffffff',
